@@ -168,7 +168,7 @@
     .photo-card img {
       display: block;
       width: 100%;
-      aspect-ratio: 266 / 348;
+      aspect-ratio: 3 / 4;
       object-fit: cover;
       border-radius: 16px;
     }
@@ -260,18 +260,21 @@
     /* ---------- 경험 카드 (사진1 추천 메뉴 카드) ---------- */
     .cards {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr;
       gap: 24px;
       margin-top: 40px;
     }
     .card {
+      display: grid;
+      grid-template-columns: 300px minmax(0, 1fr);
       border: 1.5px solid var(--navy);
       border-radius: var(--radius);
       overflow: hidden;
       background: #fff;
     }
+    .card .body { align-self: center; }
     .card .thumb {
-      height: 150px;
+      min-height: 120px;
       background: var(--grey);
       display: flex;
       align-items: flex-end;
@@ -296,6 +299,96 @@
     .card .body h4 { font-size: 18px; font-weight: 700; }
     .card .body p { font-size: 14px; color: var(--soft); }
     .card .body .dates { font-family: var(--font-en); }
+
+    /* ---------- 어학연수 카드 안의 발표 자료 ---------- */
+    .card-pres {
+      grid-column: 1 / -1;
+      background: var(--tint);
+      border-top: 1px solid var(--line);
+      padding: 24px;
+    }
+    .card-pres-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .count-badge {
+      font-family: var(--font-en);
+      font-size: 12px;
+      background: var(--navy);
+      color: #fff;
+      border-radius: 999px;
+      padding: 0 9px;
+    }
+    .pres-list { display: grid; gap: 20px; }
+    .pres-card {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      border: 1px solid var(--grey);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: #fff;
+    }
+    .viewer {
+      position: relative;
+      background: var(--grey);
+      aspect-ratio: 16 / 9;
+      border-right: 1px solid var(--line);
+    }
+    .viewer img { display: block; width: 100%; height: 100%; object-fit: contain; background: #fff; }
+    .viewer .nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 40px;
+      height: 40px;
+      border: 0;
+      border-radius: 50%;
+      background: rgba(11, 31, 75, 0.82);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: background .2s, opacity .2s;
+    }
+    .viewer .nav:hover { background: var(--navy); }
+    .viewer .nav:disabled { opacity: 0; pointer-events: none; }
+    .viewer .nav svg { width: 20px; height: 20px; }
+    .viewer .prev { left: 12px; }
+    .viewer .next { right: 12px; }
+    .viewer .counter {
+      position: absolute;
+      right: 12px;
+      bottom: 12px;
+      font-family: var(--font-en);
+      font-size: 12px;
+      font-weight: 600;
+      color: #fff;
+      background: rgba(11, 31, 75, 0.82);
+      border-radius: 999px;
+      padding: 2px 10px;
+    }
+    .pres-info { padding: 24px 28px; display: flex; flex-direction: column; }
+    .pres-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+    .pres-tags span { font-size: 12px; font-weight: 700; background: var(--tint); border-radius: 999px; padding: 3px 10px; }
+    .pres-tags span.dark { background: var(--navy); color: #fff; }
+    .pres-info h4 { font-family: var(--font-zh); font-size: 22px; font-weight: 700; line-height: 1.35; }
+    .pres-title-tr { font-size: 14px; font-weight: 500; color: var(--soft); margin-top: 2px; }
+    .pres-desc { font-size: 15px; margin-top: 14px; }
+    .pres-meta { font-size: 13px; color: var(--soft); margin-top: 12px; }
+    .pres-link {
+      align-self: flex-start;
+      margin-top: auto;
+      padding-top: 16px;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .pres-link::after { content: " →"; }
+    .pres-link:hover { text-decoration: underline; }
 
     /* ---------- 학력 · 자격증 타임라인 (사진2) ---------- */
     .timeline-grid {
@@ -362,16 +455,11 @@
       .hero .container { grid-template-columns: 1fr; gap: 32px; }
       .photo-card { max-width: 200px; justify-self: start; }
       .about-grid, .timeline-grid { grid-template-columns: 1fr; }
-      .cards {
-        display: flex;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        gap: 16px;
-        padding-bottom: 8px;
-        margin-right: -16px;
-        padding-right: 16px;
-      }
-      .card { flex: 0 0 82%; scroll-snap-align: start; }
+      .card { grid-template-columns: 1fr; }
+      .card-pres { padding: 16px; }
+      .pres-card { grid-template-columns: 1fr; }
+      .viewer { border-right: 0; border-bottom: 1px solid var(--line); }
+      .pres-info { padding: 20px; }
     }
 
     @media (max-width: 600px) {
@@ -446,10 +534,11 @@
       .hero { padding: 20px 28px; }
       .hero .desc { line-height: 1.6; }
       .cards { display: grid; grid-template-columns: 1fr 1fr; overflow: visible; margin: 14px 0 0; padding: 0; gap: 16px; }
-      .card { break-inside: avoid; }
-      .card .thumb { height: 70px; padding: 12px 18px; }
+      .card { break-inside: avoid; display: block; }
+      .card .thumb { min-height: 0; height: 70px; padding: 12px 18px; }
       .card .thumb .program { font-size: 24px; }
       .card .body { padding: 12px 18px 16px; }
+      #presentation { display: none; }
     }
   </style>
 </head>
@@ -463,6 +552,7 @@
         <a href="#about" data-i18n="nav.about"></a>
         <a href="#education" data-i18n="nav.edu"></a>
         <a href="#experience" data-i18n="nav.exp"></a>
+        <a href="#presentation" data-i18n="nav.pres"></a>
       </nav>
       <div class="lang-switch" role="group" aria-label="Language">
         <button type="button" data-lang="ko" lang="ko">한국어</button>
@@ -600,6 +690,56 @@
               <h4 data-i18n="exp2.school"></h4>
               <p><span data-i18n="exp2.city"></span> · <span class="dates">2025.09 – 2026.06</span></p>
             </div>
+
+            <!-- 어학연수 중 발표 -->
+            <div class="card-pres" id="presentation">
+              <h5 class="card-pres-title">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M12 16v4M8 20h8"/></svg>
+                <span data-i18n="pres.sub"></span>
+                <span class="count-badge">2</span>
+              </h5>
+        <div class="pres-list">
+          <article class="pres-card">
+            <div class="viewer" data-dir="presentations/mid-autumn" data-count="7">
+              <img src="presentations/mid-autumn/01.jpg" alt="韩国秋夕与中国中秋节" loading="lazy">
+              <button type="button" class="nav prev" aria-label="Previous slide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+              <button type="button" class="nav next" aria-label="Next slide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+              <span class="counter">1 / 7</span>
+            </div>
+            <div class="pres-info">
+              <div class="pres-tags">
+                <span class="dark" data-i18n="pres.tag"></span>
+                <span data-i18n="pres1.tag"></span>
+              </div>
+              <h4 lang="zh-Hans">韩国秋夕与中国中秋节</h4>
+              <p class="pres-title-tr" data-i18n="pres1.title"></p>
+              <p class="pres-desc" data-i18n="pres1.desc"></p>
+              <p class="pres-meta" data-i18n="pres1.count"></p>
+              <a class="pres-link" href="presentations/mid-autumn.pdf" target="_blank" rel="noopener" data-i18n="pres.view"></a>
+            </div>
+          </article>
+
+          <article class="pres-card">
+            <div class="viewer" data-dir="presentations/orion-pricing" data-count="8">
+              <img src="presentations/orion-pricing/01.jpg" alt="好丽友价格策略分析" loading="lazy">
+              <button type="button" class="nav prev" aria-label="Previous slide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+              <button type="button" class="nav next" aria-label="Next slide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+              <span class="counter">1 / 8</span>
+            </div>
+            <div class="pres-info">
+              <div class="pres-tags">
+                <span class="dark" data-i18n="pres.tag"></span>
+                <span data-i18n="pres2.tag"></span>
+              </div>
+              <h4 lang="zh-Hans">好丽友价格策略分析</h4>
+              <p class="pres-title-tr" data-i18n="pres2.title"></p>
+              <p class="pres-desc" data-i18n="pres2.desc"></p>
+              <p class="pres-meta" data-i18n="pres2.count"></p>
+              <a class="pres-link" href="presentations/orion-pricing.pdf" target="_blank" rel="noopener" data-i18n="pres.view"></a>
+            </div>
+          </article>
+        </div>
+            </div>
           </article>
         </div>
       </div>
@@ -627,6 +767,10 @@
     <a href="#experience">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
       <span data-i18n="nav.exp"></span>
+    </a>
+    <a href="#presentation">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M12 16v4M8 20h8"/></svg>
+      <span data-i18n="nav.pres"></span>
     </a>
   </nav>
 
@@ -656,6 +800,19 @@
         "skills.zh": "중국어",
         "skills.ja": "일본어",
         "comm.title": "의사소통 역량",
+        "nav.pres": "발표",
+        "pres.sub": "어학연수 중 중국어로 진행한 발표",
+        "pres.tag": "중국어 발표",
+        "pres.where": "동화대학교 어학연수",
+        "pres.view": "슬라이드 PDF 보기",
+        "pres1.tag": "문화 비교",
+        "pres1.title": "한국 추석과 중국 중추절 — 전통문화의 공통점과 차이점",
+        "pres1.desc": "두 명절의 기원과 공통점, 전통 음식(송편·월병), 전통 놀이(강강술래·씨름 / 달맞이·등불놀이)를 비교했습니다.",
+        "pres1.count": "슬라이드 7장",
+        "pres2.tag": "경영 · 마케팅",
+        "pres2.title": "오리온 가격 전략 분석 — 국내외 가격 전략 비교",
+        "pres2.desc": "오리온이 한국에서는 중저가 '국민 과자' 전략을, 중국·러시아·베트남에서는 시장마다 다른 가격 전략을 쓰는 방식을 분석했습니다.",
+        "pres2.count": "슬라이드 8장",
         "exp.sub": "직접 살아 보며 배운 언어와 문화",
         "exp1.title": "교환학생",
         "exp1.school": "심양항공항천대학교",
@@ -695,6 +852,19 @@
         "skills.zh": "中文",
         "skills.ja": "日语",
         "comm.title": "沟通能力",
+        "nav.pres": "课堂展示",
+        "pres.sub": "语言研修期间用中文完成的课堂展示",
+        "pres.tag": "中文展示",
+        "pres.where": "东华大学语言研修",
+        "pres.view": "查看幻灯片 PDF",
+        "pres1.tag": "文化比较",
+        "pres1.title": "传统文化的共同点与差异",
+        "pres1.desc": "比较了两个节日的起源与共同点、传统饮食（松饼与月饼）以及传统游戏（羌羌水越来、摔跤 / 赏月与灯会）。",
+        "pres1.count": "共 7 页",
+        "pres2.tag": "经营 · 营销",
+        "pres2.title": "全球第12大零食企业——国内外定价策略解读",
+        "pres2.desc": "分析了好丽友在韩国坚持中低价“国民零食”定位，而在中国、俄罗斯、越南因地制宜、采取差异化定价的策略。",
+        "pres2.count": "共 8 页",
         "exp.sub": "亲身生活中学到的语言与文化",
         "exp1.title": "交换生",
         "exp1.school": "沈阳航空航天大学",
@@ -734,6 +904,19 @@
         "skills.zh": "Chinese",
         "skills.ja": "Japanese",
         "comm.title": "Communication",
+        "nav.pres": "Presentations",
+        "pres.sub": "Presentations delivered in Chinese during my language program",
+        "pres.tag": "Presented in Chinese",
+        "pres.where": "Donghua University language program",
+        "pres.view": "View slides (PDF)",
+        "pres1.tag": "Culture",
+        "pres1.title": "Korea's Chuseok and China's Mid-Autumn Festival — shared traditions and differences",
+        "pres1.desc": "Compared the two holidays' origins and shared values, their traditional foods (songpyeon vs. mooncakes) and their folk games (ganggangsullae and ssireum vs. moon viewing and lantern fairs).",
+        "pres1.count": "7 slides",
+        "pres2.tag": "Business · Marketing",
+        "pres2.title": "Orion's Pricing Strategy — domestic vs. overseas",
+        "pres2.desc": "Analyzed how Orion keeps mid-to-low \"national snack\" pricing in Korea while tailoring its pricing market by market in China, Russia and Vietnam.",
+        "pres2.count": "8 slides",
         "exp.sub": "Language and culture, learned by living there",
         "exp1.title": "Exchange Student",
         "exp1.school": "Shenyang Aerospace University",
@@ -773,6 +956,19 @@
         "skills.zh": "中国語",
         "skills.ja": "日本語",
         "comm.title": "コミュニケーション能力",
+        "nav.pres": "発表",
+        "pres.sub": "語学研修中に中国語で行った発表",
+        "pres.tag": "中国語で発表",
+        "pres.where": "東華大学 語学研修",
+        "pres.view": "スライドPDFを見る",
+        "pres1.tag": "文化比較",
+        "pres1.title": "韓国の秋夕と中国の中秋節 — 伝統文化の共通点と違い",
+        "pres1.desc": "二つの祝日の起源と共通点、伝統料理（ソンピョンと月餅）、伝統遊び（カンガンスルレ・シルム / 月見と灯籠祭り）を比較しました。",
+        "pres1.count": "スライド7枚",
+        "pres2.tag": "経営・マーケティング",
+        "pres2.title": "オリオンの価格戦略分析 — 国内外の価格戦略比較",
+        "pres2.desc": "韓国では中低価格の「国民的お菓子」戦略を、中国・ロシア・ベトナムでは市場ごとに異なる価格戦略をとるオリオンの手法を分析しました。",
+        "pres2.count": "スライド8枚",
         "exp.sub": "現地で暮らして学んだ言語と文化",
         "exp1.title": "交換留学",
         "exp1.school": "瀋陽航空航天大学",
@@ -812,6 +1008,25 @@
 
     document.querySelectorAll(".lang-switch button").forEach(btn => {
       btn.addEventListener("click", () => setLanguage(btn.dataset.lang));
+    });
+
+    // 발표 슬라이드 넘기기
+    document.querySelectorAll(".viewer").forEach(viewer => {
+      const img = viewer.querySelector("img");
+      const prev = viewer.querySelector(".prev");
+      const next = viewer.querySelector(".next");
+      const counter = viewer.querySelector(".counter");
+      const total = Number(viewer.dataset.count);
+      let index = 1;
+      const show = () => {
+        img.src = viewer.dataset.dir + "/" + String(index).padStart(2, "0") + ".jpg";
+        counter.textContent = index + " / " + total;
+        prev.disabled = index === 1;
+        next.disabled = index === total;
+      };
+      prev.addEventListener("click", () => { if (index > 1) { index--; show(); } });
+      next.addEventListener("click", () => { if (index < total) { index++; show(); } });
+      show();
     });
 
     // 주소 뒤에 ?lang=zh 처럼 붙이면 그 언어로 열림
