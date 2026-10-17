@@ -1,37 +1,267 @@
-﻿<!doctype html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>김서연 | KIMSEOYEON - 金谞延</title>
+  <meta name="description" content="김서연(KIMSEOYEON · 金谞延) 소개 페이지 — 경기대학교 경영학 전공, 중어중문 복수전공">
   <link rel="canonical" href="https://zhujuu.github.io/zhujuu/">
+
+  <!-- 한글(Noto Sans KR)과 중국어 간체(Noto Sans SC / Noto Serif SC) 웹폰트 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Sans+SC:wght@400;700&family=Noto+Serif+SC:wght@500;700&display=swap" rel="stylesheet">
+
   <style>
-    :root{--navy:#002147}
-    html,body{height:100%;margin:0;background:#ffffff;color:var(--navy);font-family: "Noto Sans KR","Malgun Gothic","Apple SD Gothic Neo","Segoe UI","Helvetica Neue","Microsoft YaHei","Noto Sans SC",sans-serif}
-    .wrap{min-height:100%;display:flex;align-items:center;justify-content:center;padding:24px}
-    .card{max-width:880px;width:100%;text-align:center}
-    h1{font-size:6vw;line-height:1;margin:0 0 .4em}
-    h2{font-size:2.2vw;margin:.2em 0;color:rgba(0,33,71,.9)}
-    p{font-size:1.6vw;margin:.6em 0}
-    .url{margin-top:1.2em;font-size:1.2rem}
-    a.url-link{color:var(--navy);text-decoration:none;font-weight:600}
-    ul{list-style:none;padding:0;margin:.6em 0;font-size:1.6vw}
-    li{margin:.35em 0}
-    @media (min-width:800px){h1{font-size:56px}h2{font-size:20px}p,li{font-size:18px}.url{font-size:16px}}
+    :root {
+      --bg: #ffffff;
+      --navy: #0b1f4b;
+      --navy-soft: #3a4a72;
+      --line: #dfe4ef;
+      --tint: #f4f6fb;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--navy);
+      font-family: "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", sans-serif;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      word-break: keep-all;
+    }
+
+    /* 중국어 글자는 간체 폰트로 표시 (谞 같은 글자가 깨지지 않도록 여러 폰트 지정) */
+    .zh, :lang(zh) {
+      font-family: "Noto Serif SC", "Noto Sans SC", "Source Han Serif SC", "Microsoft YaHei", "微软雅黑", "SimSun", "PingFang SC", serif;
+    }
+
+    .wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 72px 24px 64px;
+    }
+
+    header {
+      border-bottom: 2px solid var(--navy);
+      padding-bottom: 40px;
+      margin-bottom: 48px;
+    }
+
+    .eyebrow {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      color: var(--navy-soft);
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: clamp(44px, 9vw, 72px);
+      font-weight: 900;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+
+    .names {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 28px;
+      margin-top: 18px;
+      font-size: 20px;
+    }
+
+    .names .en {
+      font-weight: 700;
+      letter-spacing: 0.12em;
+    }
+
+    .names .zh {
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+
+    .names .sep {
+      color: var(--line);
+    }
+
+    section { margin-bottom: 48px; }
+
+    h2 {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      color: var(--navy-soft);
+      margin-bottom: 20px;
+    }
+
+    .name-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .name-table th,
+    .name-table td {
+      text-align: left;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--line);
+      vertical-align: baseline;
+    }
+
+    .name-table th {
+      width: 120px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--navy-soft);
+    }
+
+    .name-table td {
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .school {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .majors {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .major {
+      background: var(--tint);
+      border-left: 4px solid var(--navy);
+      padding: 20px 22px;
+    }
+
+    .major .label {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--navy-soft);
+      margin-bottom: 4px;
+    }
+
+    .major .value {
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .major .value .zh {
+      display: block;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--navy-soft);
+      margin-top: 2px;
+    }
+
+    .greeting {
+      margin-top: 24px;
+      font-size: 17px;
+    }
+
+    .greeting .zh { color: var(--navy-soft); }
+
+    .major .value .sub {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--navy-soft);
+      margin-top: 4px;
+    }
+
+    .site-link {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--navy);
+      text-decoration: none;
+      border-bottom: 2px solid var(--navy);
+      padding-bottom: 2px;
+    }
+
+    .site-link:hover { color: var(--navy-soft); border-color: var(--navy-soft); }
+
+    footer {
+      margin-top: 64px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+      font-size: 13px;
+      color: var(--navy-soft);
+    }
+
+    @media (max-width: 480px) {
+      .wrap { padding: 48px 16px 40px; }
+      .names { font-size: 17px; }
+      .name-table th { width: 90px; }
+      .name-table td { font-size: 18px; }
+    }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="card">
-      <h1>김서연 · KIMSEOYEON</h1>
-      <h2>金谞延</h2>
-      <p>안녕하세요 — 경기대학교 재학생입니다.</p>
-      <ul>
-        <li><strong>본전공</strong>: 경영학 (Business Administration)</li>
-        <li><strong>복수전공</strong>: 중어중문전공 (Chinese Language & Literature)</li>
-      </ul>
-      <div class="url">웹페이지 주소: <a class="url-link" href="https://zhujuu.github.io/zhujuu/" target="_blank" rel="noopener">zhujuu.github.io/zhujuu</a></div>
-    </div>
-  </div>
+  <main class="wrap">
+    <header>
+      <p class="eyebrow">ABOUT ME</p>
+      <h1>김서연</h1>
+      <div class="names">
+        <span class="en" lang="en">KIMSEOYEON</span>
+        <span class="sep" aria-hidden="true">|</span>
+        <span class="zh" lang="zh-Hans">金谞延</span>
+      </div>
+      <p class="greeting">안녕하세요, 김서연입니다. 경기대학교 재학생입니다.<br>
+        <span class="zh" lang="zh-Hans">你好，我是金谞延。</span></p>
+    </header>
+
+    <section>
+      <h2>이름 · NAME</h2>
+      <table class="name-table">
+        <tr>
+          <th>한국어</th>
+          <td>김서연</td>
+        </tr>
+        <tr>
+          <th>English</th>
+          <td lang="en">KIMSEOYEON</td>
+        </tr>
+        <tr>
+          <th><span class="zh" lang="zh-Hans">中文</span></th>
+          <td class="zh" lang="zh-Hans">金谞延</td>
+        </tr>
+      </table>
+    </section>
+
+    <section>
+      <h2>학력 · EDUCATION</h2>
+      <p class="school">경기대학교 <span class="zh" lang="zh-Hans" style="font-size:16px; font-weight:500; color:var(--navy-soft);">京畿大学</span></p>
+      <div class="majors">
+        <div class="major">
+          <p class="label">본전공</p>
+          <p class="value">경영학 전공
+            <span class="sub" lang="en">Business Administration</span>
+            <span class="zh" lang="zh-Hans">工商管理</span>
+          </p>
+        </div>
+        <div class="major">
+          <p class="label">복수전공</p>
+          <p class="value">중어중문 전공
+            <span class="sub" lang="en">Chinese Language &amp; Literature</span>
+            <span class="zh" lang="zh-Hans">中国语言文学</span>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>웹페이지 · <span class="zh" lang="zh-Hans">个人主页</span></h2>
+      <a class="site-link" href="https://zhujuu.github.io/zhujuu/">zhujuu.github.io/zhujuu</a>
+    </section>
+
+    <footer>
+      © 2026 김서연 · KIMSEOYEON · <span class="zh" lang="zh-Hans">金谞延</span>
+    </footer>
+  </main>
 </body>
 </html>
