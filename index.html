@@ -21,6 +21,7 @@
       --line: #e3e7f0;
       --tint: #f3f5fa;
       --grey: #dde2ec;
+      --sky: #e3f1fc;
       --radius: 20px;
       --font-ko: "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", sans-serif;
       --font-zh: "Noto Sans SC", "Microsoft YaHei", "微软雅黑", "PingFang SC", "SimSun", sans-serif;
@@ -107,14 +108,14 @@
 
     /* ---------- 히어로 ---------- */
     .hero {
-      background: var(--navy);
-      color: #fff;
+      background: var(--sky);
+      color: var(--navy);
       padding: 72px 0 88px;
       overflow: hidden;
     }
     .hero .container {
       display: grid;
-      grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
+      grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr);
       gap: 48px;
       align-items: center;
     }
@@ -123,7 +124,7 @@
       font-size: 13px;
       font-weight: 600;
       letter-spacing: 0.24em;
-      color: #9fb3dd;
+      color: var(--soft);
       margin-bottom: 16px;
     }
     .hero h1 {
@@ -136,10 +137,10 @@
     .hero .desc {
       margin-top: 24px;
       font-size: 16px;
-      color: #d4dcef;
+      color: var(--navy-2);
       max-width: 560px;
     }
-    .hero .desc strong { color: #fff; font-weight: 700; }
+    .hero .desc strong { color: var(--navy); font-weight: 700; }
     .hero .buttons { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
     .btn {
       display: inline-block;
@@ -151,8 +152,8 @@
       transition: transform .2s;
     }
     .btn:hover { transform: translateY(-2px); }
-    .btn-light { background: #fff; color: var(--navy); }
-    .btn-outline { border: 1.5px solid rgba(255,255,255,.6); color: #fff; }
+    .btn-light { background: var(--navy); color: #fff; }
+    .btn-outline { border: 1.5px solid var(--navy); color: var(--navy); background: #fff; }
 
     .photo-card {
       justify-self: center;
@@ -161,7 +162,7 @@
       background: #fff;
       padding: 10px;
       border-radius: 24px;
-      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 20px 40px rgba(11, 31, 75, 0.15);
     }
     .photo-card img {
       display: block;
@@ -358,7 +359,7 @@
       .nav-links { display: none; }
       .hero { padding: 48px 0 56px; }
       .hero .container { grid-template-columns: 1fr; gap: 32px; }
-      .photo-card { order: -1; max-width: 200px; justify-self: start; }
+      .photo-card { max-width: 200px; justify-self: start; }
       .about-grid, .timeline-grid { grid-template-columns: 1fr; }
       .cards {
         display: flex;
@@ -418,8 +419,8 @@
       <a class="logo" href="#top" data-i18n="name"></a>
       <nav class="nav-links" aria-label="Sections">
         <a href="#about" data-i18n="nav.about"></a>
-        <a href="#experience" data-i18n="nav.exp"></a>
         <a href="#education" data-i18n="nav.edu"></a>
+        <a href="#experience" data-i18n="nav.exp"></a>
       </nav>
       <div class="lang-switch" role="group" aria-label="Language">
         <button type="button" data-lang="ko" lang="ko">한국어</button>
@@ -434,6 +435,9 @@
     <!-- 히어로 -->
     <section class="hero">
       <div class="container">
+        <div class="photo-card">
+          <img id="profile-photo" src="images/profile.png" alt="김서연">
+        </div>
         <div>
           <p class="eyebrow">PORTFOLIO</p>
           <h1><span data-i18n="hero.hello"></span><br><span data-i18n="hero.title"></span></h1>
@@ -442,9 +446,6 @@
             <a class="btn btn-light" href="mailto:rlatjdus129@naver.com" data-i18n="btn.contact"></a>
             <a class="btn btn-outline" href="#about" data-i18n="btn.more"></a>
           </div>
-        </div>
-        <div class="photo-card">
-          <img id="profile-photo" src="images/profile.png" alt="김서연">
         </div>
       </div>
     </section>
@@ -496,36 +497,6 @@
       </div>
     </section>
 
-    <!-- 경험 -->
-    <section class="block" id="experience">
-      <div class="container">
-        <h2 class="section-title">EXPERIENCE</h2>
-        <p class="section-sub" data-i18n="exp.sub"></p>
-        <div class="cards">
-          <article class="card">
-            <div class="thumb">
-              <span class="program" data-i18n="exp1.title"></span>
-              <span class="year">2023</span>
-            </div>
-            <div class="body">
-              <h4 data-i18n="exp1.school"></h4>
-              <p><span data-i18n="exp1.city"></span> · <span class="dates">2023.09 – 2024.01</span></p>
-            </div>
-          </article>
-          <article class="card">
-            <div class="thumb">
-              <span class="program" data-i18n="exp2.title"></span>
-              <span class="year">2025</span>
-            </div>
-            <div class="body">
-              <h4 data-i18n="exp2.school"></h4>
-              <p><span data-i18n="exp2.city"></span> · <span class="dates">2025.09 – 2026.06</span></p>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
     <!-- 학력 · 자격증 -->
     <section class="block" id="education">
       <div class="container">
@@ -555,6 +526,36 @@
         </div>
       </div>
     </section>
+
+    <!-- 경험 -->
+    <section class="block" id="experience">
+      <div class="container">
+        <h2 class="section-title">EXPERIENCE</h2>
+        <p class="section-sub" data-i18n="exp.sub"></p>
+        <div class="cards">
+          <article class="card">
+            <div class="thumb">
+              <span class="program" data-i18n="exp1.title"></span>
+              <span class="year">2023</span>
+            </div>
+            <div class="body">
+              <h4 data-i18n="exp1.school"></h4>
+              <p><span data-i18n="exp1.city"></span> · <span class="dates">2023.09 – 2024.01</span></p>
+            </div>
+          </article>
+          <article class="card">
+            <div class="thumb">
+              <span class="program" data-i18n="exp2.title"></span>
+              <span class="year">2025</span>
+            </div>
+            <div class="body">
+              <h4 data-i18n="exp2.school"></h4>
+              <p><span data-i18n="exp2.city"></span> · <span class="dates">2025.09 – 2026.06</span></p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer>
@@ -571,13 +572,13 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
       <span data-i18n="nav.about"></span>
     </a>
-    <a href="#experience">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
-      <span data-i18n="nav.exp"></span>
-    </a>
     <a href="#education">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg>
       <span data-i18n="nav.edu"></span>
+    </a>
+    <a href="#experience">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+      <span data-i18n="nav.exp"></span>
     </a>
   </nav>
 
