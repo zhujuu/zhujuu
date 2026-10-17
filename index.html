@@ -343,7 +343,7 @@
     /* ---------- 활동 (사진1 카드) ---------- */
     .act-grid {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 20px;
       margin-top: 40px;
     }
@@ -372,29 +372,20 @@
       place-items: center;
     }
     .act-icon svg { width: 22px; height: 22px; }
-    .act-tag {
-      display: inline-block;
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--soft);
-      letter-spacing: 0.02em;
-      margin-bottom: 2px;
-    }
-    .act-card h4 { font-size: 18px; font-weight: 700; line-height: 1.4; }
+    .act-card h4 { font-size: 17px; font-weight: 700; line-height: 1.4; }
     .act-role { font-size: 13px; font-weight: 500; color: var(--soft); margin-top: 4px; }
-    .act-points { list-style: none; display: grid; gap: 8px; }
-    .act-points li { position: relative; padding-left: 24px; font-size: 15px; line-height: 1.6; }
-    .act-points li::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 0.3em;
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      background: var(--sky) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230b1f4b' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12.5l4 4 8-9'/%3E%3C/svg%3E") center / 11px no-repeat;
+    .act-keys { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
+    .act-keys li {
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.3;
+      padding: 7px 13px;
+      border-radius: 999px;
+      background: var(--tint);
+      border: 1px solid var(--line);
     }
-    .act-points strong { font-weight: 700; color: var(--navy); background: linear-gradient(transparent 62%, #d6e9fb 62%); }
+    .act-keys li:first-child { background: var(--navy); border-color: var(--navy); color: #fff; }
+    .act-keys li::before { content: "#"; opacity: 0.5; margin-right: 2px; }
 
     /* ---------- 어학연수 카드 안의 발표 자료 ---------- */
     .card-pres {
@@ -403,20 +394,25 @@
       border-top: 1px solid var(--line);
       padding: 24px;
     }
-    details.card-pres { padding: 0; }
+    .card-pres { padding: 0; }
     .card-pres-title {
       display: flex;
       align-items: center;
       gap: 8px;
+      width: 100%;
+      border: 0;
+      background: none;
+      color: inherit;
+      font: inherit;
       font-size: 16px;
       font-weight: 700;
+      text-align: left;
       padding: 18px 24px;
       cursor: pointer;
-      list-style: none;
-      user-select: none;
     }
-    .card-pres-title::-webkit-details-marker { display: none; }
     .card-pres-title:hover { background: #eaeef7; }
+    .card-pres-title:focus-visible { outline: 2px solid var(--navy); outline-offset: -2px; }
+    .card-pres .pres-list[hidden] { display: none; }
     .card-pres .toggle {
       margin-left: auto;
       display: inline-flex;
@@ -427,10 +423,10 @@
       color: var(--soft);
     }
     .card-pres .toggle svg { transition: transform .2s; }
-    .card-pres[open] .toggle svg { transform: rotate(180deg); }
+    .card-pres.open .toggle svg { transform: rotate(180deg); }
     .card-pres .when-open { display: none; }
-    .card-pres[open] .when-open { display: inline; }
-    .card-pres[open] .when-closed { display: none; }
+    .card-pres.open .when-open { display: inline; }
+    .card-pres.open .when-closed { display: none; }
     .card-pres .pres-list { padding: 0 24px 24px; }
     .count-badge {
       font-family: var(--font-en);
@@ -575,7 +571,7 @@
       .card { grid-template-columns: 1fr; }
       .card-pres-title { padding: 16px; flex-wrap: wrap; }
       .card-pres .pres-list { padding: 0 16px 16px; }
-      .act-grid { grid-template-columns: 1fr; }
+      .act-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .pres-card { grid-template-columns: 1fr; }
       .viewer { border-right: 0; border-bottom: 1px solid var(--line); }
       .pres-info { padding: 20px; }
@@ -590,6 +586,7 @@
       html { scroll-padding-top: 108px; }
       .info-table th, .info-table td { padding: 14px 14px; }
       .card .thumb .program { font-size: 30px; }
+      .act-grid { grid-template-columns: 1fr; }
       section.block { padding-top: 64px; }
 
       body { padding-bottom: 72px; }
@@ -667,15 +664,14 @@
       .exp-points li { font-size: 12px; }
       .act-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 14px; }
       .act-card { break-inside: avoid; box-shadow: none; padding: 14px 16px; }
-      .act-icon, .act-tag { display: none; }
+      .act-icon { display: none; }
       .act-card { padding: 12px 14px; }
       .section-title { font-size: 20px; }
       .act-top { padding-bottom: 8px; margin-bottom: 8px; }
       .act-card h4 { font-size: 14px; }
-      .act-role, .act-tag { font-size: 11px; }
-      .act-points { gap: 3px; }
-      .act-points li { font-size: 12px; line-height: 1.5; padding-left: 18px; }
-      .act-points li::before { width: 12px; height: 12px; background-size: 8px; top: 0.25em; }
+      .act-role { font-size: 11px; }
+      .act-keys { gap: 5px; }
+      .act-keys li { font-size: 11px; padding: 4px 9px; }
       .card .body { padding-top: 12px; padding-bottom: 14px; }
       .exp-points { margin-top: 6px; gap: 2px; }
     }
@@ -871,8 +867,8 @@
             </div>
 
             <!-- 어학연수 중 발표 -->
-            <details class="card-pres" id="presentation">
-              <summary class="card-pres-title">
+            <div class="card-pres" id="presentation">
+              <button type="button" class="card-pres-title" aria-expanded="false" aria-controls="pres-body">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M12 16v4M8 20h8"/></svg>
                 <span data-i18n="pres.sub"></span>
                 <span class="count-badge">2</span>
@@ -881,8 +877,8 @@
                   <span class="when-open" data-i18n="pres.close"></span>
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
                 </span>
-              </summary>
-        <div class="pres-list">
+              </button>
+        <div class="pres-list" id="pres-body" hidden>
           <article class="pres-card">
             <div class="viewer" data-dir="presentations/mid-autumn" data-count="7">
               <img src="presentations/mid-autumn/01.jpg" alt="韩国秋夕与中国中秋节" loading="lazy">
@@ -923,7 +919,7 @@
             </div>
           </article>
         </div>
-            </details>
+            </div>
           </article>
         </div>
       </div>
@@ -939,12 +935,11 @@
             <div class="act-top">
               <span class="act-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h11v8H8l-4 3z"/><path d="M15 9h5v8l-3-2h-6v-2"/></svg></span>
               <div>
-                <span class="act-tag" data-i18n="act1.tag"></span>
                 <h4 data-i18n="act1.title"></h4>
                 <p class="act-role" data-i18n="act1.role"></p>
               </div>
             </div>
-            <ul class="act-points">
+            <ul class="act-keys">
               <li data-i18n="act1.p1"></li>
               <li data-i18n="act1.p2"></li>
               <li data-i18n="act1.p3"></li>
@@ -954,12 +949,11 @@
             <div class="act-top">
               <span class="act-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h8M8 3v2M6 5c0 4 3 7 6 8M10 5c0 3-3 7-6 8"/><path d="M12 21l4-9 4 9M13.5 18h5"/></svg></span>
               <div>
-                <span class="act-tag" data-i18n="act5.tag"></span>
                 <h4 data-i18n="act5.title"></h4>
                 <p class="act-role" data-i18n="act5.role"></p>
               </div>
             </div>
-            <ul class="act-points">
+            <ul class="act-keys">
               <li data-i18n="act5.p1"></li>
               <li data-i18n="act5.p2"></li>
               <li data-i18n="act5.p3"></li>
@@ -969,12 +963,11 @@
             <div class="act-top">
               <span class="act-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4"/></svg></span>
               <div>
-                <span class="act-tag" data-i18n="act4.tag"></span>
                 <h4 data-i18n="act4.title"></h4>
                 <p class="act-role" data-i18n="act4.role"></p>
               </div>
             </div>
-            <ul class="act-points">
+            <ul class="act-keys">
               <li data-i18n="act4.p1"></li>
               <li data-i18n="act4.p2"></li>
               <li data-i18n="act4.p3"></li>
@@ -984,12 +977,11 @@
             <div class="act-top">
               <span class="act-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3v8a2 2 0 0 0 4 0V3M9 11v10M17 3c-2 0-3 3-3 6s1 4 3 4v8"/></svg></span>
               <div>
-                <span class="act-tag" data-i18n="act2.tag"></span>
                 <h4 data-i18n="act2.title"></h4>
                 <p class="act-role" data-i18n="act2.role"></p>
               </div>
             </div>
-            <ul class="act-points">
+            <ul class="act-keys">
               <li data-i18n="act2.p1"></li>
               <li data-i18n="act2.p2"></li>
               <li data-i18n="act2.p3"></li>
@@ -999,12 +991,11 @@
             <div class="act-top">
               <span class="act-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h13v5a6 6 0 0 1-6 6h-1a6 6 0 0 1-6-6z"/><path d="M17 10h1.5a2.5 2.5 0 0 1 0 5H17M8 3v3M12 3v3"/></svg></span>
               <div>
-                <span class="act-tag" data-i18n="act3.tag"></span>
                 <h4 data-i18n="act3.title"></h4>
                 <p class="act-role" data-i18n="act3.role"></p>
               </div>
             </div>
-            <ul class="act-points">
+            <ul class="act-keys">
               <li data-i18n="act3.p1"></li>
               <li data-i18n="act3.p2"></li>
               <li data-i18n="act3.p3"></li>
@@ -1083,36 +1074,31 @@
         "pres.close": "접기",
         "nav.act": "활동",
         "act.sub": "아르바이트와 교내외 활동",
-        "act1.tag": "중국어 활용",
         "act1.title": "해피벽돌푸드 (백화점 내 매장)",
         "act1.role": "홀서빙 · 중국어 소통 지원",
-        "act1.p1": "중국인 주방장 ↔ 한국인 매니저 사이 <strong>중국어·한국어 통역</strong>",
-        "act1.p2": "주방의 요청 사항을 홀에 한국어로 전달",
-        "act1.p3": "백화점 매장 특성상 잦은 <strong>컴플레인 응대</strong>",
-        "act2.tag": "고객응대",
+        "act1.p1": "중국어 통역",
+        "act1.p2": "현장 소통",
+        "act1.p3": "컴플레인 대응",
         "act2.title": "미소야",
         "act2.role": "홀서빙 · 고객응대",
-        "act2.p1": "<strong>1년 6개월</strong> 근무, 혼자 홀 전담",
-        "act2.p2": "평소 <strong>2배 매출</strong>인 날에도 실수 없이 응대",
-        "act2.p3": "최장기 근무자로 <strong>신입 교육</strong> 담당 — '친절하고 인내심 있게 가르친다'는 칭찬",
-        "act3.tag": "빠른 적응",
+        "act2.p1": "책임감",
+        "act2.p2": "고객응대",
+        "act2.p3": "신입 교육",
         "act3.title": "카페 3곳 (메가커피 · 이디야커피 · 컴포즈커피)",
         "act3.role": "바리스타",
-        "act3.p1": "1주일 만에 메뉴를 익혀 <strong>1달 만에 단독 근무</strong>",
-        "act3.p2": "이후 매장에서는 <strong>2주 만에</strong> 혼자 근무",
-        "act3.p3": "야구 시즌 성수기에 동료와 업무를 나누며 점장님의 신뢰를 얻음",
-        "act4.tag": "팀워크",
+        "act3.p1": "빠른 적응력",
+        "act3.p2": "업무 숙련",
+        "act3.p3": "협업",
         "act4.title": "거북이 프로그램 (교내 자격증 프로그램)",
         "act4.role": "팀원 · 2회 참여",
-        "act4.p1": "<strong>우수상 1회</strong> 수상",
-        "act4.p2": "팀 일정 조율, 예습·공동 작업 범위를 먼저 제안",
-        "act4.p3": "팀원이 모르는 부분을 설명하며 팀 효율 향상",
-        "act5.tag": "번역",
+        "act4.p1": "우수상",
+        "act4.p2": "팀워크",
+        "act4.p3": "주도성",
         "act5.title": "중국인 친구 발표문 한국어 번역",
         "act5.role": "번역 · 감수",
-        "act5.p1": "직역 대신 친구의 설명을 듣고 <strong>의미에 맞는 한국어 표현</strong>을 선택",
-        "act5.p2": "중국 문화 발표문을 완성해 친구의 발표를 도움",
-        "act5.p3": "이 경험으로 <strong>한국과 중국을 잇는 일</strong>을 하기로 다짐",
+        "act5.p1": "번역",
+        "act5.p2": "의미 전달력",
+        "act5.p3": "문화 이해",
         "skills.ppt": "발표 자료 제작",
         "skills.word": "문서 작성",
         "nav.pres": "발표",
@@ -1177,36 +1163,31 @@
         "pres.close": "收起",
         "nav.act": "活动",
         "act.sub": "兼职与校内外活动",
-        "act1.tag": "中文应用",
         "act1.title": "Happy Brick Food（百货商场内餐厅）",
         "act1.role": "服务员 · 中韩沟通协助",
-        "act1.p1": "在中国厨师与韩国经理之间担任<strong>中韩口译</strong>",
-        "act1.p2": "将厨房的要求用韩语传达给大厅",
-        "act1.p3": "妥善处理百货商场门店常见的<strong>顾客投诉</strong>",
-        "act2.tag": "顾客服务",
+        "act1.p1": "中韩口译",
+        "act1.p2": "现场沟通",
+        "act1.p3": "投诉处理",
         "act2.title": "Misoya（餐厅）",
         "act2.role": "服务员 · 顾客接待",
-        "act2.p1": "工作<strong>1年6个月</strong>，独自负责整个大厅",
-        "act2.p2": "营业额达平时<strong>两倍</strong>的日子也零失误接待",
-        "act2.p3": "作为资历最长的员工负责<strong>新人培训</strong>，获评“教得亲切又有耐心”",
-        "act3.tag": "快速适应",
+        "act2.p1": "责任感",
+        "act2.p2": "顾客服务",
+        "act2.p3": "新人培训",
         "act3.title": "三家咖啡店（Mega Coffee · Ediya Coffee · Compose Coffee）",
         "act3.role": "咖啡师",
-        "act3.p1": "一周记住菜单，<strong>一个月后独立当班</strong>",
-        "act3.p2": "之后的门店<strong>两周内</strong>即可独自工作",
-        "act3.p3": "棒球赛季高峰期与同事分工合作，赢得店长信任",
-        "act4.tag": "团队合作",
+        "act3.p1": "快速适应",
+        "act3.p2": "熟练掌握",
+        "act3.p3": "协作",
         "act4.title": "“乌龟项目”（校内资格证项目）",
         "act4.role": "组员 · 参加2次",
-        "act4.p1": "获<strong>优秀奖1次</strong>",
-        "act4.p2": "主动提出团队日程以及预习与共同作业的分工",
-        "act4.p3": "为组员讲解不懂的部分，提高团队效率",
-        "act5.tag": "翻译",
+        "act4.p1": "优秀奖",
+        "act4.p2": "团队合作",
+        "act4.p3": "主动性",
         "act5.title": "为中国朋友翻译发表稿（中→韩）",
         "act5.role": "翻译 · 审校",
-        "act5.p1": "不直译，而是听取朋友的解释，选择<strong>贴切的韩语表达</strong>",
-        "act5.p2": "完成介绍中国文化的发表稿，帮助朋友顺利发表",
-        "act5.p3": "这次经历让我决心从事<strong>连接韩中</strong>的工作",
+        "act5.p1": "翻译",
+        "act5.p2": "意义传达",
+        "act5.p3": "文化理解",
         "skills.ppt": "演示文稿制作",
         "skills.word": "文档编写",
         "nav.pres": "课堂展示",
@@ -1271,36 +1252,31 @@
         "pres.close": "Hide",
         "nav.act": "Activities",
         "act.sub": "Part-time work and other activities",
-        "act1.tag": "Chinese in practice",
         "act1.title": "Happy Brick Food (department-store restaurant)",
         "act1.role": "Server · Chinese–Korean liaison",
-        "act1.p1": "<strong>Interpreted between Chinese and Korean</strong> for the Chinese chefs and Korean managers",
-        "act1.p2": "Relayed kitchen requests to the floor staff in Korean",
-        "act1.p3": "Handled frequent <strong>customer complaints</strong> at a department-store location",
-        "act2.tag": "Customer service",
+        "act1.p1": "Chinese–Korean interpreting",
+        "act1.p2": "On-site communication",
+        "act1.p3": "Complaint handling",
         "act2.title": "Misoya (restaurant)",
         "act2.role": "Server · Customer service",
-        "act2.p1": "Worked <strong>1.5 years</strong>, running the floor on my own",
-        "act2.p2": "Served without errors even on days with <strong>twice the usual sales</strong>",
-        "act2.p3": "As the longest-serving staff member, <strong>trained new hires</strong> — praised for teaching kindly and patiently",
-        "act3.tag": "Fast learner",
+        "act2.p1": "Responsibility",
+        "act2.p2": "Customer service",
+        "act2.p3": "Training new staff",
         "act3.title": "Three cafés (Mega Coffee · Ediya Coffee · Compose Coffee)",
         "act3.role": "Barista",
-        "act3.p1": "Memorized the menu in a week and <strong>worked solo within a month</strong>",
-        "act3.p2": "At later cafés, worked alone <strong>within two weeks</strong>",
-        "act3.p3": "Split tasks with coworkers during the busy baseball season and earned the manager's trust",
-        "act4.tag": "Teamwork",
+        "act3.p1": "Fast adaptation",
+        "act3.p2": "Quick mastery",
+        "act3.p3": "Collaboration",
         "act4.title": "\"Turtle Program\" (on-campus certification program)",
         "act4.role": "Team member · 2 rounds",
-        "act4.p1": "Won an <strong>Excellence Award</strong> once",
-        "act4.p2": "Proposed team schedules and how to split prep and joint work",
-        "act4.p3": "Explained unclear points to teammates to keep the team efficient",
-        "act5.tag": "Translation",
+        "act4.p1": "Excellence Award",
+        "act4.p2": "Teamwork",
+        "act4.p3": "Initiative",
         "act5.title": "Translating a Chinese friend's presentation script into Korean",
         "act5.role": "Translation · Review",
-        "act5.p1": "Listened to my friend's explanations and chose <strong>natural Korean expressions</strong> over literal ones",
-        "act5.p2": "Completed a talk on Chinese culture that my friend went on to deliver",
-        "act5.p3": "Inspired me to build a career <strong>connecting Korea and China</strong>",
+        "act5.p1": "Translation",
+        "act5.p2": "Conveying meaning",
+        "act5.p3": "Cultural understanding",
         "skills.ppt": "Presentation design",
         "skills.word": "Document writing",
         "nav.pres": "Presentations",
@@ -1365,36 +1341,31 @@
         "pres.close": "閉じる",
         "nav.act": "活動",
         "act.sub": "アルバイトと学内外の活動",
-        "act1.tag": "中国語の活用",
         "act1.title": "Happy Brick Food（百貨店内の飲食店）",
         "act1.role": "ホール担当・中韓コミュニケーション支援",
-        "act1.p1": "中国人シェフと韓国人マネージャーの間で<strong>中韓通訳</strong>",
-        "act1.p2": "厨房の要望を韓国語でホールに伝達",
-        "act1.p3": "百貨店内店舗に多い<strong>クレームに対応</strong>",
-        "act2.tag": "接客",
+        "act1.p1": "中韓通訳",
+        "act1.p2": "現場コミュニケーション",
+        "act1.p3": "クレーム対応",
         "act2.title": "Misoya（飲食店）",
         "act2.role": "ホール・接客",
-        "act2.p1": "<strong>1年6か月</strong>勤務、一人でホールを担当",
-        "act2.p2": "売上が普段の<strong>2倍</strong>の日もミスなく接客",
-        "act2.p3": "最古参として<strong>新人教育</strong>を担当し、「親切で根気強い」と評価",
-        "act3.tag": "早い適応力",
+        "act2.p1": "責任感",
+        "act2.p2": "接客",
+        "act2.p3": "新人教育",
         "act3.title": "カフェ3店舗（Mega Coffee・Ediya Coffee・Compose Coffee）",
         "act3.role": "バリスタ",
-        "act3.p1": "1週間でメニューを覚え、<strong>1か月で単独勤務</strong>",
-        "act3.p2": "その後の店舗では<strong>2週間で</strong>一人勤務",
-        "act3.p3": "野球シーズンの繁忙期に同僚と業務を分担し、店長の信頼を獲得",
-        "act4.tag": "チームワーク",
+        "act3.p1": "早い適応力",
+        "act3.p2": "業務習熟",
+        "act3.p3": "協働",
         "act4.title": "「カメ」プログラム（学内資格プログラム）",
         "act4.role": "メンバー・2回参加",
-        "act4.p1": "<strong>優秀賞1回</strong>受賞",
-        "act4.p2": "チームの日程や予習・共同作業の分担を先に提案",
-        "act4.p3": "メンバーが分からない点を説明し、チームの効率を向上",
-        "act5.tag": "翻訳",
+        "act4.p1": "優秀賞",
+        "act4.p2": "チームワーク",
+        "act4.p3": "主体性",
         "act5.title": "中国人の友人の発表原稿を韓国語に翻訳",
         "act5.role": "翻訳・校閲",
-        "act5.p1": "直訳ではなく友人の説明を聞き、<strong>意味に合う韓国語表現</strong>を選択",
-        "act5.p2": "中国文化の発表原稿を完成させ、友人の発表を支援",
-        "act5.p3": "この経験から<strong>韓国と中国をつなぐ仕事</strong>を志す",
+        "act5.p1": "翻訳",
+        "act5.p2": "意味を伝える力",
+        "act5.p3": "文化理解",
         "skills.ppt": "プレゼン資料作成",
         "skills.word": "文書作成",
         "nav.pres": "発表",
@@ -1470,12 +1441,21 @@
       show();
     });
 
-    // 메뉴의 '발표'를 누르면 접혀 있는 발표 자료를 펼침
+    // 발표 자료 펼치기 / 접기
     const presPanel = document.getElementById("presentation");
+    const presButton = presPanel.querySelector(".card-pres-title");
+    const presBody = document.getElementById("pres-body");
+    const setPresOpen = open => {
+      presPanel.classList.toggle("open", open);
+      presButton.setAttribute("aria-expanded", String(open));
+      presBody.hidden = !open;
+    };
+    presButton.addEventListener("click", () => setPresOpen(presBody.hidden));
+    // 메뉴의 '발표'를 누르면 자동으로 펼침
     document.querySelectorAll('a[href="#presentation"]').forEach(a => {
-      a.addEventListener("click", () => { presPanel.open = true; });
+      a.addEventListener("click", () => setPresOpen(true));
     });
-    if (location.hash === "#presentation") presPanel.open = true;
+    if (location.hash === "#presentation") setPresOpen(true);
 
     // 주소 뒤에 ?lang=zh 처럼 붙이면 그 언어로 열림
     let saved = new URLSearchParams(location.search).get("lang");
