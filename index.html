@@ -154,6 +154,7 @@
     .btn:hover { transform: translateY(-2px); }
     .btn-light { background: var(--navy); color: #fff; }
     .btn-outline { border: 1.5px solid var(--navy); color: var(--navy); background: #fff; }
+    .btn-pdf { display: inline-flex; align-items: center; gap: 6px; }
 
     .photo-card {
       justify-self: center;
@@ -239,7 +240,7 @@
     .skills-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 20px; }
     .skills-card .chips + h3 { margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--grey); }
     .chips { display: flex; flex-wrap: wrap; gap: 20px; }
-    .chip { text-align: center; width: 84px; }
+    .chip { text-align: center; width: 112px; }
     .chip .circle {
       width: 72px;
       height: 72px;
@@ -409,6 +410,47 @@
       .tabbar svg { width: 22px; height: 22px; }
       footer { margin-top: 64px; }
     }
+
+    /* ---------- 인쇄 / 이력서 PDF ---------- */
+    @media print {
+      @page { size: A4; margin: 10mm 12mm; }
+      html { scroll-behavior: auto; }
+      body { padding-bottom: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .topbar, .tabbar, .hero .buttons { display: none !important; }
+      .container { max-width: none; padding: 0; }
+      .hero { padding: 24px 28px; border-radius: 16px; }
+      .hero .container { grid-template-columns: 140px minmax(0, 1fr); gap: 28px; }
+      .photo-card { max-width: 140px; padding: 5px; box-shadow: none; justify-self: start; }
+      .hero h1 { font-size: 28px; }
+      .hero .desc { font-size: 12.5px; margin-top: 14px; }
+      section.block { padding-top: 20px; }
+      .hero h1 { line-height: 1.25; }
+      .section-title { font-size: 22px; }
+      .section-sub { display: none; }
+      .about-grid, .timeline-grid { grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 14px; }
+      .info-table th, .info-table td { padding: 10px 14px; font-size: 13px; }
+      .skills-card { padding: 14px 18px; }
+      .skills-card h3 { margin-bottom: 8px; }
+      .skills-card .chips { flex-direction: column; gap: 6px; }
+      .skills-card .chips + h3 { margin-top: 12px; padding-top: 10px; }
+      .chip { width: auto; display: flex; align-items: center; gap: 10px; text-align: left; }
+      .chip .circle { width: 34px; height: 34px; margin: 0; border-width: 3px; font-size: 13px; flex: none; }
+      .chip .name { font-size: 13px; white-space: nowrap; }
+      .chip .note { font-size: 12px; }
+      .section-title { break-after: avoid; }
+      footer { display: none; }
+      .sub-title { font-size: 16px; padding-bottom: 6px; margin-bottom: 12px; }
+      .timeline li { padding-bottom: 4px; }
+      .timeline h4 { font-size: 15px; }
+      .timeline p { font-size: 12.5px; }
+      .hero { padding: 20px 28px; }
+      .hero .desc { line-height: 1.6; }
+      .cards { display: grid; grid-template-columns: 1fr 1fr; overflow: visible; margin: 14px 0 0; padding: 0; gap: 16px; }
+      .card { break-inside: avoid; }
+      .card .thumb { height: 70px; padding: 12px 18px; }
+      .card .thumb .program { font-size: 24px; }
+      .card .body { padding: 12px 18px 16px; }
+    }
   </style>
 </head>
 <body>
@@ -445,6 +487,10 @@
           <div class="buttons">
             <a class="btn btn-light" href="mailto:rlatjdus129@naver.com" data-i18n="btn.contact"></a>
             <a class="btn btn-outline" href="#about" data-i18n="btn.more"></a>
+            <a class="btn btn-outline btn-pdf" id="resume-link" href="resume/KIMSEOYEON_resume_ko.pdf" download>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
+              <span data-i18n="btn.resume"></span>
+            </a>
           </div>
         </div>
       </div>
@@ -486,10 +532,12 @@
               <div class="chip">
                 <div class="circle" lang="zh-Hans" aria-hidden="true">中</div>
                 <span class="name" data-i18n="skills.zh"></span>
+                <span class="note" data-i18n="level.zh"></span>
               </div>
               <div class="chip">
                 <div class="circle" lang="ja" style="font-family: var(--font-ja);" aria-hidden="true">あ</div>
                 <span class="name" data-i18n="skills.ja"></span>
+                <span class="note" data-i18n="level.ja"></span>
               </div>
             </div>
           </div>
@@ -596,6 +644,9 @@
         "hero.desc": "저는 누군가에게는 <strong>한국의 첫인상</strong>이, 누군가에게는 <strong>믿을 수 있는 파트너</strong>가 되고 싶습니다. 경영학과 중어중문학을 함께 공부하고, 중국 심양과 상하이에서 직접 생활하며 언어와 문화를 익혔습니다. <strong>중국어·일본어</strong>와 <strong>AI 활용 능력</strong>을 바탕으로, 사람과 사람, 나라와 나라 사이의 다리가 되겠습니다!",
         "btn.contact": "이메일 보내기",
         "btn.more": "더 알아보기",
+        "btn.resume": "이력서 PDF",
+        "level.zh": "심화 회화 가능",
+        "level.ja": "기본적 의사소통 가능",
         "about.sub": "저를 소개합니다",
         "info.name": "이름",
         "info.birth": "생년월일",
@@ -632,6 +683,9 @@
         "hero.desc": "我希望成为一些人眼中<strong>韩国的第一印象</strong>，也成为另一些人<strong>值得信赖的伙伴</strong>。我同时学习工商管理与中国语言文学，并在中国沈阳和上海亲身生活，学习了语言与文化。我将以<strong>中文·日语</strong>和<strong>AI 应用能力</strong>为基础，成为人与人、国与国之间的桥梁！",
         "btn.contact": "发送邮件",
         "btn.more": "了解更多",
+        "btn.resume": "简历 PDF",
+        "level.zh": "可进行深入会话",
+        "level.ja": "可进行基本沟通",
         "about.sub": "自我介绍",
         "info.name": "姓名",
         "info.birth": "出生日期",
@@ -668,6 +722,9 @@
         "hero.desc": "I want to be <strong>someone's first impression of Korea</strong> and <strong>a trusted partner</strong> to others. I study Business Administration together with Chinese Language &amp; Literature, and I learned the language and culture firsthand while living in Shenyang and Shanghai, China. With my <strong>Chinese and Japanese</strong> skills and <strong>AI proficiency</strong>, I will be a bridge between people and between nations!",
         "btn.contact": "Email me",
         "btn.more": "Learn more",
+        "btn.resume": "Résumé PDF",
+        "level.zh": "Advanced conversation",
+        "level.ja": "Basic communication",
         "about.sub": "A little about me",
         "info.name": "Name",
         "info.birth": "Date of birth",
@@ -700,10 +757,13 @@
         "nav.exp": "経験",
         "nav.edu": "学歴",
         "hero.hello": "こんにちは、",
-        "hero.title": "<strong>韓国と世界をつなぐ<span class=\"nowrap\">キム・ソヨン</span></strong>です！",
+        "hero.title": "<strong>韓国と世界をつなぐ</strong><span class=\"nowrap\"><strong>キム・ソヨン</strong>です！</span>",
         "hero.desc": "私は、ある人にとっては<strong>韓国の第一印象</strong>に、またある人にとっては<strong>信頼できるパートナー</strong>になりたいと思っています。経営学と中国語中国文学をあわせて学び、中国の瀋陽と上海で実際に生活しながら言語と文化を身につけました。<strong>中国語・日本語</strong>と<strong>AI活用能力</strong>を活かして、人と人、国と国をつなぐ架け橋になります！",
         "btn.contact": "メールを送る",
         "btn.more": "もっと見る",
+        "btn.resume": "履歴書 PDF",
+        "level.zh": "上級レベルの会話が可能",
+        "level.ja": "基本的な意思疎通が可能",
         "about.sub": "私について",
         "info.name": "氏名",
         "info.birth": "生年月日",
@@ -737,6 +797,9 @@
       document.documentElement.lang = HTML_LANG[lang] || "ko";
       document.title = dict.title;
       document.getElementById("profile-photo").alt = dict.name;
+      const resume = document.getElementById("resume-link");
+      resume.href = "resume/KIMSEOYEON_resume_" + lang + ".pdf";
+      resume.setAttribute("download", "KIMSEOYEON_resume_" + lang + ".pdf");
       document.querySelectorAll("[data-i18n]").forEach(el => {
         const value = dict[el.dataset.i18n];
         if (value !== undefined) el.innerHTML = value;
