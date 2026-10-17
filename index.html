@@ -231,6 +231,28 @@
     .info-table td { font-weight: 500; overflow-wrap: anywhere; }
     .info-table td a { text-decoration: none; border-bottom: 1px solid var(--grey); }
 
+    /* 좌우명 */
+    .about-left { display: grid; gap: 20px; }
+    .motto-card {
+      position: relative;
+      background: var(--sky);
+      border-radius: var(--radius);
+      padding: 24px 28px 26px;
+      overflow: hidden;
+    }
+    .motto-card::before {
+      content: "\201C";
+      position: absolute;
+      right: 18px;
+      top: -18px;
+      font-family: Georgia, serif;
+      font-size: 120px;
+      line-height: 1;
+      color: rgba(11, 31, 75, 0.08);
+    }
+    .motto-label { font-size: 13px; font-weight: 700; color: var(--soft); letter-spacing: 0.04em; }
+    .motto-text { position: relative; font-size: 24px; font-weight: 700; line-height: 1.4; margin-top: 6px; }
+
     /* 스킬 원형 칩 (사진1 카테고리) */
     .skills-card {
       background: var(--tint);
@@ -520,6 +542,12 @@
       .skills-card { padding: 14px 18px; }
       .skills-card h3 { margin-bottom: 8px; }
       .skills-card .chips { flex-direction: column; gap: 6px; }
+      .skills-card .chips:first-of-type { flex-direction: row; flex-wrap: wrap; gap: 6px 18px; }
+      .skills-card .chips:first-of-type .note { display: none; }
+      .motto-card { padding: 12px 18px; }
+      .motto-text { font-size: 17px; margin-top: 2px; }
+      .motto-card::before { font-size: 80px; top: -12px; }
+      .about-left { gap: 12px; }
       .skills-card .chips + h3 { margin-top: 12px; padding-top: 10px; }
       .chip { width: auto; display: flex; align-items: center; gap: 10px; text-align: left; }
       .chip .circle { width: 34px; height: 34px; margin: 0; border-width: 3px; font-size: 13px; flex: none; }
@@ -593,6 +621,7 @@
         <p class="section-sub" data-i18n="about.sub"></p>
 
         <div class="about-grid">
+          <div class="about-left">
           <table class="info-table">
             <tr>
               <th data-i18n="info.name"></th>
@@ -606,7 +635,17 @@
               <th data-i18n="info.email"></th>
               <td><a class="latin" href="mailto:rlatjdus129@naver.com">rlatjdus129@naver.com</a></td>
             </tr>
+            <tr>
+              <th class="latin">MBTI</th>
+              <td class="latin">ISTP</td>
+            </tr>
           </table>
+
+          <div class="motto-card">
+            <span class="motto-label" data-i18n="motto.label"></span>
+            <p class="motto-text" data-i18n="motto.text"></p>
+          </div>
+          </div>
 
           <div class="skills-card" id="skills">
             <h3 data-i18n="skills.title"></h3>
@@ -615,6 +654,16 @@
                 <div class="circle" aria-hidden="true">✳</div>
                 <span class="name latin">Claude</span>
                 <span class="note" data-i18n="skills.ai"></span>
+              </div>
+              <div class="chip">
+                <div class="circle latin" aria-hidden="true">P</div>
+                <span class="name latin">PowerPoint</span>
+                <span class="note" data-i18n="skills.ppt"></span>
+              </div>
+              <div class="chip">
+                <div class="circle latin" aria-hidden="true">W</div>
+                <span class="name latin">Word</span>
+                <span class="note" data-i18n="skills.word"></span>
               </div>
             </div>
             <h3 data-i18n="comm.title"></h3>
@@ -800,6 +849,10 @@
         "skills.zh": "중국어",
         "skills.ja": "일본어",
         "comm.title": "의사소통 역량",
+        "motto.label": "좌우명",
+        "motto.text": "뜻이 있는 곳에 길이 있다",
+        "skills.ppt": "발표 자료 제작",
+        "skills.word": "문서 작성",
         "nav.pres": "발표",
         "pres.sub": "어학연수 중 중국어로 진행한 발표",
         "pres.tag": "중국어 발표",
@@ -852,6 +905,10 @@
         "skills.zh": "中文",
         "skills.ja": "日语",
         "comm.title": "沟通能力",
+        "motto.label": "座右铭",
+        "motto.text": "有志者事竟成",
+        "skills.ppt": "演示文稿制作",
+        "skills.word": "文档编写",
         "nav.pres": "课堂展示",
         "pres.sub": "语言研修期间用中文完成的课堂展示",
         "pres.tag": "中文展示",
@@ -904,6 +961,10 @@
         "skills.zh": "Chinese",
         "skills.ja": "Japanese",
         "comm.title": "Communication",
+        "motto.label": "Motto",
+        "motto.text": "Where there's a will, there's a way.",
+        "skills.ppt": "Presentation design",
+        "skills.word": "Document writing",
         "nav.pres": "Presentations",
         "pres.sub": "Presentations delivered in Chinese during my language program",
         "pres.tag": "Presented in Chinese",
@@ -956,6 +1017,10 @@
         "skills.zh": "中国語",
         "skills.ja": "日本語",
         "comm.title": "コミュニケーション能力",
+        "motto.label": "座右の銘",
+        "motto.text": "志ある者は事竟に成る",
+        "skills.ppt": "プレゼン資料作成",
+        "skills.word": "文書作成",
         "nav.pres": "発表",
         "pres.sub": "語学研修中に中国語で行った発表",
         "pres.tag": "中国語で発表",
