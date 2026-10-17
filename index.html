@@ -4,264 +4,783 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>김서연 | KIMSEOYEON - 金谞延</title>
-  <meta name="description" content="김서연(KIMSEOYEON · 金谞延) 소개 페이지 — 경기대학교 경영학 전공, 중어중문 복수전공">
+  <meta name="description" content="김서연(KIMSEOYEON · 金谞延) 포트폴리오 — 한국과 세계를 잇는 사람">
   <link rel="canonical" href="https://zhujuu.github.io/zhujuu/">
 
-  <!-- 한글(Noto Sans KR)과 중국어 간체(Noto Sans SC / Noto Serif SC) 웹폰트 -->
+  <!-- 한글 / 중국어 간체 / 일본어 / 영문 웹폰트 -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Sans+SC:wght@400;700&family=Noto+Serif+SC:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Sans+JP:wght@400;500;700;900&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
       --bg: #ffffff;
       --navy: #0b1f4b;
-      --navy-soft: #3a4a72;
-      --line: #dfe4ef;
-      --tint: #f4f6fb;
+      --navy-2: #16306a;
+      --soft: #5a6a8e;
+      --line: #e3e7f0;
+      --tint: #f3f5fa;
+      --grey: #dde2ec;
+      --radius: 20px;
+      --font-ko: "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", sans-serif;
+      --font-zh: "Noto Sans SC", "Microsoft YaHei", "微软雅黑", "PingFang SC", "SimSun", sans-serif;
+      --font-ja: "Noto Sans JP", "Yu Gothic", "游ゴシック", "Hiragino Sans", "Meiryo", sans-serif;
+      --font-en: "Poppins", var(--font-ko);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: 76px; }
 
     body {
       background: var(--bg);
       color: var(--navy);
-      font-family: "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", sans-serif;
+      font-family: var(--font-ko);
       line-height: 1.7;
       -webkit-font-smoothing: antialiased;
       word-break: keep-all;
     }
 
-    /* 중국어 글자는 간체 폰트로 표시 (谞 같은 글자가 깨지지 않도록 여러 폰트 지정) */
-    .zh, :lang(zh) {
-      font-family: "Noto Serif SC", "Noto Sans SC", "Source Han Serif SC", "Microsoft YaHei", "微软雅黑", "SimSun", "PingFang SC", serif;
-    }
+    /* 선택한 언어에 맞는 글꼴 — 한자·가나가 깨지지 않도록 */
+    html:lang(zh) body { font-family: var(--font-zh); }
+    html:lang(ja) body { font-family: var(--font-ja); }
+    .zh, [lang="zh-Hans"] { font-family: var(--font-zh); }
+    .latin { font-family: var(--font-en); }
 
-    .wrap {
-      max-width: 760px;
-      margin: 0 auto;
-      padding: 72px 24px 64px;
-    }
+    a { color: inherit; }
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
 
-    header {
-      border-bottom: 2px solid var(--navy);
-      padding-bottom: 40px;
-      margin-bottom: 48px;
-    }
-
-    .eyebrow {
-      font-size: 13px;
-      font-weight: 500;
-      letter-spacing: 0.2em;
-      color: var(--navy-soft);
-      margin-bottom: 20px;
-    }
-
-    h1 {
-      font-size: clamp(44px, 9vw, 72px);
-      font-weight: 900;
-      line-height: 1.15;
-      letter-spacing: -0.02em;
-    }
-
-    .names {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px 28px;
-      margin-top: 18px;
-      font-size: 20px;
-    }
-
-    .names .en {
-      font-weight: 700;
-      letter-spacing: 0.12em;
-    }
-
-    .names .zh {
-      font-weight: 700;
-      letter-spacing: 0.08em;
-    }
-
-    .names .sep {
-      color: var(--line);
-    }
-
-    section { margin-bottom: 48px; }
-
-    h2 {
-      font-size: 14px;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      color: var(--navy-soft);
-      margin-bottom: 20px;
-    }
-
-    .name-table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    .name-table th,
-    .name-table td {
-      text-align: left;
-      padding: 14px 0;
+    /* ---------- 상단 바 + 언어 버튼 ---------- */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(8px);
       border-bottom: 1px solid var(--line);
-      vertical-align: baseline;
     }
-
-    .name-table th {
-      width: 120px;
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--navy-soft);
-    }
-
-    .name-table td {
-      font-size: 20px;
-      font-weight: 700;
-    }
-
-    .school {
-      font-size: 22px;
-      font-weight: 700;
-      margin-bottom: 20px;
-    }
-
-    .majors {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    .topbar .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       gap: 16px;
+      height: 64px;
     }
+    .logo {
+      font-family: var(--font-en);
+      font-weight: 700;
+      font-size: 18px;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .nav-links { display: flex; gap: 24px; font-size: 14px; font-weight: 500; }
+    .nav-links a { text-decoration: none; color: var(--soft); }
+    .nav-links a:hover { color: var(--navy); }
 
-    .major {
+    .lang-switch {
+      display: flex;
+      gap: 4px;
+      padding: 4px;
       background: var(--tint);
-      border-left: 4px solid var(--navy);
-      padding: 20px 22px;
+      border-radius: 999px;
     }
-
-    .major .label {
+    .lang-switch button {
+      border: 0;
+      background: transparent;
+      color: var(--soft);
       font-size: 13px;
       font-weight: 500;
-      color: var(--navy-soft);
-      margin-bottom: 4px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background .2s, color .2s;
+    }
+    .lang-switch button[data-lang="ko"] { font-family: var(--font-ko); }
+    .lang-switch button[data-lang="zh"] { font-family: var(--font-zh); }
+    .lang-switch button[data-lang="en"] { font-family: var(--font-en); }
+    .lang-switch button[data-lang="ja"] { font-family: var(--font-ja); }
+    .lang-switch button:hover { color: var(--navy); }
+    .lang-switch button[aria-pressed="true"] {
+      background: var(--navy);
+      color: #fff;
     }
 
-    .major .value {
-      font-size: 20px;
-      font-weight: 700;
+    /* ---------- 히어로 ---------- */
+    .hero {
+      background: var(--navy);
+      color: #fff;
+      padding: 72px 0 120px;
+      overflow: hidden;
     }
-
-    .major .value .zh {
-      display: block;
-      font-size: 15px;
+    .hero .container {
+      display: grid;
+      grid-template-columns: 1.3fr 0.7fr;
+      gap: 48px;
+      align-items: center;
+    }
+    .eyebrow {
+      font-family: var(--font-en);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.24em;
+      color: #9fb3dd;
+      margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-size: clamp(32px, 5vw, 52px);
       font-weight: 500;
-      color: var(--navy-soft);
-      margin-top: 2px;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
     }
-
-    .greeting {
+    .hero h1 strong { font-weight: 900; }
+    .hero .desc {
       margin-top: 24px;
-      font-size: 17px;
+      font-size: 16px;
+      color: #d4dcef;
+      max-width: 560px;
+    }
+    .hero .desc strong { color: #fff; font-weight: 700; }
+    .hero .buttons { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform .2s;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-light { background: #fff; color: var(--navy); }
+    .btn-outline { border: 1.5px solid rgba(255,255,255,.6); color: #fff; }
+
+    .photo-card {
+      justify-self: center;
+      width: 100%;
+      max-width: 280px;
+      background: #fff;
+      padding: 10px;
+      border-radius: 24px;
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.3);
+    }
+    .photo-card img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 266 / 348;
+      object-fit: cover;
+      border-radius: 16px;
     }
 
-    .greeting .zh { color: var(--navy-soft); }
-
-    .major .value .sub {
+    /* ---------- 숫자 카드 (사진1 프로필 통계) ---------- */
+    .stats {
+      position: relative;
+      margin-top: -64px;
+      z-index: 2;
+    }
+    .stats-card {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: 0 12px 32px rgba(11, 31, 75, 0.12);
+      padding: 28px 12px;
+      text-align: center;
+    }
+    .stats-card div + div { border-left: 1px solid var(--line); }
+    .stats-card b {
       display: block;
+      font-family: var(--font-en);
+      font-size: 30px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    .stats-card span { font-size: 13px; color: var(--soft); }
+
+    /* ---------- 섹션 공통 ---------- */
+    section.block { padding: 88px 0 0; }
+    .section-title {
+      font-family: var(--font-en);
+      font-size: clamp(28px, 4vw, 36px);
+      font-weight: 700;
+      text-align: center;
+      letter-spacing: 0.02em;
+    }
+    .section-sub {
+      text-align: center;
+      color: var(--soft);
       font-size: 14px;
-      font-weight: 500;
-      color: var(--navy-soft);
       margin-top: 4px;
     }
-
-    .site-link {
-      font-size: 18px;
+    .sub-title {
+      font-size: 22px;
       font-weight: 700;
-      color: var(--navy);
-      text-decoration: none;
+      padding-bottom: 12px;
+      margin-bottom: 28px;
       border-bottom: 2px solid var(--navy);
-      padding-bottom: 2px;
+      display: inline-block;
     }
 
-    .site-link:hover { color: var(--navy-soft); border-color: var(--navy-soft); }
+    /* ---------- ABOUT ME 표 (사진2) ---------- */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-top: 40px;
+      align-items: start;
+    }
+    .info-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--line);
+    }
+    .info-table th, .info-table td {
+      padding: 16px 20px;
+      text-align: left;
+      font-size: 15px;
+      vertical-align: middle;
+    }
+    .info-table tr + tr th, .info-table tr + tr td { border-top: 1px solid var(--line); }
+    .info-table th {
+      width: 34%;
+      background: var(--navy);
+      color: #fff;
+      font-weight: 500;
+      font-size: 14px;
+    }
+    .info-table tr + tr th { border-top-color: rgba(255,255,255,.12); }
+    .info-table td { font-weight: 500; overflow-wrap: anywhere; }
+    .info-table td a { text-decoration: none; border-bottom: 1px solid var(--grey); }
 
+    /* 스킬 원형 칩 (사진1 카테고리) */
+    .skills-card {
+      background: var(--tint);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+    }
+    .skills-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 20px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 20px; }
+    .chip { text-align: center; width: 84px; }
+    .chip .circle {
+      width: 72px;
+      height: 72px;
+      margin: 0 auto 8px;
+      border-radius: 50%;
+      background: #fff;
+      border: 6px solid var(--grey);
+      display: grid;
+      place-items: center;
+      font-size: 22px;
+      font-weight: 700;
+    }
+    .chip.primary .circle { background: var(--navy); border-color: #c9d3ea; color: #fff; }
+    .chip .name { font-size: 14px; font-weight: 700; display: block; }
+    .chip .note { font-size: 12px; color: var(--soft); display: block; line-height: 1.4; }
+
+    /* ---------- 경험 카드 (사진1 추천 메뉴 카드) ---------- */
+    .cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 40px;
+    }
+    .card {
+      border: 1.5px solid var(--navy);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: #fff;
+    }
+    .card .thumb {
+      height: 150px;
+      background: var(--grey);
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      padding: 20px 24px;
+    }
+    .card .thumb .city {
+      font-size: 44px;
+      font-weight: 900;
+      line-height: 1;
+      color: var(--navy-2);
+    }
+    .card .thumb .year {
+      font-family: var(--font-en);
+      font-weight: 600;
+      font-size: 14px;
+      background: #fff;
+      border-radius: 999px;
+      padding: 4px 12px;
+    }
+    .card .body { padding: 20px 24px 24px; }
+    .card .body h4 { font-size: 18px; font-weight: 700; }
+    .card .body p { font-size: 14px; color: var(--soft); font-family: var(--font-en); }
+
+    /* ---------- 학력 · 자격증 타임라인 (사진2) ---------- */
+    .timeline-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+    }
+    .timeline { list-style: none; position: relative; }
+    .timeline li {
+      position: relative;
+      padding-left: 56px;
+      padding-bottom: 28px;
+    }
+    .timeline li::before {
+      content: "";
+      position: absolute;
+      left: 15px;
+      top: 32px;
+      bottom: 0;
+      width: 2px;
+      background: var(--line);
+    }
+    .timeline li:last-child::before { display: none; }
+    .timeline .check {
+      position: absolute;
+      left: 0;
+      top: 2px;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: var(--navy);
+      display: grid;
+      place-items: center;
+    }
+    .timeline h4 { font-size: 18px; font-weight: 700; line-height: 1.5; }
+    .timeline h4 .tag {
+      font-size: 12px;
+      font-weight: 500;
+      background: var(--tint);
+      border-radius: 999px;
+      padding: 2px 10px;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
+    .timeline p { font-size: 14px; color: var(--soft); }
+    .timeline .when { font-family: var(--font-en); font-size: 13px; font-weight: 600; color: var(--navy); }
+
+    /* ---------- 푸터 ---------- */
     footer {
-      margin-top: 64px;
-      padding-top: 24px;
+      margin-top: 96px;
+      padding: 32px 0;
       border-top: 1px solid var(--line);
       font-size: 13px;
-      color: var(--navy-soft);
+      color: var(--soft);
+      text-align: center;
     }
 
-    @media (max-width: 480px) {
-      .wrap { padding: 48px 16px 40px; }
-      .names { font-size: 17px; }
-      .name-table th { width: 90px; }
-      .name-table td { font-size: 18px; }
+    /* ---------- 모바일 하단 탭 (사진1) ---------- */
+    .tabbar { display: none; }
+
+    @media (max-width: 860px) {
+      .nav-links { display: none; }
+      .hero { padding: 48px 0 104px; }
+      .hero .container { grid-template-columns: 1fr; gap: 32px; }
+      .photo-card { order: -1; max-width: 200px; justify-self: start; }
+      .about-grid, .timeline-grid { grid-template-columns: 1fr; }
+      .cards {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 16px;
+        padding-bottom: 8px;
+        margin-right: -16px;
+        padding-right: 16px;
+      }
+      .card { flex: 0 0 82%; scroll-snap-align: start; }
+    }
+
+    @media (max-width: 600px) {
+      .container { padding: 0 16px; }
+      .topbar .container { height: auto; padding-top: 10px; padding-bottom: 10px; flex-wrap: wrap; }
+      .logo { font-size: 16px; }
+      .lang-switch { width: 100%; justify-content: space-between; }
+      .lang-switch button { flex: 1; padding: 6px 4px; }
+      html { scroll-padding-top: 108px; }
+      .stats-card b { font-size: 24px; }
+      .stats-card span { font-size: 12px; }
+      .info-table th, .info-table td { padding: 14px 14px; }
+      .card .thumb .city { font-size: 36px; }
+      section.block { padding-top: 64px; }
+
+      body { padding-bottom: 72px; }
+      .tabbar {
+        display: flex;
+        position: fixed;
+        left: 0; right: 0; bottom: 0;
+        z-index: 20;
+        background: #fff;
+        border-top: 1px solid var(--line);
+        border-radius: 20px 20px 0 0;
+        box-shadow: 0 -6px 20px rgba(11, 31, 75, 0.06);
+        padding: 8px 8px calc(8px + env(safe-area-inset-bottom));
+      }
+      .tabbar a {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2px;
+        font-size: 11px;
+        color: var(--soft);
+        text-decoration: none;
+      }
+      .tabbar svg { width: 22px; height: 22px; }
+      footer { margin-top: 64px; }
     }
   </style>
 </head>
 <body>
-  <main class="wrap">
-    <header>
-      <p class="eyebrow">ABOUT ME</p>
-      <h1>김서연</h1>
-      <div class="names">
-        <span class="en" lang="en">KIMSEOYEON</span>
-        <span class="sep" aria-hidden="true">|</span>
-        <span class="zh" lang="zh-Hans">金谞延</span>
+
+  <!-- 상단: 이름 + 메뉴 + 언어 버튼 -->
+  <header class="topbar">
+    <div class="container">
+      <a class="logo" href="#top">Kim Seoyeon</a>
+      <nav class="nav-links" aria-label="Sections">
+        <a href="#about" data-i18n="nav.about"></a>
+        <a href="#experience" data-i18n="nav.exp"></a>
+        <a href="#education" data-i18n="nav.edu"></a>
+      </nav>
+      <div class="lang-switch" role="group" aria-label="Language">
+        <button type="button" data-lang="ko" lang="ko">한국어</button>
+        <button type="button" data-lang="zh" lang="zh-Hans">中文</button>
+        <button type="button" data-lang="en" lang="en">English</button>
+        <button type="button" data-lang="ja" lang="ja">日本語</button>
       </div>
-      <p class="greeting">안녕하세요, 김서연입니다. 경기대학교 재학생입니다.<br>
-        <span class="zh" lang="zh-Hans">你好，我是金谞延。</span></p>
-    </header>
+    </div>
+  </header>
 
-    <section>
-      <h2>이름 · NAME</h2>
-      <table class="name-table">
-        <tr>
-          <th>한국어</th>
-          <td>김서연</td>
-        </tr>
-        <tr>
-          <th>English</th>
-          <td lang="en">KIMSEOYEON</td>
-        </tr>
-        <tr>
-          <th><span class="zh" lang="zh-Hans">中文</span></th>
-          <td class="zh" lang="zh-Hans">金谞延</td>
-        </tr>
-      </table>
-    </section>
-
-    <section>
-      <h2>학력 · EDUCATION</h2>
-      <p class="school">경기대학교 <span class="zh" lang="zh-Hans" style="font-size:16px; font-weight:500; color:var(--navy-soft);">京畿大学</span></p>
-      <div class="majors">
-        <div class="major">
-          <p class="label">본전공</p>
-          <p class="value">경영학 전공
-            <span class="sub" lang="en">Business Administration</span>
-            <span class="zh" lang="zh-Hans">工商管理</span>
-          </p>
+  <main id="top">
+    <!-- 히어로 -->
+    <section class="hero">
+      <div class="container">
+        <div>
+          <p class="eyebrow">PORTFOLIO</p>
+          <h1><span data-i18n="hero.hello"></span><br><span data-i18n="hero.title"></span></h1>
+          <p class="desc" data-i18n="hero.desc"></p>
+          <div class="buttons">
+            <a class="btn btn-light" href="mailto:rlatjdus129@naver.com" data-i18n="btn.contact"></a>
+            <a class="btn btn-outline" href="#about" data-i18n="btn.more"></a>
+          </div>
         </div>
-        <div class="major">
-          <p class="label">복수전공</p>
-          <p class="value">중어중문 전공
-            <span class="sub" lang="en">Chinese Language &amp; Literature</span>
-            <span class="zh" lang="zh-Hans">中国语言文学</span>
-          </p>
+        <div class="photo-card">
+          <img src="images/profile.png" alt="김서연 KIMSEOYEON 金谞延">
         </div>
       </div>
     </section>
 
-    <section>
-      <h2>웹페이지 · <span class="zh" lang="zh-Hans">个人主页</span></h2>
-      <a class="site-link" href="https://zhujuu.github.io/zhujuu/">zhujuu.github.io/zhujuu</a>
+    <!-- 숫자 요약 -->
+    <div class="stats">
+      <div class="container">
+        <div class="stats-card">
+          <div><b>2</b><span data-i18n="stat.majors"></span></div>
+          <div><b>2</b><span data-i18n="stat.cities"></span></div>
+          <div><b>1</b><span data-i18n="stat.cert"></span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ABOUT ME -->
+    <section class="block" id="about">
+      <div class="container">
+        <h2 class="section-title">ABOUT ME</h2>
+        <p class="section-sub" data-i18n="about.sub"></p>
+
+        <div class="about-grid">
+          <table class="info-table">
+            <tr>
+              <th data-i18n="info.name"></th>
+              <td>김서연 · <span class="latin">KIMSEOYEON</span> · <span lang="zh-Hans">金谞延</span></td>
+            </tr>
+            <tr>
+              <th data-i18n="info.birth"></th>
+              <td class="latin">2003.12.09</td>
+            </tr>
+            <tr>
+              <th data-i18n="info.email"></th>
+              <td><a class="latin" href="mailto:rlatjdus129@naver.com">rlatjdus129@naver.com</a></td>
+            </tr>
+          </table>
+
+          <div class="skills-card" id="skills">
+            <h3 data-i18n="skills.title"></h3>
+            <div class="chips">
+              <div class="chip primary">
+                <div class="circle" aria-hidden="true">✳</div>
+                <span class="name latin">Claude</span>
+                <span class="note" data-i18n="skills.ai"></span>
+              </div>
+              <div class="chip">
+                <div class="circle" lang="zh-Hans" aria-hidden="true">中</div>
+                <span class="name" data-i18n="skills.zh"></span>
+              </div>
+              <div class="chip">
+                <div class="circle" lang="ja" style="font-family: var(--font-ja);" aria-hidden="true">あ</div>
+                <span class="name" data-i18n="skills.ja"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <footer>
-      © 2026 김서연 · KIMSEOYEON · <span class="zh" lang="zh-Hans">金谞延</span>
-    </footer>
+    <!-- 경험 -->
+    <section class="block" id="experience">
+      <div class="container">
+        <h2 class="section-title">EXPERIENCE</h2>
+        <p class="section-sub" data-i18n="exp.sub"></p>
+        <div class="cards">
+          <article class="card">
+            <div class="thumb">
+              <span class="city" data-i18n="exp1.city"></span>
+              <span class="year">2023</span>
+            </div>
+            <div class="body">
+              <h4 data-i18n="exp1.title"></h4>
+              <p>2023.09 – 2024.01</p>
+            </div>
+          </article>
+          <article class="card">
+            <div class="thumb">
+              <span class="city" data-i18n="exp2.city"></span>
+              <span class="year">2025</span>
+            </div>
+            <div class="body">
+              <h4 data-i18n="exp2.title"></h4>
+              <p>2025.09 – 2026.06</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 학력 · 자격증 -->
+    <section class="block" id="education">
+      <div class="container">
+        <div class="timeline-grid">
+          <div>
+            <h3 class="sub-title" data-i18n="edu.title"></h3>
+            <ul class="timeline">
+              <li>
+                <span class="check" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>
+                <h4><span data-i18n="edu.school"></span><span class="tag" data-i18n="edu.status"></span></h4>
+                <p data-i18n="edu.major"></p>
+                <span class="when">2022 –</span>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="sub-title" data-i18n="cert.title"></h3>
+            <ul class="timeline">
+              <li>
+                <span class="check" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>
+                <h4 class="latin">JLPT N3</h4>
+                <p data-i18n="cert.desc"></p>
+                <span class="when">2025</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <footer>
+    <div class="container" data-i18n="footer"></div>
+  </footer>
+
+  <!-- 모바일 하단 탭 -->
+  <nav class="tabbar" aria-label="Sections">
+    <a href="#top">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg>
+      <span data-i18n="nav.home"></span>
+    </a>
+    <a href="#about">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
+      <span data-i18n="nav.about"></span>
+    </a>
+    <a href="#experience">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+      <span data-i18n="nav.exp"></span>
+    </a>
+    <a href="#education">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg>
+      <span data-i18n="nav.edu"></span>
+    </a>
+  </nav>
+
+  <script>
+    const I18N = {
+      ko: {
+        title: "김서연 | KIMSEOYEON - 金谞延",
+        "nav.home": "홈",
+        "nav.about": "소개",
+        "nav.exp": "경험",
+        "nav.edu": "학력",
+        "hero.hello": "안녕하세요,",
+        "hero.title": "<strong>한국과 세계를 잇는 김서연</strong>입니다!",
+        "hero.desc": "저는 누군가에게는 <strong>한국의 첫인상</strong>이, 누군가에게는 <strong>믿을 수 있는 파트너</strong>가 되고 싶습니다. 경영학과 중어중문학을 함께 공부하고, 중국 심양과 상하이에서 직접 생활하며 언어와 문화를 익혔습니다. <strong>중국어·일본어</strong>와 <strong>AI 활용 능력</strong>을 바탕으로, 사람과 사람, 나라와 나라 사이의 다리가 되겠습니다!",
+        "btn.contact": "이메일 보내기",
+        "btn.more": "더 알아보기",
+        "stat.majors": "전공",
+        "stat.cities": "해외 생활 도시",
+        "stat.cert": "자격증",
+        "about.sub": "저를 소개합니다",
+        "info.name": "이름",
+        "info.birth": "생년월일",
+        "info.email": "이메일",
+        "skills.title": "스킬",
+        "skills.ai": "AI 활용",
+        "skills.zh": "중국어",
+        "skills.ja": "일본어",
+        "exp.sub": "직접 살아 보며 배운 언어와 문화",
+        "exp1.city": "심양",
+        "exp1.title": "중국 심양 | 교환학생",
+        "exp2.city": "상하이",
+        "exp2.title": "중국 상하이 | 어학연수",
+        "edu.title": "학력",
+        "edu.school": "경기대학교",
+        "edu.status": "재학 중",
+        "edu.major": "본전공 경영학 · 복수전공 중어중문학",
+        "cert.title": "자격증",
+        "cert.desc": "일본어능력시험 N3",
+        footer: "© 2026 김서연. All rights reserved."
+      },
+      zh: {
+        title: "金谞延 | KIMSEOYEON - 김서연",
+        "nav.home": "首页",
+        "nav.about": "关于我",
+        "nav.exp": "经历",
+        "nav.edu": "学历",
+        "hero.hello": "你好，",
+        "hero.title": "我是<strong>连接韩国与世界的金谞延</strong>！",
+        "hero.desc": "我希望成为一些人眼中<strong>韩国的第一印象</strong>，也成为另一些人<strong>值得信赖的伙伴</strong>。我同时学习工商管理与中国语言文学，并在中国沈阳和上海亲身生活，学习了语言与文化。我将以<strong>中文·日语</strong>和<strong>AI 应用能力</strong>为基础，成为人与人、国与国之间的桥梁！",
+        "btn.contact": "发送邮件",
+        "btn.more": "了解更多",
+        "stat.majors": "专业",
+        "stat.cities": "海外生活城市",
+        "stat.cert": "资格证书",
+        "about.sub": "自我介绍",
+        "info.name": "姓名",
+        "info.birth": "出生日期",
+        "info.email": "邮箱",
+        "skills.title": "技能",
+        "skills.ai": "AI 应用",
+        "skills.zh": "中文",
+        "skills.ja": "日语",
+        "exp.sub": "亲身生活中学到的语言与文化",
+        "exp1.city": "沈阳",
+        "exp1.title": "中国沈阳 | 交换生",
+        "exp2.city": "上海",
+        "exp2.title": "中国上海 | 语言研修",
+        "edu.title": "学历",
+        "edu.school": "京畿大学",
+        "edu.status": "在读",
+        "edu.major": "主修 工商管理 · 双专业 中国语言文学",
+        "cert.title": "资格证书",
+        "cert.desc": "日本语能力测试 N3",
+        footer: "© 2026 金谞延 版权所有"
+      },
+      en: {
+        title: "KIMSEOYEON | 김서연 - 金谞延",
+        "nav.home": "Home",
+        "nav.about": "About",
+        "nav.exp": "Experience",
+        "nav.edu": "Education",
+        "hero.hello": "Hello,",
+        "hero.title": "I'm <strong>Kim Seoyeon, connecting Korea and the world</strong>!",
+        "hero.desc": "I want to be <strong>someone's first impression of Korea</strong> and <strong>a trusted partner</strong> to others. I study Business Administration together with Chinese Language &amp; Literature, and I learned the language and culture firsthand while living in Shenyang and Shanghai, China. With my <strong>Chinese and Japanese</strong> skills and <strong>AI proficiency</strong>, I will be a bridge between people and between nations!",
+        "btn.contact": "Email me",
+        "btn.more": "Learn more",
+        "stat.majors": "Majors",
+        "stat.cities": "Cities lived abroad",
+        "stat.cert": "Certification",
+        "about.sub": "A little about me",
+        "info.name": "Name",
+        "info.birth": "Date of birth",
+        "info.email": "Email",
+        "skills.title": "Skills",
+        "skills.ai": "AI tools",
+        "skills.zh": "Chinese",
+        "skills.ja": "Japanese",
+        "exp.sub": "Language and culture, learned by living there",
+        "exp1.city": "Shenyang",
+        "exp1.title": "Shenyang, China | Exchange Student",
+        "exp2.city": "Shanghai",
+        "exp2.title": "Shanghai, China | Language Program",
+        "edu.title": "Education",
+        "edu.school": "Kyonggi University",
+        "edu.status": "Enrolled",
+        "edu.major": "Major in Business Administration · Double major in Chinese Language &amp; Literature",
+        "cert.title": "Certification",
+        "cert.desc": "Japanese-Language Proficiency Test N3",
+        footer: "© 2026 Kim Seoyeon. All rights reserved."
+      },
+      ja: {
+        title: "キム・ソヨン | KIMSEOYEON - 金谞延",
+        "nav.home": "ホーム",
+        "nav.about": "自己紹介",
+        "nav.exp": "経験",
+        "nav.edu": "学歴",
+        "hero.hello": "こんにちは、",
+        "hero.title": "<strong>韓国と世界をつなぐキム・ソヨン</strong>です！",
+        "hero.desc": "私は、ある人にとっては<strong>韓国の第一印象</strong>に、またある人にとっては<strong>信頼できるパートナー</strong>になりたいと思っています。経営学と中国語中国文学をあわせて学び、中国の瀋陽と上海で実際に生活しながら言語と文化を身につけました。<strong>中国語・日本語</strong>と<strong>AI活用能力</strong>を活かして、人と人、国と国をつなぐ架け橋になります！",
+        "btn.contact": "メールを送る",
+        "btn.more": "もっと見る",
+        "stat.majors": "専攻",
+        "stat.cities": "海外生活都市",
+        "stat.cert": "資格",
+        "about.sub": "私について",
+        "info.name": "氏名",
+        "info.birth": "生年月日",
+        "info.email": "メール",
+        "skills.title": "スキル",
+        "skills.ai": "AI活用",
+        "skills.zh": "中国語",
+        "skills.ja": "日本語",
+        "exp.sub": "現地で暮らして学んだ言語と文化",
+        "exp1.city": "瀋陽",
+        "exp1.title": "中国・瀋陽 | 交換留学",
+        "exp2.city": "上海",
+        "exp2.title": "中国・上海 | 語学研修",
+        "edu.title": "学歴",
+        "edu.school": "京畿大学校",
+        "edu.status": "在学中",
+        "edu.major": "主専攻 経営学 · 複数専攻 中国語中国文学",
+        "cert.title": "資格",
+        "cert.desc": "日本語能力試験 N3",
+        footer: "© 2026 キム・ソヨン All rights reserved."
+      }
+    };
+
+    const HTML_LANG = { ko: "ko", zh: "zh-Hans", en: "en", ja: "ja" };
+
+    function setLanguage(lang) {
+      const dict = I18N[lang] || I18N.ko;
+      document.documentElement.lang = HTML_LANG[lang] || "ko";
+      document.title = dict.title;
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const value = dict[el.dataset.i18n];
+        if (value !== undefined) el.innerHTML = value;
+      });
+      document.querySelectorAll(".lang-switch button").forEach(btn => {
+        btn.setAttribute("aria-pressed", String(btn.dataset.lang === lang));
+      });
+      try { localStorage.setItem("lang", lang); } catch (e) {}
+    }
+
+    document.querySelectorAll(".lang-switch button").forEach(btn => {
+      btn.addEventListener("click", () => setLanguage(btn.dataset.lang));
+    });
+
+    let saved = null;
+    try { saved = localStorage.getItem("lang"); } catch (e) {}
+    setLanguage(I18N[saved] ? saved : "ko");
+  </script>
 </body>
 </html>
