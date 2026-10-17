@@ -1,16 +1,16 @@
-## Hi there 👋
+# 김서연 | 金谞延
 
-<!--
-**zhujuu/zhujuu** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+안녕하세요, 김서연입니다.  
+你好，我是金谞延。
 
-Here are some ideas to get you started:
+## 이름 | 姓名
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+- 한국어: 김서연
+- English: KIMSEOYEON
+- 中文: 金谞延
+
+## 학력 및 전공 | 学历与专业
+
+- 경기대학교 | 京畿大学
+- 본전공: 경영학 | 主修：工商管理
+- 복수전공: 중어중문학 | 双专业：中国语言文学
