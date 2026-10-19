@@ -1,0 +1,1490 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="yt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>김서연 | 포트폴리오</title>
+  <meta name="description" content="김서연(KIMSEOYEON · 金谞延) 포트폴리오 — 한국과 세계를 잇는 사람">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gowun+Batang:wght@700&family=Noto+Serif+KR:wght@700&family=Noto+Serif+SC:wght@700&family=Noto+Serif+JP:wght@700&family=Playfair+Display:wght@700&family=Ma+Shan+Zheng&family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Sans+JP:wght@400;500;700;900&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===== 테마: 유튜브 다크 (한국어 · English · 日本語) ===== */
+    :root, [data-theme="yt"] {
+      --bg: #0f0f0f;
+      --surface: #181818;
+      --raise: #272727;
+      --raise-2: #3f3f3f;
+      --text: #f1f1f1;
+      --sub: #aaaaaa;
+      --line: #3a3a3a;
+      --link: #3ea6ff;
+      --accent: #ff0033;
+      --primary-bg: #f1f1f1;
+      --primary-fg: #0f0f0f;
+      --tab-on: #f1f1f1;
+      --overlay: rgba(0, 0, 0, .72);
+      --font-ko: "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+      --font-zh: "Noto Sans SC", "Microsoft YaHei", "PingFang SC", "SimSun", sans-serif;
+      --font-ja: "Noto Sans JP", "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+      --font-en: "Poppins", var(--font-ko);
+    }
+    /* ===== 테마: 비리비리 (中文) ===== */
+    [data-theme="bili"] {
+      --bg: #f1f2f3;
+      --surface: #ffffff;
+      --raise: #f6f7f8;
+      --raise-2: #e3e5e7;
+      --text: #18191c;
+      --sub: #9499a0;
+      --line: #e3e5e7;
+      --link: #00aeec;
+      --accent: #fb7299;
+      --primary-bg: #00aeec;
+      --primary-fg: #ffffff;
+      --tab-on: #00aeec;
+      --overlay: rgba(255, 255, 255, .6);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-ko);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      word-break: keep-all;
+      transition: background .25s, color .25s;
+    }
+    html:lang(zh) body { font-family: var(--font-zh); word-break: normal; }
+    html:lang(ja) body { font-family: var(--font-ja); word-break: normal; }
+    [lang="zh-Hans"] { font-family: var(--font-zh); }
+    .latin { font-family: var(--font-en); }
+    button, input { font: inherit; color: inherit; }
+    a { color: inherit; }
+    .wrap { max-width: 1284px; margin: 0 auto; padding: 0 24px; }
+
+    /* ---------- 상단 바 ---------- */
+    .topbar { position: sticky; top: 0; z-index: 30; background: var(--bg); }
+    .topbar .wrap { height: 56px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .logo { display: flex; align-items: center; gap: 6px; text-decoration: none; font-weight: 900; font-size: 18px; letter-spacing: -0.02em; }
+    .logo .mark { width: 30px; height: 21px; border-radius: 6px; background: var(--accent); display: grid; place-items: center; }
+    .logo .mark svg { width: 11px; height: 11px; }
+    .logo sup { font-family: var(--font-en); font-size: 10px; font-weight: 600; color: var(--sub); margin-left: 2px; }
+    [data-theme="bili"] .topbar { background: var(--surface); box-shadow: 0 1px 0 var(--line); }
+    [data-theme="bili"] .logo { color: var(--link); font-style: italic; }
+    [data-theme="bili"] .logo .mark { background: var(--link); border-radius: 7px; }
+
+    .cc { position: relative; }
+    .cc-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border: 0;
+      background: var(--raise);
+      border-radius: 999px;
+      padding: 7px 12px 7px 8px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .cc-btn:hover { background: var(--raise-2); }
+    .cc-badge { font-family: var(--font-en); font-size: 11px; font-weight: 700; background: var(--text); color: var(--bg); border-radius: 4px; padding: 1px 5px; }
+    .cc-menu { position: absolute; right: 0; top: calc(100% + 8px); width: 220px; background: #282828; color: #fff; border-radius: 12px; padding: 8px 0; box-shadow: 0 16px 40px rgba(0,0,0,.45); }
+    .cc-menu[hidden] { display: none; }
+    .cc-title { font-size: 13px; font-weight: 700; padding: 6px 16px 10px; border-bottom: 1px solid #3f3f3f; margin-bottom: 6px; }
+    .cc-menu button { display: flex; align-items: center; gap: 12px; width: 100%; background: none; border: 0; color: #fff; text-align: left; padding: 9px 16px; font-size: 14px; cursor: pointer; }
+    .cc-menu button:hover { background: #3f3f3f; }
+    .cc-menu .check { width: 16px; visibility: hidden; }
+    .cc-menu button[aria-checked="true"] .check { visibility: visible; }
+    .cc-menu button[data-lang="zh"] { font-family: var(--font-zh); }
+    .cc-menu button[data-lang="ja"] { font-family: var(--font-ja); }
+
+    /* ---------- 배너 ---------- */
+    .banner {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #161616;
+      display: grid;
+      grid-template-columns: minmax(0, 340px) minmax(0, 1fr);
+      min-height: 300px;
+    }
+    .banner .bn-photo { position: relative; overflow: hidden; }
+    .banner .bn-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 38%; transform: scale(1.45); transform-origin: 50% 52%; }
+    .banner .bn-text { padding: 22px 28px; color: #e8e8e8; font-size: clamp(13px, 1.25vw, 15px); line-height: 1.85; align-self: center; text-indent: 1em; }
+    .banner .bn-text b { color: #fff; }
+    [data-theme="bili"] .banner { border-radius: 0 0 12px 12px; background: linear-gradient(120deg, #e8f7fd, #fdeef3); }
+    [data-theme="bili"] .banner .bn-text { color: #3a3d42; align-self: end; padding-top: 70px; }
+    [data-theme="bili"] .banner .bn-text b { color: #00aeec; }
+    [data-theme="bili"] .channel { margin-top: 0 !important; padding: 18px 0 12px !important; align-items: center !important; }
+    [data-theme="bili"] .channel h1 { color: var(--text) !important; text-shadow: none !important; }
+    [data-theme="bili"] .ch-meta, [data-theme="bili"] .ch-desc { color: var(--sub) !important; text-shadow: none !important; }
+    [data-theme="bili"] .ch-meta b, [data-theme="bili"] .ch-desc button { color: var(--text) !important; }
+    [data-theme="bili"] .ch-actions { position: static !important; margin-top: 14px !important; }
+    [data-theme="bili"] .channel .avatar { border-color: var(--line) !important; }
+    [data-theme="bili"] .ch-link { display: none; }
+    @media (max-width: 640px) { .banner { grid-template-columns: 1fr; } .banner .bn-photo { height: 220px; } }
+
+    /* 弹幕 (비리비리) */
+    .danmaku { position: absolute; inset: 0; pointer-events: none; overflow: hidden; display: none; }
+    [data-theme="bili"] .danmaku { display: block; }
+    .danmaku span {
+      position: absolute;
+      left: 100%;
+      white-space: nowrap;
+      font-size: clamp(13px, 1.5vw, 17px);
+      font-weight: 700;
+      color: #fff;
+      text-shadow: 0 0 2px rgba(0,0,0,.45), 0 1px 2px rgba(0,0,0,.35);
+      animation: fly linear infinite;
+    }
+    .danmaku span.pink { color: #ffe1ea; }
+    @keyframes fly { to { transform: translateX(calc(-100vw - 100%)); } }
+
+    /* ---------- 채널 정보 ---------- */
+    .channel { display: flex; gap: 24px; align-items: center; padding: 20px 0 4px; position: relative; z-index: 2; }
+    .channel .avatar { width: clamp(84px, 12vw, 160px); height: clamp(84px, 12vw, 160px); border-radius: 50%; object-fit: cover; object-position: center 15%; background: #fff; flex: none; }
+    .channel h1 { font-size: clamp(26px, 3.3vw, 36px); font-weight: 900; line-height: 1.2; letter-spacing: -0.01em; }
+    .ch-meta { font-size: 14px; color: var(--sub); margin-top: 6px; }
+    .ch-meta b { color: var(--text); font-weight: 700; }
+    .ch-desc { font-size: 14px; color: var(--sub); margin-top: 6px; }
+    .ch-desc button { border: 0; background: none; font-weight: 700; color: var(--text); cursor: pointer; padding: 0; margin-left: 4px; }
+    .ch-link { display: inline-flex; align-items: center; gap: 4px; font-size: 14px; color: var(--link); text-decoration: none; margin-top: 8px; font-weight: 500; }
+    .ch-link svg { width: 15px; height: 15px; }
+    .ch-actions { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+    .pill { display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 16px; border-radius: 999px; font-size: 14px; font-weight: 700; text-decoration: none; border: 0; cursor: pointer; }
+    .pill svg { width: 20px; height: 20px; }
+    .pill.primary { background: var(--primary-bg); color: var(--primary-fg); }
+    .pill.secondary { background: var(--raise); }
+    .pill.secondary:hover { background: var(--raise-2); }
+    .pill[hidden] { display: none; }
+    .uploader { display: none; }
+
+    /* 비리비리: 아바타·이름이 배너 위에 겹침 */
+    [data-theme="bili"] .channel { margin-top: -118px; padding: 0 0 18px 24px; align-items: flex-end; }
+    [data-theme="bili"] .channel .avatar { width: 96px; height: 96px; border: 3px solid rgba(255,255,255,.85); }
+    [data-theme="bili"] .channel h1 { color: #fff; font-size: 24px; text-shadow: 0 1px 6px rgba(0,0,0,.35); display: flex; align-items: center; gap: 8px; }
+    [data-theme="bili"] .uploader { display: inline-block; font-size: 11px; font-weight: 700; color: #fff; background: var(--accent); border-radius: 4px; padding: 0 6px; line-height: 18px; text-shadow: none; }
+    [data-theme="bili"] .ch-meta, [data-theme="bili"] .ch-desc { color: rgba(255,255,255,.92); text-shadow: 0 1px 4px rgba(0,0,0,.3); }
+    [data-theme="bili"] .ch-meta b, [data-theme="bili"] .ch-desc button { color: #fff; }
+    [data-theme="bili"] .ch-link { color: #fff; text-shadow: 0 1px 4px rgba(0,0,0,.3); }
+    [data-theme="bili"] .ch-actions { position: absolute; right: 24px; bottom: 18px; margin: 0; }
+    [data-theme="bili"] .pill { height: 34px; border-radius: 6px; }
+    [data-theme="bili"] .pill.secondary { background: rgba(255,255,255,.9); color: #61666d; }
+
+    /* ---------- 탭 ---------- */
+    .tabs-bar { display: flex; align-items: center; gap: 4px; border-bottom: 1px solid var(--line); margin-top: 14px; }
+    .tabs { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; flex: 1; }
+    .tabs::-webkit-scrollbar { display: none; }
+    .tab { flex: none; border: 0; background: none; padding: 12px 14px; font-size: 16px; font-weight: 700; color: var(--sub); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+    .tab:hover { color: var(--text); }
+    .tab[aria-selected="true"] { color: var(--tab-on); border-bottom-color: var(--tab-on); }
+    .tab-search { display: flex; align-items: center; gap: 6px; }
+    .tab-search button { width: 40px; height: 40px; border-radius: 50%; border: 0; background: none; cursor: pointer; display: grid; place-items: center; color: var(--sub); }
+    .tab-search button:hover { background: var(--raise); color: var(--text); }
+    .tab-search svg { width: 22px; height: 22px; }
+    .tab-search input { width: 0; opacity: 0; border: 0; border-bottom: 1px solid var(--text); background: none; padding: 6px 2px; font-size: 14px; outline: none; transition: width .2s, opacity .2s; }
+    .tab-search.open input { width: 180px; opacity: 1; }
+    [data-theme="bili"] .tabs-bar { background: var(--surface); border-radius: 0 0 8px 8px; border-bottom: 0; margin-top: 0; padding: 0 12px; box-shadow: 0 1px 2px rgba(0,0,0,.04); }
+    [data-theme="bili"] .tab { font-size: 15px; padding: 16px 14px; border-bottom-width: 3px; }
+    [data-theme="bili"] .tab-search input { width: 180px; opacity: 1; background: var(--raise); border: 1px solid var(--line); border-radius: 6px; padding: 6px 10px; }
+    [data-theme="bili"] .tab-search button { border-radius: 6px; }
+
+    main { padding: 20px 0 60px; }
+    .view[hidden] { display: none; }
+
+    /* ---------- 선반 ---------- */
+    .shelf { padding: 22px 0 26px; border-bottom: 1px solid var(--line); }
+    .shelf:last-child { border-bottom: 0; }
+    .shelf-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+    .shelf-head h3 { font-size: 20px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+    .shelf-head h3 svg { width: 24px; height: 24px; }
+    .shelf-head p { font-size: 13px; color: var(--sub); margin-top: 2px; }
+    .shelf-head .all { border: 0; background: none; font-size: 14px; font-weight: 700; cursor: pointer; padding: 8px 14px; border-radius: 999px; color: var(--link); flex: none; }
+    .shelf-head .all:hover { background: var(--raise); }
+    [data-theme="bili"] .shelf { background: var(--surface); border-radius: 8px; padding: 20px 20px 24px; border: 0; margin-top: 12px; }
+
+    .rail { position: relative; }
+    .row { display: grid; grid-auto-flow: column; grid-auto-columns: calc((100% - 3 * 16px) / 3.15); gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; scroll-behavior: smooth; }
+    .row::-webkit-scrollbar { display: none; }
+    .row > * { scroll-snap-align: start; }
+    .row.shorts { grid-auto-columns: calc((100% - 4 * 12px) / 5); gap: 12px; }
+    .arrow { position: absolute; top: calc(28% - 20px); width: 40px; height: 40px; border-radius: 50%; border: 0; background: var(--surface); color: var(--text); box-shadow: 0 4px 10px rgba(0,0,0,.35); cursor: pointer; display: grid; place-items: center; z-index: 2; }
+    .arrow svg { width: 22px; height: 22px; }
+    .arrow.next { right: -12px; }
+    .arrow.prev { left: -12px; }
+    .arrow[hidden] { display: none; }
+    .row.shorts + .arrow, .rail.shorts .arrow { top: calc(40% - 20px); }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 32px 16px; align-items: start; }
+    .grid.shorts { grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); }
+
+    /* ---------- 카드 ---------- */
+    .card-btn { display: block; width: 100%; border: 0; background: none; text-align: left; cursor: pointer; padding: 0; color: inherit; }
+    .thumb { position: relative; display: block; aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; background: var(--raise); }
+    .thumb > img.bg { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .badge { position: absolute; right: 8px; bottom: 8px; background: rgba(0,0,0,.8); color: #fff; font-size: 12px; font-weight: 700; border-radius: 4px; padding: 1px 5px; font-family: var(--font-en); z-index: 2; }
+    .plays { display: none; }
+    .cap {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 9%;
+      text-align: center;
+      font-size: clamp(22px, 2.6vw, 34px);
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      padding: 0 8px;
+      text-shadow: -2px -2px 0 #111, 2px -2px 0 #111, -2px 2px 0 #111, 2px 2px 0 #111, 0 4px 10px rgba(0,0,0,.5);
+      z-index: 1;
+    }
+    .cap.top { bottom: auto; top: 8%; font-size: clamp(14px, 1.4vw, 18px); text-shadow: -1px -1px 0 #111, 1px -1px 0 #111, -1px 1px 0 #111, 1px 1px 0 #111; }
+    .thumb .shade { position: absolute; inset: 0; background: linear-gradient(transparent 45%, rgba(0,0,0,.55)); }
+    .meta-row { display: flex; gap: 12px; margin-top: 12px; }
+    .meta-row img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; object-position: center 15%; flex: none; background: #fff; }
+    .video h4 { font-size: 16px; font-weight: 700; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .video .sub { font-size: 14px; color: var(--sub); margin-top: 2px; line-height: 1.4; }
+    .card-btn:hover .thumb { border-radius: 4px; transition: border-radius .2s; }
+
+    /* 비리비리 카드 */
+    [data-theme="bili"] .thumb { border-radius: 6px; }
+    [data-theme="bili"] .badge { background: none; left: auto; bottom: 6px; text-shadow: 0 1px 2px rgba(0,0,0,.6); }
+    [data-theme="bili"] .plays { display: flex; align-items: center; gap: 4px; position: absolute; left: 8px; bottom: 6px; color: #fff; font-size: 12px; font-weight: 700; z-index: 2; text-shadow: 0 1px 2px rgba(0,0,0,.6); }
+    [data-theme="bili"] .plays svg { width: 15px; height: 15px; }
+    [data-theme="bili"] .thumb::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 36px; background: linear-gradient(transparent, rgba(0,0,0,.5)); }
+    [data-theme="bili"] .meta-row img { display: none; }
+    [data-theme="bili"] .meta-row { margin-top: 8px; }
+    [data-theme="bili"] .video h4 { font-size: 15px; font-weight: 500; }
+    [data-theme="bili"] .card-btn:hover h4 { color: var(--link); }
+    [data-theme="bili"] .video .sub::before { content: "UP "; font-size: 10px; border: 1px solid var(--sub); border-radius: 3px; padding: 0 2px; margin-right: 4px; font-family: var(--font-en); }
+    [data-theme="bili"] .card-btn:hover .thumb { border-radius: 6px; }
+
+    /* 썸네일 디자인 */
+    .t-intro { background: #fff; }
+    .t-intro .photo { position: absolute; right: 0; top: 0; width: 46%; height: 100%; object-fit: cover; object-position: center 15%; }
+    .t-intro .hello { position: absolute; left: 6%; top: 14%; right: 48%; color: #111; font-weight: 900; font-size: clamp(18px, 2vw, 26px); line-height: 1.25; }
+    .t-intro .hello small { display: block; font-size: 12px; font-weight: 700; opacity: .8; margin-top: 6px; letter-spacing: .02em; }
+    .t-exp { background: linear-gradient(135deg, #1a2a5a 0%, #2f5aa8 60%, #7fb2e5 100%); }
+    .t-exp.sh { background: linear-gradient(135deg, #6b2b3a 0%, #b4566b 55%, #f2b4a8 100%); }
+    .t-exp .city { position: absolute; left: 7%; top: 10%; font-family: var(--font-zh); font-weight: 900; font-size: clamp(40px, 5.5vw, 70px); color: rgba(255,255,255,.22); line-height: 1; }
+    .t-exp .flag { position: absolute; right: 7%; top: 12%; width: 22%; aspect-ratio: 3 / 2; border-radius: 4px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,.3); }
+    .t-exp .flag svg { width: 100%; height: 100%; display: block; }
+    .t-pres .bg { filter: saturate(1.05); }
+
+    /* Shorts */
+    .short .sthumb { position: relative; display: flex; flex-direction: column; justify-content: space-between; aspect-ratio: 9 / 16; border-radius: 12px; overflow: hidden; color: #fff; padding: 14px; }
+    .short .sthumb .ico { width: 40px; height: 40px; border-radius: 12px; background: rgba(255,255,255,.18); display: grid; place-items: center; }
+    .short .sthumb .ico svg { width: 22px; height: 22px; }
+    .short .kw { font-size: clamp(20px, 2vw, 26px); font-weight: 900; line-height: 1.2; text-shadow: 0 2px 8px rgba(0,0,0,.3); }
+    .short .kw small { display: block; font-size: 13px; font-weight: 700; opacity: .85; margin-top: 8px; line-height: 1.5; }
+    .short h4 { font-size: 15px; font-weight: 700; margin-top: 10px; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .short .sub { font-size: 13px; color: var(--sub); margin-top: 2px; }
+    .g0 { background: linear-gradient(165deg, #5b3a8f, #24164a); }
+    .g1 { background: linear-gradient(165deg, #2f6fb5, #10284f); }
+    .g2 { background: linear-gradient(165deg, #d9763a, #6b2a12); }
+    .g3 { background: linear-gradient(165deg, #2b8f80, #0f3d38); }
+    .g4 { background: linear-gradient(165deg, #9a6b48, #3a2617); }
+    [data-theme="bili"] .short .sthumb { border-radius: 6px; }
+    .short .sthumb { padding: 0; background: var(--raise); }
+    .short .sthumb > img.bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .short .kwrow { position: absolute; left: 8px; right: 8px; bottom: 8px; display: flex; flex-wrap: wrap; gap: 4px; }
+    .short .kwrow i { font-style: normal; font-size: 11px; font-weight: 700; color: #fff; background: rgba(0,0,0,.6); border-radius: 4px; padding: 1px 6px; }
+    /* 도우인(抖音) 图文 뷰어 */
+    .dy-stage { position: absolute; inset: 0; background: #000; display: grid; place-items: center; }
+    .dy-frame { position: relative; height: 100%; aspect-ratio: 9 / 16; overflow: hidden; background: #111; color: #fff; font-family: var(--font-zh); }
+    html:lang(ko) .dy-frame { font-family: var(--font-ko); }
+    html:lang(ja) .dy-frame { font-family: var(--font-ja); }
+    .dy-blur { position: absolute; inset: -30px; background-size: cover; background-position: center; filter: blur(22px) brightness(.55); }
+    .dy-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .dy-color { position: absolute; inset: 0; display: grid; justify-items: center; align-content: start; padding-top: 12%; }
+    .dy-color b { font-family: "Ma Shan Zheng", var(--font-zh); font-weight: 400; font-size: clamp(48px, 11vh, 96px); color: #fff; text-shadow: 0 4px 12px rgba(0,0,0,.3); white-space: nowrap; }
+    .dy-logos { position: absolute; inset: 0; background: linear-gradient(180deg,#3a2a22,#1a1412); display: grid; align-content: center; gap: 14px; padding: 0 10%; margin-top: -12%; }
+    .dy-logos span { background: #fff; border-radius: 12px; height: 64px; display: grid; place-items: center; box-shadow: 0 4px 12px rgba(0,0,0,.12); }
+    .dy-logos span.dark { background: #1a1a1a; }
+    .dy-logos img { max-width: 82%; max-height: 40px; }
+    .dy-cap { position: absolute; left: 6%; right: 18%; top: 34%; display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+    .dy-cap b { font-size: clamp(20px, 3.6vh, 30px); font-weight: 900; background: #fe2c55; padding: 2px 10px; border-radius: 4px; }
+    .dy-cap span { font-size: clamp(14px, 2.3vh, 18px); font-weight: 700; background: rgba(0,0,0,.6); padding: 6px 10px; border-radius: 4px; line-height: 1.5; }
+    .dy-cap.top { top: 10%; }
+    .dy-logos { padding-top: 18%; }
+    .dy-count { position: absolute; right: 12px; top: 12px; font-size: 12px; font-weight: 700; background: rgba(0,0,0,.45); border-radius: 999px; padding: 2px 9px; font-family: "Poppins", sans-serif; }
+    .dy-rail { position: absolute; right: 8px; bottom: 22%; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+    .dy-av { position: relative; width: 42px; height: 42px; margin-bottom: 6px; }
+    .dy-av img { width: 42px; height: 42px; border-radius: 50%; border: 2px solid #fff; object-fit: cover; object-position: center 15%; background: #fff; }
+    .dy-av b { position: absolute; left: 50%; bottom: -8px; transform: translateX(-50%); width: 18px; height: 18px; border-radius: 50%; background: #fe2c55; font-size: 14px; line-height: 17px; text-align: center; }
+    .dy-act { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+    .dy-act svg { width: 30px; height: 30px; filter: drop-shadow(0 1px 2px rgba(0,0,0,.5)); }
+    .dy-act i { font-style: normal; font-size: 11px; font-weight: 700; text-shadow: 0 1px 2px rgba(0,0,0,.6); }
+    .dy-meta { position: absolute; left: 4%; right: 20%; bottom: 7%; text-shadow: 0 1px 3px rgba(0,0,0,.7); }
+    .dy-meta b { font-size: 15px; }
+    .dy-meta p { font-size: 13px; line-height: 1.45; margin-top: 4px; }
+    .dy-meta p span { font-weight: 700; }
+    .dy-meta small { display: block; font-size: 12px; margin-top: 6px; opacity: .9; }
+    .dy-dots { position: absolute; left: 0; right: 0; bottom: 2.5%; display: flex; justify-content: center; gap: 5px; }
+    .dy-dots i { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,.4); }
+    .dy-dots i.on { background: #fff; }
+
+    /* Shorts 카드 */
+    .sh-card { position: absolute; inset: 0; color: #fff; padding: 22% 9% 0; }
+    .sh-n { display: block; font-family: "Poppins", sans-serif; font-weight: 700; font-size: clamp(36px, 7vh, 64px); opacity: .55; line-height: 1; }
+    .sh-k { display: block; font-size: clamp(24px, 4.6vh, 40px); font-weight: 900; line-height: 1.25; margin-top: 18px; }
+    .sh-p { font-size: clamp(15px, 2.6vh, 21px); line-height: 1.65; font-weight: 500; margin-top: 18px; opacity: .95; }
+    .sh-by { position: absolute; left: 9%; bottom: 6%; font-size: 13px; font-weight: 700; opacity: .7; }
+    .sh-bars { position: absolute; left: 10px; right: 10px; top: 10px; display: flex; gap: 4px; }
+    .sh-bars i { flex: 1; height: 3px; border-radius: 2px; background: rgba(255,255,255,.35); }
+    .sh-bars i.on { background: #fff; }
+
+    /* 카드뉴스 뷰어 */
+    .cn-stage { position: absolute; inset: 0; background: radial-gradient(60% 80% at 50% 50%, #1b2f66, #05070f); display: grid; place-items: center; }
+    .cn-frame { position: relative; height: 94%; aspect-ratio: 9 / 16; border-radius: 14px; overflow: hidden; background: #0f2257; box-shadow: 0 12px 40px rgba(0,0,0,.5); }
+    .cn-cover { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .cn-card { position: absolute; inset: 0; display: flex; flex-direction: column; color: #fff; }
+    .cn-ph { height: 38%; background-size: cover; background-position: center; position: relative; }
+    .cn-ph::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 50%, var(--cn)); }
+    .cn-ph-none { display: grid; place-items: center; background: rgba(255,255,255,.12); }
+    .cn-ph-none::after { display: none; }
+    .cn-ph-none span { font-family: "Poppins", sans-serif; font-weight: 700; font-size: clamp(60px, 12vh, 120px); color: rgba(255,255,255,.35); }
+    .cn-card .cn-n { color: #fff; opacity: .9; }
+    .cn-card .cn-body p { border-top-color: rgba(255,255,255,.55); }
+    .cn-card .cn-brand { color: rgba(255,255,255,.7); }
+    .cn-body { flex: 1; padding: 6% 8% 0; display: flex; flex-direction: column; }
+    .cn-n { font-family: "Poppins", sans-serif; font-weight: 700; font-size: clamp(30px, 5.5vh, 52px); color: #ffe033; line-height: 1; }
+    .cn-body h3 { font-family: "Black Han Sans", var(--font-ko); font-weight: 400; font-size: clamp(22px, 4.2vh, 38px); line-height: 1.2; margin-top: 12px; }
+    html:lang(zh) .cn-body h3 { font-family: var(--font-zh); font-weight: 900; }
+    html:lang(ja) .cn-body h3 { font-family: var(--font-ja); font-weight: 900; }
+    .cn-body p { font-size: clamp(14px, 2.3vh, 19px); line-height: 1.6; margin-top: 14px; color: rgba(255,255,255,.88); font-weight: 500; padding-top: 14px; border-top: 2px solid rgba(255,224,51,.6); }
+    .cn-brand { position: absolute; left: 8%; bottom: 5%; font-size: 11px; font-weight: 700; letter-spacing: .08em; color: rgba(255,255,255,.5); font-family: "Poppins", var(--font-ko); }
+    .cn-dots { position: absolute; right: 8%; bottom: 5.4%; display: flex; gap: 5px; }
+    .cn-dots i { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,.35); }
+    .cn-dots i.on { width: 20px; border-radius: 4px; background: #ffe033; }
+    .short-stage { position: relative; display: block; width: 100%; height: 100%; overflow: hidden; background: #000; }
+    .short-stage .blur { position: absolute; inset: -30px; background-size: cover; background-position: center; filter: blur(24px) brightness(.6); }
+    .short-stage img { position: relative; display: block; height: 100%; width: auto; margin: 0 auto; }
+
+    /* 게시물 */
+    .post { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; display: flex; gap: 14px; max-width: 760px; }
+    .post img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; object-position: center 15%; flex: none; background: #fff; }
+    .post .who { font-size: 13px; font-weight: 700; }
+    .post .who span { color: var(--sub); font-weight: 400; margin-left: 6px; }
+    .post .label { font-size: 13px; color: var(--sub); margin-top: 8px; }
+    .post .text { font-size: 20px; font-weight: 700; margin-top: 2px; line-height: 1.45; }
+    .post .acts { display: flex; gap: 18px; margin-top: 12px; color: var(--sub); }
+    .post .acts svg { width: 18px; height: 18px; }
+    [data-theme="bili"] .post { border: 0; background: var(--raise); }
+    [data-theme="bili"] .post .text { color: var(--accent); }
+
+    /* 정보 */
+    .about { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 40px; align-items: start; }
+    [data-theme="bili"] .about { background: var(--surface); border-radius: 8px; padding: 24px; margin-top: 12px; }
+    .about h3 { font-size: 18px; font-weight: 700; margin-bottom: 10px; }
+    .about .intro { font-size: 15px; line-height: 1.8; color: var(--sub); }
+    .about .intro strong { color: var(--text); }
+    .about section + section { margin-top: 30px; }
+    .detail-list { display: grid; gap: 14px; }
+    .detail { display: flex; gap: 14px; align-items: center; font-size: 15px; }
+    .detail .ico { width: 36px; height: 36px; border-radius: 50%; background: var(--raise); display: grid; place-items: center; flex: none; }
+    .detail .ico svg { width: 18px; height: 18px; }
+    .detail small { display: block; font-size: 12px; color: var(--sub); }
+    .detail a { text-decoration: none; color: var(--link); }
+    .tag { font-size: 11px; font-weight: 700; background: var(--raise); border-radius: 999px; padding: 1px 8px; margin-left: 6px; vertical-align: middle; }
+    .side-card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; }
+    .side-card + .side-card { margin-top: 12px; }
+    .side-card h4 { font-size: 14px; color: var(--sub); margin-bottom: 12px; }
+    .motto-card { background: linear-gradient(120deg, #3a2622, #8a5a4c); border: 0; color: #fff4e8; }
+    [data-theme="bili"] .motto-card { background: linear-gradient(120deg, #fb7299, #ff9db8); color: #fff; }
+    .motto-card small { font-size: 12px; font-weight: 700; opacity: .8; }
+    .motto-card p { font-size: 18px; font-weight: 700; line-height: 1.45; }
+    .skill-list { display: grid; gap: 10px; }
+    .skill { display: flex; align-items: center; gap: 12px; }
+    .skill .sbadge { width: 38px; height: 38px; border-radius: 50%; background: #fff; display: grid; place-items: center; overflow: hidden; flex: none; }
+    .skill .sbadge svg { width: 60%; height: 60%; }
+    .skill .sbadge.flag svg { width: 100%; height: 100%; }
+    .skill b { font-size: 15px; }
+    .skill small { display: block; font-size: 12px; color: var(--sub); }
+
+    .empty { font-size: 15px; color: var(--sub); padding: 40px 0; text-align: center; }
+    footer { text-align: center; font-size: 13px; color: var(--sub); padding: 24px 24px 36px; }
+    footer .credits { font-size: 11px; max-width: 900px; margin: 8px auto 0; line-height: 1.6; opacity: .8; }
+    footer .credits a { color: inherit; }
+
+    /* ---------- 시청 화면 ---------- */
+    .watch { position: fixed; inset: 0; z-index: 50; background: rgba(0,0,0,.75); overflow-y: auto; padding: 32px 16px; }
+    .watch[hidden] { display: none; }
+    .watch-box { max-width: 980px; margin: 0 auto; background: var(--bg); border-radius: 16px; overflow: hidden; position: relative; }
+    [data-theme="bili"] .watch-box { background: var(--surface); }
+    .watch .close { position: absolute; top: 12px; right: 12px; z-index: 5; width: 40px; height: 40px; border-radius: 50%; border: 0; background: rgba(0,0,0,.6); color: #fff; cursor: pointer; display: grid; place-items: center; }
+    .watch .close svg { width: 20px; height: 20px; }
+    .player { position: relative; background: #000; aspect-ratio: 16 / 9; overflow: hidden; }
+    .player > img { width: 100%; height: 100%; object-fit: contain; display: block; background: #fff; }
+    .player .thumb { border-radius: 0; height: 100%; }
+    .player .nav { position: absolute; top: 50%; transform: translateY(-50%); width: 46px; height: 46px; border-radius: 50%; border: 0; background: rgba(0,0,0,.6); color: #fff; cursor: pointer; display: grid; place-items: center; z-index: 3; }
+    .player .nav:disabled { opacity: 0; pointer-events: none; }
+    .player .nav svg { width: 22px; height: 22px; }
+    .player .prev { left: 12px; }
+    .player .next { right: 12px; }
+    .player .progress { position: absolute; left: 0; right: 0; bottom: 0; display: flex; gap: 2px; z-index: 3; }
+    .player .progress i { flex: 1; height: 4px; background: rgba(255,255,255,.35); }
+    .player .progress i.on { background: var(--accent); }
+    .player .time { position: absolute; left: 12px; bottom: 12px; background: rgba(0,0,0,.7); color: #fff; font-family: var(--font-en); font-size: 12px; font-weight: 600; border-radius: 4px; padding: 1px 7px; z-index: 3; }
+    .player .danmaku { display: none; }
+    [data-theme="bili"] .player .danmaku { display: none; }
+    .watch-body { padding: 18px 22px 24px; }
+    .watch-body h2 { font-size: 20px; font-weight: 700; line-height: 1.4; }
+    .watch-body .tr { font-size: 14px; color: var(--sub); margin-top: 2px; }
+    .watch-ch { display: flex; align-items: center; gap: 12px; margin-top: 14px; flex-wrap: wrap; }
+    .watch-ch img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; object-position: center 15%; background: #fff; }
+    .watch-ch b { font-size: 15px; display: block; line-height: 1.3; }
+    .watch-ch small { font-size: 12px; color: var(--sub); }
+    .watch-ch .spacer { flex: 1; }
+    .desc-box { background: var(--raise); border-radius: 12px; padding: 14px 16px; margin-top: 16px; }
+    .desc-box .m { font-size: 14px; font-weight: 700; }
+    .desc-box ul { list-style: none; margin-top: 8px; display: grid; gap: 6px; }
+    .desc-box li { font-size: 15px; padding-left: 18px; position: relative; }
+    .desc-box li::before { content: ""; position: absolute; left: 3px; top: .62em; width: 6px; height: 6px; border-radius: 50%; background: var(--text); }
+    .desc-box li.plain { padding-left: 0; line-height: 1.75; color: var(--sub); }
+    .desc-box li.plain strong { color: var(--text); }
+    .desc-box li.plain::before { display: none; }
+    .desc-box .kws { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    .desc-box .kws span { font-size: 14px; font-weight: 700; color: var(--link); }
+    .sk-stage { position: absolute; inset: 0; background: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; color: #111; }
+    .sk-stage .sk-icon .sbadge { display: grid; place-items: center; border-radius: 50%; overflow: hidden; background: #fff; width: clamp(90px, 24vh, 180px) !important; height: clamp(90px, 24vh, 180px) !important; border: 3px solid #e6e8ee; box-shadow: 0 10px 24px rgba(0,0,0,.08); }
+    .sk-stage b { font-size: clamp(24px, 5vh, 44px); font-weight: 900; }
+    .sk-stage span { font-size: clamp(14px, 2.6vh, 22px); color: #666; font-weight: 700; }
+    .iv-slide { position: absolute; inset: 0; background: #fff; color: #111; padding: 5% 7%; overflow: hidden; }
+    .iv-slide h3 { font-size: clamp(20px, 3.6vh, 30px); font-weight: 900; margin-bottom: 3%; }
+    .iv-intro { font-size: clamp(15px, 2.6vh, 21px); line-height: 1.9; color: #444; }
+    .iv-intro strong { color: #111; }
+    .iv-grid .detail { color: #111; margin-bottom: 2.2vh; font-size: clamp(13px, 2.2vh, 17px); }
+    .iv-grid .detail .ico { background: #f1f3f6; }
+    .iv-grid .detail small { color: #777; }
+    .iv-grid .detail a { color: #1a73e8; }
+    .iv-grid .tag { background: #eef0f4; color: #333; }
+    .iv-two { display: grid; grid-template-columns: 1fr 1fr; gap: 6%; height: 100%; align-content: center; }
+    .iv-two h4 { font-size: clamp(16px, 2.8vh, 22px); font-weight: 900; color: #111; margin-bottom: 3vh; }
+    .iv-two .skill { margin-bottom: 2.4vh; color: #111; }
+    .iv-two .skill .sbadge { width: clamp(40px, 7vh, 60px); height: clamp(40px, 7vh, 60px); border: 2px solid #e6e8ee; }
+    .iv-two .skill b { font-size: clamp(15px, 2.6vh, 20px); }
+    .iv-two .skill small { color: #777; font-size: clamp(12px, 2vh, 15px); }
+    /* 이어서 재생되는 영상 */
+    .vp-stage { position: absolute; inset: 0 0 46px 0; overflow: hidden; background: #000; cursor: pointer; }
+    .vp-layer { position: absolute; inset: 0; opacity: 0; transition: opacity .7s; overflow: hidden; }
+    .vp-layer.on { opacity: 1; }
+    .vp-blur { position: absolute; inset: -30px; background-size: cover; background-position: center; filter: blur(24px) brightness(.5); }
+    .vp-img { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .vp-img.cover { object-fit: contain; animation: vp-kb 6s ease-out forwards; }
+    .vp-img.still { object-fit: cover; }
+    .vp-img.contain { object-fit: contain; background: #fff; }
+    .vp-stage.paused .vp-img { animation-play-state: paused; }
+    @keyframes vp-kb { from { transform: scale(1); } to { transform: scale(1.07); } }
+    .vp-label { position: absolute; left: 14px; top: 12px; z-index: 2; background: rgba(0,0,0,.62); color: #fff; font-weight: 800; padding: 4px 12px; border-radius: 6px; font-size: clamp(12px, 2.2vh, 16px); }
+    .vp-label:empty { display: none; }
+    .vp-stage .qa-q { z-index: 2; }
+    .vp-stage .qa-cap { z-index: 2; }
+    .vp-title { position: absolute; inset: 0; z-index: 2; display: grid; place-items: center; text-align: center; pointer-events: none; background: rgba(0,0,0,.25); }
+    .vp-title:empty { display: none; }
+    .vp-title.dark { background: none; align-items: end; padding-bottom: 6%; }
+    .vp-title.dark b { color: #111; -webkit-text-stroke: 0; text-shadow: none; }
+    .vp-profile { height: 66%; width: auto; border-radius: 12px; margin-top: -14%; }
+    .vp-title b { display: block; color: #fff; font-family: "Gowun Batang", "Noto Serif KR", serif; font-weight: 700; font-size: clamp(28px, 7.5vh, 64px); -webkit-text-stroke: 2px #3a3a3a; paint-order: stroke fill; text-shadow: 0 3px 12px rgba(0,0,0,.35); }
+    html:lang(zh) .vp-title b { font-family: "Noto Serif SC", serif; }
+    html:lang(ja) .vp-title b { font-family: "Noto Serif JP", serif; }
+    html:lang(en) .vp-title b { font-family: "Playfair Display", serif; }
+    .vp-title span { display: block; margin-top: 10px; color: #fff; font-size: clamp(13px, 2.2vh, 18px); font-weight: 700; text-shadow: 0 1px 4px rgba(0,0,0,.7); }
+    .vp-card { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; }
+    .vp-card b { font-size: clamp(44px, 13vh, 120px); font-weight: 900; line-height: 1; }
+    .vp-card span { font-size: clamp(14px, 2.6vh, 22px); font-weight: 700; opacity: .8; }
+    .vp-card .jp-flag { width: clamp(70px, 14vh, 130px); aspect-ratio: 3 / 2; background: radial-gradient(circle at 50% 50%, #bc002d 0 28%, #fff 29%); border: 2px solid #e6e8ee; border-radius: 6px; }
+    .vp-tools .skill-list { display: grid; gap: 3vh; }
+    .vp-tools .skill b { font-size: clamp(18px, 3.4vh, 28px); }
+    .vp-tools .skill .sbadge { width: clamp(44px, 9vh, 72px); height: clamp(44px, 9vh, 72px); border: 2px solid #e6e8ee; }
+    .vp-tools .skill small { color: #777; font-size: clamp(12px, 2vh, 16px); }
+    .vp-motto { background: #8a1c1c; color: #fff; }
+    .vp-motto b { font-family: "Ma Shan Zheng", "Noto Serif SC", serif; font-weight: 400; font-size: clamp(44px, 14vh, 130px); letter-spacing: .08em; }
+    .vp-motto span { font-family: "Poppins", sans-serif; letter-spacing: .1em; }
+    .vp-flags { display: flex; align-items: center; gap: 2vh; }
+    .vp-flags i { width: clamp(70px, 15vh, 140px); aspect-ratio: 3 / 2; border: 2px solid #e6e8ee; border-radius: 6px; background-size: cover; }
+    .vp-flags em { width: clamp(20px, 5vh, 50px); height: 3px; background: #ccc; }
+    .vp-flags .f-jp { background: radial-gradient(circle at 50% 50%, #bc002d 0 28%, #fff 29%); }
+    .vp-flags .f-cn { background: #ee1c25 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 20'%3E%3Cpolygon points='5,2 6.2,5.6 10,5.6 7,7.8 8.1,11.4 5,9.2 1.9,11.4 3,7.8 0,5.6 3.8,5.6' fill='%23ffde00'/%3E%3Ccircle cx='11' cy='2.5' r='.9' fill='%23ffde00'/%3E%3Ccircle cx='13' cy='4.5' r='.9' fill='%23ffde00'/%3E%3Ccircle cx='13' cy='7.5' r='.9' fill='%23ffde00'/%3E%3Ccircle cx='11' cy='9.5' r='.9' fill='%23ffde00'/%3E%3C/svg%3E") center / cover; }
+    .vp-flags .f-kr { background: #fff; overflow: hidden; }
+    /* 자기소개 Q&A 영상 */
+    .qa-stage { position: absolute; inset: 0 0 46px 0; overflow: hidden; cursor: pointer; background: radial-gradient(70% 90% at 50% 40%, #f6efe6 0%, #e7d9c6 70%, #d7c3a8 100%); }
+    .qa-curtain { position: absolute; top: 0; bottom: 0; width: 14%; opacity: .55; }
+    .qa-curtain.l { left: 0; background: repeating-linear-gradient(90deg, #c9b294 0 14px, #d9c5a8 14px 28px); }
+    .qa-curtain.r { right: 0; background: repeating-linear-gradient(90deg, #7f8f64 0 16px, #93a378 16px 32px); }
+    .qa-me { position: absolute; left: 50%; bottom: 0; height: 96%; transform: translateX(-50%); transform-origin: 50% 100%; animation: qa-zoom 14s ease-in-out infinite alternate; }
+    .qa-stage.paused .qa-me { animation-play-state: paused; }
+    @keyframes qa-zoom { from { transform: translateX(-50%) scale(1); } to { transform: translateX(-50%) scale(1.06); } }
+    .qa-q { position: absolute; left: 6%; top: 8%; max-width: 40%; background: rgba(255,255,255,.95); color: #222; border-radius: 10px; box-shadow: 0 8px 20px rgba(0,0,0,.18); padding: 24px 20px 12px; font-size: clamp(15px, 2.6vh, 22px); font-weight: 800; }
+    .qa-q::before { content: ""; position: absolute; left: 12px; top: 9px; width: 8px; height: 8px; border-radius: 50%; background: #ff5f57; box-shadow: 13px 0 0 #febc2e, 26px 0 0 #28c840; }
+    .qa-q.pop { animation: qa-pop .45s cubic-bezier(.2,1.4,.4,1); }
+    @keyframes qa-pop { from { transform: scale(.6) translateY(10px); opacity: 0; } to { transform: none; opacity: 1; } }
+    .qa-cap { position: absolute; left: 6%; right: 6%; bottom: 7%; text-align: center; }
+    .qa-cap span { display: inline-block; background: rgba(8,8,8,.78); color: #fff; font-size: clamp(15px, 2.6vh, 22px); font-weight: 700; line-height: 1.5; padding: 4px 12px; border-radius: 4px; }
+    .qa-open, .qa-end { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding-bottom: 8%; gap: 6px; background: linear-gradient(transparent 40%, rgba(0,0,0,.45)); opacity: 0; transition: opacity .4s; pointer-events: none; }
+    .qa-open.on, .qa-end.on { opacity: 1; }
+    .qa-open b, .qa-end b { color: #fff; font-size: clamp(26px, 6vh, 52px); font-weight: 900; -webkit-text-stroke: 1.5px #333; text-shadow: 0 3px 10px rgba(0,0,0,.35); }
+    .qa-open span, .qa-end span { color: #fff; font-size: clamp(13px, 2.2vh, 18px); font-weight: 700; text-shadow: 0 1px 4px rgba(0,0,0,.6); }
+    .qa-bar { position: absolute; left: 0; right: 0; bottom: 0; height: 46px; background: #111; }
+    .qa-track { position: relative; height: 5px; background: rgba(255,255,255,.25); cursor: pointer; }
+    .qa-track:hover { height: 8px; }
+    .qa-track i { position: absolute; top: 0; bottom: 0; width: 2px; background: #111; z-index: 2; }
+    .qa-fill { position: absolute; left: 0; top: 0; bottom: 0; background: var(--accent); }
+    .qa-ctrl { display: flex; align-items: center; gap: 12px; height: 41px; padding: 0 10px; color: #fff; font-size: 13px; }
+    .qa-ctrl button { width: 32px; height: 32px; border: 0; background: none; cursor: pointer; display: grid; place-items: center; }
+    .qa-ctrl button svg { width: 22px; height: 22px; }
+    .qa-time { font-family: "Poppins", sans-serif; font-weight: 600; }
+    .qa-chap { opacity: .85; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .qa-jump { border: 0; background: none; color: var(--link); font-weight: 700; cursor: pointer; padding: 0; font: inherit; font-weight: 700; }
+    .intro-cap { position: absolute; left: 6%; right: 48%; bottom: 14%; }
+    .intro-cap span { display: inline; background: rgba(8,8,8,.8); color: #fff; font-size: clamp(14px, 2vw, 20px); font-weight: 700; line-height: 1.7; padding: 2px 8px; border-radius: 4px; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+
+    .toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); background: var(--text); color: var(--bg); font-size: 14px; font-weight: 700; padding: 10px 18px; border-radius: 8px; z-index: 60; }
+    .toast[hidden] { display: none; }
+
+    /* ---------- 반응형 ---------- */
+    @media (max-width: 1000px) {
+      .row { grid-auto-columns: calc((100% - 16px) / 2.15); }
+      .row.shorts { grid-auto-columns: calc((100% - 2 * 12px) / 3.2); }
+      .about { grid-template-columns: minmax(0, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .wrap { padding: 0 16px; }
+      .logo .name, .logo sup { display: none; }
+      .cc-btn #cc-current { display: none; }
+      .channel { flex-direction: column; align-items: flex-start; gap: 12px; }
+      [data-theme="bili"] .channel { margin-top: -44px; padding: 0 0 14px 12px; flex-direction: column; align-items: flex-start; }
+      [data-theme="bili"] .channel .avatar { width: 80px; height: 80px; border-color: #fff; }
+      [data-theme="bili"] .channel h1 { color: var(--text); text-shadow: none; }
+      [data-theme="bili"] .ch-meta, [data-theme="bili"] .ch-desc { color: var(--sub); text-shadow: none; }
+      [data-theme="bili"] .ch-meta b, [data-theme="bili"] .ch-desc button { color: var(--text); }
+      [data-theme="bili"] .ch-actions { position: static; margin-top: 12px; }
+      .row { grid-auto-columns: 82%; }
+      .row.shorts { grid-auto-columns: 46%; }
+      .arrow { display: none; }
+      .tab-search.open input { width: 120px; }
+      [data-theme="bili"] .tab-search input { width: 110px; }
+      .watch { padding: 0; }
+      .watch-box { border-radius: 0; min-height: 100%; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .danmaku { display: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs><polygon id="star" points="0,-1 0.2245,-0.309 0.951,-0.309 0.363,0.118 0.588,0.809 0,0.382 -0.588,0.809 -0.363,0.118 -0.951,-0.309 -0.2245,-0.309" fill="#FFDE00"/></defs>
+  </svg>
+
+  <header class="topbar">
+    <div class="wrap">
+      <a class="logo" href="#" id="logo-home">
+        <span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#fff"><path d="M7 4v16l13-8z"/></svg></span>
+        <span class="name" data-i18n="logo"></span><sup>KR · CN · JP</sup>
+      </a>
+      <div class="cc">
+        <button type="button" class="cc-btn" id="cc-btn" aria-haspopup="true" aria-expanded="false" aria-controls="cc-menu">
+          <span class="cc-badge">CC</span><span id="cc-current"></span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="cc-menu" id="cc-menu" role="menu" hidden>
+          <div class="cc-title" data-i18n="cc.label"></div>
+          <button type="button" role="menuitemradio" data-lang="ko" lang="ko"><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>한국어</button>
+          <button type="button" role="menuitemradio" data-lang="zh" lang="zh-Hans"><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>中文（简体）· bilibili</button>
+          <button type="button" role="menuitemradio" data-lang="en" lang="en"><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>English</button>
+          <button type="button" role="menuitemradio" data-lang="ja" lang="ja"><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>日本語</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <div class="banner">
+      <div class="bn-photo"><img src="../images/china/me.jpg" alt=""></div>
+      <p class="bn-text" id="bn-text"></p>
+      <div class="danmaku" id="banner-danmaku" aria-hidden="true"></div>
+    </div>
+
+    <div class="channel">
+      <img class="avatar" src="../images/profile.png" alt="" id="ch-avatar">
+      <div>
+        <h1><span data-i18n="name"></span> <span class="uploader">UP</span></h1>
+        <p class="ch-meta"><b class="latin">@kimseoyeon</b> · <span data-i18n="ch.stats"></span></p>
+        <p class="ch-desc"><span data-i18n="ch.desc"></span><button type="button" id="more-btn" data-i18n="ch.more"></button></p>
+        <a class="ch-link latin" href="mailto:rlatjdus129@naver.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg>rlatjdus129@naver.com</a>
+        <div class="ch-actions">
+          <a class="pill primary" href="mailto:rlatjdus129@naver.com" data-i18n="btn.contact"></a>
+          <a class="pill secondary" id="resume-link" href="../resume/KIMSEOYEON_resume_ko.pdf" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg><span data-i18n="btn.resume"></span></a>
+          <button type="button" class="pill secondary" id="share-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 5l7 7-7 7M21 12H9a6 6 0 0 0-6 6"/></svg><span data-i18n="btn.share"></span></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="tabs-bar">
+      <nav class="tabs" role="tablist" aria-label="Channel">
+        <button type="button" class="tab" role="tab" data-tab="home" data-i18n="tab.home"></button>
+        <button type="button" class="tab" role="tab" data-tab="pres" data-i18n="tab.pres"></button>
+        <button type="button" class="tab" role="tab" data-tab="act" data-i18n="tab.act"></button>
+        <button type="button" class="tab" role="tab" data-tab="exp" data-i18n="tab.exp"></button>
+        <button type="button" class="tab" role="tab" data-tab="about" data-i18n="tab.about"></button>
+      </nav>
+      <form class="tab-search" id="search-form" role="search">
+        <button type="submit" id="search-toggle" aria-label="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></button>
+        <input type="search" id="search-input" aria-label="Search" autocomplete="off">
+      </form>
+    </div>
+
+    <main>
+      <div class="view" data-view="home">
+        <section class="shelf">
+          <div class="shelf-head"><div><h3 data-i18n="shelf.rec"></h3></div></div>
+          <div class="rail">
+            <div class="row" id="rec-row"></div>
+            <button type="button" class="arrow prev" aria-label="Previous" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+            <button type="button" class="arrow next" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+          </div>
+        </section>
+
+        <section class="shelf">
+          <div class="shelf-head">
+            <div><h3><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.5 3.4c1.9-1 4.2 1.4 3 3.3l-1.2 1.9 1 .6c1.8 1.1 1.7 3.8-.2 4.8L9 19.6c-1.9 1-4.2-1.4-3-3.3l1.2-1.9-1-.6c-1.8-1.1-1.7-3.8.2-4.8z" fill="var(--accent)"/><path d="M10 9.5v5l4.3-2.5z" fill="#fff"/></svg><span data-i18n="tab.act"></span></h3><p data-i18n="shelf.act.sub"></p></div>
+            <button type="button" class="all" data-go="act" data-i18n="view.all"></button>
+          </div>
+          <div class="rail shorts">
+            <div class="row shorts" data-list="act"></div>
+            <button type="button" class="arrow prev" aria-label="Previous" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+            <button type="button" class="arrow next" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+          </div>
+        </section>
+
+
+      </div>
+
+      <div class="view" data-view="pres" hidden><section class="shelf"><div class="grid" data-list="pres"></div></section></div>
+      <div class="view" data-view="act" hidden><section class="shelf"><div class="grid shorts" data-list="act"></div></section></div>
+      <div class="view" data-view="exp" hidden><section class="shelf"><div class="grid" data-list="exp"></div></section></div>
+      <div class="view" data-view="search" hidden>
+        <section class="shelf"><div class="shelf-head"><h3 id="search-title"></h3></div><div class="grid" id="search-results"></div></section>
+      </div>
+
+      <div class="view" data-view="about" hidden>
+        <div class="about">
+          <div>
+            <section>
+              <h3 data-i18n="about.desc"></h3>
+              <p class="intro" id="about-intro"></p>
+            </section>
+            <section>
+              <h3 data-i18n="about.details"></h3>
+              <div class="detail-list">
+                <div class="detail"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span><div><small data-i18n="info.email"></small><a class="latin" href="mailto:rlatjdus129@naver.com">rlatjdus129@naver.com</a></div></div>
+                <div class="detail"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></span><div><small data-i18n="info.birth"></small><span class="latin">2003.12.09</span></div></div>
+                <div class="detail"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></span><div><small class="latin">MBTI</small><span class="latin">ISTP</span></div></div>
+                <div class="detail"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg></span><div><small data-i18n="edu.title"></small><span data-i18n="edu.school"></span><span class="tag" data-i18n="edu.status"></span><small data-i18n="edu.major"></small></div></div>
+                <div class="detail"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M8.5 14l-1.5 7 5-3 5 3-1.5-7"/></svg></span><div><small data-i18n="cert.title"></small><span class="latin">JLPT N3</span><span class="tag latin">2025</span><small data-i18n="cert.desc"></small></div></div>
+              </div>
+            </section>
+          </div>
+          <aside>
+            <div class="side-card motto-card"><small data-i18n="motto.label"></small><p data-i18n="motto.text"></p></div>
+            <div class="side-card">
+              <h4 data-i18n="skills.title"></h4>
+              <div class="skill-list">
+                <div class="skill">
+                  <span class="sbadge" aria-hidden="true"><svg viewBox="0 0 24 24"><g stroke="#D97757" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="12" x2="12" y2="2.2"/><line x1="12" y1="12" x2="12" y2="3.6" transform="rotate(30 12 12)"/><line x1="12" y1="12" x2="12" y2="2.6" transform="rotate(60 12 12)"/><line x1="12" y1="12" x2="12" y2="3.2" transform="rotate(90 12 12)"/><line x1="12" y1="12" x2="12" y2="2.4" transform="rotate(120 12 12)"/><line x1="12" y1="12" x2="12" y2="3.8" transform="rotate(150 12 12)"/><line x1="12" y1="12" x2="12" y2="2.2" transform="rotate(180 12 12)"/><line x1="12" y1="12" x2="12" y2="3.4" transform="rotate(210 12 12)"/><line x1="12" y1="12" x2="12" y2="2.6" transform="rotate(240 12 12)"/><line x1="12" y1="12" x2="12" y2="3.6" transform="rotate(270 12 12)"/><line x1="12" y1="12" x2="12" y2="2.3" transform="rotate(300 12 12)"/><line x1="12" y1="12" x2="12" y2="3.2" transform="rotate(330 12 12)"/></g></svg></span>
+                  <div><b class="latin">Claude</b><small data-i18n="skills.ai"></small></div>
+                </div>
+                <div class="skill">
+                  <span class="sbadge" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="14" cy="12" r="9" fill="#ED6C47"/><path d="M14 3a9 9 0 0 1 9 9h-9z" fill="#FF8F6B"/><path d="M14 12h9a9 9 0 0 1-9 9z" fill="#D35230"/><rect x="1.5" y="6" width="12" height="12" rx="2" fill="#C43E1C"/><path d="M5.2 15.6V8.4h3.1c1.7 0 2.7.9 2.7 2.3s-1 2.4-2.7 2.4H6.9v2.5zm1.7-3.9h1.2c.8 0 1.2-.4 1.2-1s-.4-1-1.2-1H6.9z" fill="#fff"/></svg></span>
+                  <div><b class="latin">PowerPoint</b><small data-i18n="skills.ppt"></small></div>
+                </div>
+                <div class="skill">
+                  <span class="sbadge" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="7" y="3" width="15" height="18" rx="2" fill="#41A5EE"/><rect x="7" y="9" width="15" height="6" fill="#2B7CD3"/><path d="M7 15h15v4a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2z" fill="#185ABD"/><rect x="1.5" y="6" width="12" height="12" rx="2" fill="#185ABD"/><path d="M3.6 8.6h1.6l1 4.6 1.1-4.6h1.4l1.1 4.6 1-4.6h1.6l-1.8 6.8H8.2L7.5 10.7l-1.1 4.7H5.4z" fill="#fff"/></svg></span>
+                  <div><b class="latin">Word</b><small data-i18n="skills.word"></small></div>
+                </div>
+              </div>
+            </div>
+            <div class="side-card">
+              <h4 data-i18n="comm.title"></h4>
+              <div class="skill-list">
+                <div class="skill">
+                  <span class="sbadge flag" aria-hidden="true"><svg viewBox="0 0 30 20" preserveAspectRatio="xMidYMid slice"><rect width="30" height="20" fill="#EE1C25"/><use href="#star" transform="translate(8 7) scale(3)"/><use href="#star" transform="translate(13 4) rotate(-121)"/><use href="#star" transform="translate(15 6) rotate(-98)"/><use href="#star" transform="translate(15 9) rotate(-74)"/><use href="#star" transform="translate(13 11) rotate(-51)"/></svg></span>
+                  <div><b data-i18n="skills.zh"></b><small data-i18n="level.zh"></small></div>
+                </div>
+                <div class="skill">
+                  <span class="sbadge flag" aria-hidden="true"><svg viewBox="0 0 30 20" preserveAspectRatio="xMidYMid slice"><rect width="30" height="20" fill="#fff"/><circle cx="15" cy="10" r="5.5" fill="#BC002D"/></svg></span>
+                  <div><b data-i18n="skills.ja"></b><small data-i18n="level.ja"></small></div>
+                </div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <footer>
+    <p data-i18n="footer"></p>
+    <p class="credits">Photos via Wikimedia Commons:
+      <a href="https://commons.wikimedia.org/wiki/File:%E6%B2%88%E9%98%B3%C2%B7%E6%B2%88%E9%98%B3%E8%88%AA%E7%A9%BA%E8%88%AA%E5%A4%A9%E5%A4%A7%E5%AD%A6_-_panoramio.jpg" target="_blank" rel="noopener">Shenyang Aerospace University</a> © 夜の猫さま, <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener">CC BY-SA 3.0</a> ·
+      <a href="https://commons.wikimedia.org/wiki/File:WING_WAH_LOTUS_SEED_PASTE_MOONCAKE_(2).jpg" target="_blank" rel="noopener">Mooncake</a> © Dinkun Chen, <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a> ·
+      <a href="https://commons.wikimedia.org/wiki/File:Songpyeon.jpg" target="_blank" rel="noopener">Songpyeon</a> (wizdata, CC0) ·
+      <a href="https://commons.wikimedia.org/wiki/File:ORION_-_Choco_Pie.jpg" target="_blank" rel="noopener">Choco Pie</a> (Quercus acuta, CC0) ·
+      <a href="https://commons.wikimedia.org/wiki/File:%EA%B2%BD%EA%B8%B0%EB%8C%80%ED%95%99%EA%B5%90_%EC%88%98%EC%9B%90%EC%BA%A0%ED%8D%BC%EC%8A%A4_1%EA%B0%95%EC%9D%98%EB%8F%99_(%EC%A7%84%EB%A6%AC%EA%B4%80).jpg" target="_blank" rel="noopener">Kyonggi University</a> © 경기대예술, <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a>.
+      Mega Coffee, Ediya Coffee and Compose Coffee logos are trademarks of their owners.
+      Thumbnails are edited versions (cropped, text added) and are shared under the same licenses.</p>
+  </footer>
+
+  <div class="watch" id="watch" role="dialog" aria-modal="true" aria-labelledby="watch-title" hidden>
+    <div class="watch-box">
+      <button type="button" class="close" id="watch-close" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      <div class="player" id="player"></div>
+      <div class="watch-body">
+        <h2 id="watch-title"></h2>
+        <p class="tr" id="watch-tr"></p>
+        <div class="watch-ch">
+          <img src="../images/profile.png" alt="">
+          <div><b data-i18n="name"></b><small class="latin">@kimseoyeon</small></div>
+          <span class="spacer"></span>
+          <a class="pill primary" href="mailto:rlatjdus129@naver.com" data-i18n="btn.contact"></a>
+          <a class="pill secondary" id="watch-pdf" href="#" target="_blank" rel="noopener" hidden><span data-i18n="pres.view"></span></a>
+        </div>
+        <div class="desc-box">
+          <p class="m" id="watch-meta"></p>
+          <ul id="watch-points"></ul>
+          <div class="kws" id="watch-kws"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" hidden></div>
+
+  <script>
+    const HTML_LANG = { ko: "ko", zh: "zh-Hans", en: "en", ja: "ja" };
+    const LANG_NAME = { ko: "한국어", zh: "中文", en: "English", ja: "日本語" };
+    const THEME = { ko: "yt", zh: "bili", en: "yt", ja: "yt" };
+
+    const I18N = {
+      ko: {
+        title: "김서연 | 포트폴리오", name: "김서연", logo: "김서연", "cc.label": "자막",
+        "search.ph": "검색", "search.title": "검색 결과", "search.none": "검색 결과가 없어요",
+        "bn.suwon": "수원 · 경기대학교", "bn.shenyang": "심양 · 교환학생", "bn.shanghai": "상하이 · 어학연수", "banner.title": "한국과 세계를 잇는 사람",
+        "ch.stats": "발표 2개 · 활동 5개 · 경험 2개",
+        "ch.desc": "좌우명: 하고자 하는 의지만 있으면 일은 반드시 성취된다",
+        "ch.more": "...더보기",
+        "btn.contact": "연락하기", "btn.resume": "이력서", "btn.share": "공유", "toast.copied": "링크를 복사했어요",
+        "tab.home": "홈", "tab.pres": "발표", "tab.act": "활동", "tab.exp": "경험", "tab.about": "정보",
+        "view.all": "모두 보기", "shelf.rec": "추천", "shelf.act.sub": "아르바이트와 교내외 활동 · 핵심 역량", "shelf.post": "게시물", "post.pinned": "고정됨",
+        "sk.title": "스킬 소개 | 제가 할 줄 아는 것", "sk.sub": "AI · 문서 · 발표 · 언어", "qa.title": "김서연 자기소개 Q&A", "qa.thanks": "봐 주셔서 감사합니다!", "intro.title": "채널 소개 | 안녕하세요, 한국과 세계를 잇는 김서연입니다!", "intro.sub": "4개 국어 자막 · 경기대학교 경영학 × 중어중문학", "intro.hello": "안녕하세요!", "intro.small": "한국 · 중국 · 일본",
+        intro: "저는 누군가에게는 <strong>한국의 첫인상</strong>이, 누군가에게는 <strong>믿을 수 있는 파트너</strong>가 되고 싶습니다. 경영학과 중어중문학을 함께 공부하고, 중국 심양과 상하이에서 직접 생활하며 언어와 문화를 익혔습니다. <strong>중국어·일본어</strong>와 <strong>AI 활용 능력</strong>을 바탕으로, 사람과 사람, 나라와 나라 사이의 다리가 되겠습니다!",
+        "motto.label": "좌우명", "motto.text": "하고자 하는 의지만 있으면 일은 반드시 성취된다",
+        "about.desc": "설명", "about.details": "세부정보", "info.birth": "생년월일", "info.email": "이메일",
+        "edu.title": "학력", "edu.school": "경기대학교", "edu.status": "재학 중", "edu.major": "본전공 경영학 · 복수전공 중어중문학",
+        "cert.title": "자격증", "cert.desc": "일본어능력시험 N3",
+        "skills.title": "스킬", "skills.ai": "AI 활용", "skills.ppt": "발표 자료 제작", "skills.word": "문서 작성",
+        "comm.title": "의사소통 역량", "skills.zh": "중국어", "skills.ja": "일본어", "level.zh": "심화 회화 가능", "level.ja": "기본적 의사소통 가능",
+        "pres.view": "슬라이드 PDF", slides: "장",
+        footer: "© 2026 김서연. All rights reserved."
+      },
+      zh: {
+        title: "金谞延的个人空间 | 作品集", name: "金谞延", logo: "金谞延的空间", "cc.label": "字幕",
+        "search.ph": "搜索视频、经历", "search.title": "搜索结果", "search.none": "没有搜索结果",
+        "bn.suwon": "水原 · 京畿大学", "bn.shenyang": "沈阳 · 交换生", "bn.shanghai": "上海 · 语言研修", "banner.title": "连接韩国与世界的人",
+        "ch.stats": "投稿 2 · 动态 5 · 合集 2",
+        "ch.desc": "座右铭：有志者事竟成",
+        "ch.more": "...更多",
+        "btn.contact": "发消息", "btn.resume": "简历", "btn.share": "分享", "toast.copied": "链接已复制",
+        "tab.home": "主页", "tab.pres": "投稿", "tab.act": "动态", "tab.exp": "合集", "tab.about": "个人资料",
+        "view.all": "查看更多 ›", "shelf.rec": "代表作", "shelf.act.sub": "兼职与校内外活动 · 核心能力", "shelf.post": "置顶动态", "post.pinned": "置顶",
+        "sk.title": "【技能介绍】我会的技能", "sk.sub": "AI · 文档 · 演示 · 语言", "qa.title": "金谞延 自我介绍 Q&A", "qa.thanks": "感谢观看！", "intro.title": "【自我介绍】你好，我是连接韩国与世界的金谞延！", "intro.sub": "四种语言字幕 · 京畿大学 工商管理 × 中国语言文学", "intro.hello": "你好！", "intro.small": "韩国 · 中国 · 日本",
+        intro: "我希望成为一些人眼中<strong>韩国的第一印象</strong>，也成为另一些人<strong>值得信赖的伙伴</strong>。我同时学习工商管理与中国语言文学，并在中国沈阳和上海亲身生活，学习了语言与文化。我将以<strong>中文·日语</strong>和<strong>AI 应用能力</strong>为基础，成为人与人、国与国之间的桥梁！",
+        "motto.label": "座右铭", "motto.text": "有志者事竟成",
+        "about.desc": "个人简介", "about.details": "详细信息", "info.birth": "出生日期", "info.email": "邮箱",
+        "edu.title": "学历", "edu.school": "京畿大学", "edu.status": "在读", "edu.major": "主修 工商管理 · 双专业 中国语言文学",
+        "cert.title": "资格证书", "cert.desc": "日本语能力测试 N3",
+        "skills.title": "技能", "skills.ai": "AI 应用", "skills.ppt": "演示文稿制作", "skills.word": "文档编写",
+        "comm.title": "沟通能力", "skills.zh": "中文", "skills.ja": "日语", "level.zh": "可进行深入会话", "level.ja": "可进行基本沟通",
+        "pres.view": "幻灯片 PDF", slides: "P",
+        footer: "© 2026 金谞延 版权所有"
+      },
+      en: {
+        title: "KIMSEOYEON | Portfolio", name: "KIMSEOYEON", logo: "KIMSEOYEON", "cc.label": "Subtitles",
+        "search.ph": "Search", "search.title": "Search results", "search.none": "No results",
+        "bn.suwon": "Suwon · Kyonggi Univ.", "bn.shenyang": "Shenyang · Exchange", "bn.shanghai": "Shanghai · Language course", "banner.title": "Connecting Korea and the world",
+        "ch.stats": "2 presentations · 5 activities · 2 experiences",
+        "ch.desc": "Motto: Where there's a will, there's a way.",
+        "ch.more": "...more",
+        "btn.contact": "Contact", "btn.resume": "Résumé", "btn.share": "Share", "toast.copied": "Link copied",
+        "tab.home": "Home", "tab.pres": "Presentations", "tab.act": "Activities", "tab.exp": "Experience", "tab.about": "About",
+        "view.all": "View all", "shelf.rec": "For you", "shelf.act.sub": "Part-time work and activities · Core strengths", "shelf.post": "Posts", "post.pinned": "Pinned",
+        "sk.title": "Skills | What I can do", "sk.sub": "AI · Docs · Slides · Languages", "qa.title": "KIMSEOYEON Q&A", "qa.thanks": "Thanks for watching!", "intro.title": "Channel intro | Hello, I'm KIMSEOYEON, connecting Korea and the world!", "intro.sub": "Subtitles in 4 languages · Kyonggi University", "intro.hello": "Hello!", "intro.small": "Korea · China · Japan",
+        intro: "I want to be <strong>someone's first impression of Korea</strong> and <strong>a trusted partner</strong> to others. I study Business Administration together with Chinese Language &amp; Literature, and I learned the language and culture firsthand while living in Shenyang and Shanghai, China. With my <strong>Chinese and Japanese</strong> skills and <strong>AI proficiency</strong>, I will be a bridge between people and between nations!",
+        "motto.label": "Motto", "motto.text": "Where there's a will, there's a way.",
+        "about.desc": "Description", "about.details": "Details", "info.birth": "Date of birth", "info.email": "Email",
+        "edu.title": "Education", "edu.school": "Kyonggi University", "edu.status": "Enrolled", "edu.major": "Business Administration · Double major in Chinese Language & Literature",
+        "cert.title": "Certification", "cert.desc": "Japanese-Language Proficiency Test N3",
+        "skills.title": "Skills", "skills.ai": "AI tools", "skills.ppt": "Presentation design", "skills.word": "Document writing",
+        "comm.title": "Communication", "skills.zh": "Chinese", "skills.ja": "Japanese", "level.zh": "Advanced conversation", "level.ja": "Basic communication",
+        "pres.view": "Slides PDF", slides: " slides",
+        footer: "© 2026 KIMSEOYEON. All rights reserved."
+      },
+      ja: {
+        title: "キム・ソヨン | ポートフォリオ", name: "キム・ソヨン", logo: "キム・ソヨン", "cc.label": "字幕",
+        "search.ph": "検索", "search.title": "検索結果", "search.none": "検索結果がありません",
+        "bn.suwon": "水原・京畿大学", "bn.shenyang": "瀋陽・交換留学", "bn.shanghai": "上海・語学研修", "banner.title": "韓国と世界をつなぐ人",
+        "ch.stats": "発表2件・活動5件・経験2件",
+        "ch.desc": "座右の銘：志ある者は事竟に成る",
+        "ch.more": "...もっと見る",
+        "btn.contact": "連絡する", "btn.resume": "履歴書", "btn.share": "共有", "toast.copied": "リンクをコピーしました",
+        "tab.home": "ホーム", "tab.pres": "発表", "tab.act": "活動", "tab.exp": "経験", "tab.about": "概要",
+        "view.all": "すべて表示", "shelf.rec": "おすすめ", "shelf.act.sub": "アルバイトと学内外の活動・コア能力", "shelf.post": "投稿", "post.pinned": "固定",
+        "sk.title": "スキル紹介 | わたしのスキル", "sk.sub": "AI・文書・発表・言語", "qa.title": "キム・ソヨン 自己紹介Q&A", "qa.thanks": "見てくれてありがとう！", "intro.title": "チャンネル紹介 | こんにちは、韓国と世界をつなぐキム・ソヨンです！", "intro.sub": "4か国語字幕・京畿大学校", "intro.hello": "こんにちは！", "intro.small": "韓国・中国・日本",
+        intro: "私は、ある人にとっては<strong>韓国の第一印象</strong>に、またある人にとっては<strong>信頼できるパートナー</strong>になりたいと思っています。経営学と中国語中国文学をあわせて学び、中国の瀋陽と上海で実際に生活しながら言語と文化を身につけました。<strong>中国語・日本語</strong>と<strong>AI活用能力</strong>を活かして、人と人、国と国をつなぐ架け橋になります！",
+        "motto.label": "座右の銘", "motto.text": "志ある者は事竟に成る",
+        "about.desc": "説明", "about.details": "詳細", "info.birth": "生年月日", "info.email": "メール",
+        "edu.title": "学歴", "edu.school": "京畿大学校", "edu.status": "在学中", "edu.major": "主専攻 経営学 · 複数専攻 中国語中国文学",
+        "cert.title": "資格", "cert.desc": "日本語能力試験 N3",
+        "skills.title": "スキル", "skills.ai": "AI活用", "skills.ppt": "プレゼン資料作成", "skills.word": "文書作成",
+        "comm.title": "コミュニケーション能力", "skills.zh": "中国語", "skills.ja": "日本語", "level.zh": "上級レベルの会話が可能", "level.ja": "基本的な意思疎通が可能",
+        "pres.view": "スライドPDF", slides: "枚",
+        footer: "© 2026 キム・ソヨン All rights reserved."
+      }
+    };
+
+    const L = (ko, zh, en, ja) => ({ ko, zh, en, ja });
+
+    const PRES = [
+      {
+        thumb: "chuseok", dir: "../presentations/mid-autumn", count: 7, pdf: "../presentations/mid-autumn.pdf", title: "韩国秋夕与中国中秋节",
+        ttl: L("[중국어 발표] 추석 vs 중추절, 뭐가 다를까? 송편·월병부터 전통 놀이까지 비교",
+               "【中文展示】韩国秋夕与中国中秋节有什么不同？从松饼、月饼到传统游戏",
+               "[Talk in Chinese] Chuseok vs Mid-Autumn Festival — what's different? Food, games & meaning",
+               "【中国語で発表】秋夕と中秋節、何が違う？ソンピョン・月餅から伝統遊びまで比較"),
+        about: L("같은 음력 8월 15일의 명절이지만 두 나라는 어떻게 다르게 보낼까요? 중국 친구들에게 한국 문화를 소개하며 두 명절을 비교한 발표예요.",
+                 "同样是农历八月十五的节日，两国的过法有何不同？我向中国同学介绍韩国文化，并对两个节日进行了比较。",
+                 "Both holidays fall on the 15th day of the 8th lunar month — so how do Korea and China celebrate differently? I introduced Korean culture to my Chinese classmates by comparing the two.",
+                 "同じ旧暦8月15日の祝日でも、両国で過ごし方はどう違うのでしょうか。中国のクラスメートに韓国文化を紹介しながら、二つの祝日を比較した発表です。"),
+        cap: L("추석 vs 중추절", "秋夕 vs 中秋", "Chuseok vs Mid-Autumn", "秋夕 vs 中秋節"),
+        tr: L("한국 추석과 중국 중추절 — 전통문화의 공통점과 차이점", "传统文化的共同点与差异", "Korea's Chuseok and China's Mid-Autumn Festival", "韓国の秋夕と中国の中秋節 — 伝統文化の共通点と違い"),
+        meta: L("중국 문화 수업 · 동화대학교", "中国文化课 · 东华大学", "Chinese Culture class · Donghua University", "中国文化の授業・東華大学"),
+        points: [
+          L("두 명절의 기원과 공통점 비교", "比较两个节日的起源与共同点", "Compared the origins and shared values of the two holidays", "二つの祝日の起源と共通点を比較"),
+          L("전통 음식: 송편 vs 월병", "传统饮食：松饼与月饼", "Traditional food: songpyeon vs. mooncakes", "伝統料理：ソンピョン vs 月餅"),
+          L("전통 놀이: 강강술래·씨름 vs 달맞이·등불놀이", "传统游戏：羌羌水越来、摔跤 vs 赏月与灯会", "Folk games: ganggangsullae & ssireum vs. moon viewing & lantern fairs", "伝統遊び：カンガンスルレ・シルム vs 月見・灯籠祭り")
+        ],
+        kws: L(["중국어 발표", "문화 비교"], ["中文展示", "文化比较"], ["Presented in Chinese", "Culture"], ["中国語で発表", "文化比較"])
+      },
+      {
+        thumb: "orion", dir: "../presentations/orion-pricing", count: 8, pdf: "../presentations/orion-pricing.pdf", title: "好丽友价格策略分析",
+        ttl: L("[중국어 발표] 같은 초코파이, 나라마다 가격이 다른 이유 — 오리온 가격 전략 분석",
+               "【中文展示】同一个好丽友派，为什么各国价格不同？——好丽友定价策略分析",
+               "[Talk in Chinese] Same Choco Pie, different prices — Orion's pricing strategy explained",
+               "【中国語で発表】同じチョコパイ、なぜ国ごとに値段が違う？オリオンの価格戦略分析"),
+        about: L("초코파이는 한국에서는 싼 '국민 과자'인데, 중국·러시아·베트남에서는 값이 다 달라요. 왜 그런지 나라별로 정리해서 중국어로 발표했어요.",
+                 "好丽友派在韩国是便宜的“国民零食”，可在中国、俄罗斯、越南价格都不一样。我按国家整理了原因，用中文做了展示。",
+                 "Choco Pie is a cheap everyday snack in Korea, but its price changes in China, Russia and Vietnam. I looked into why, country by country, and presented it in Chinese.",
+                 "チョコパイは韓国では安い「国民的お菓子」ですが、中国・ロシア・ベトナムでは値段がそれぞれ違います。その理由を国ごとにまとめ、中国語で発表しました。"),
+        cap: L("오리온 가격 전략", "好丽友定价策略", "Orion's pricing", "オリオンの価格戦略"),
+        tr: L("오리온 가격 전략 분석 — 국내외 가격 전략 비교", "全球第12大零食企业——国内外定价策略解读", "Orion's Pricing Strategy — domestic vs. overseas", "オリオンの価格戦略分析 — 国内外の価格戦略比較"),
+        meta: L("무역 중국어 수업 · 동화대학교", "外贸汉语课 · 东华大学", "Business Chinese for Trade class · Donghua University", "貿易中国語の授業・東華大学"),
+        points: [
+          L("한국: 중저가 '국민 과자' 전략", "韩国：中低价“国民零食”策略", "Korea: mid-to-low \"national snack\" pricing", "韓国：中低価格の「国民的お菓子」戦略"),
+          L("중국·러시아·베트남: 시장별로 다른 가격 전략", "中国·俄罗斯·越南：因地制宜的差异化定价", "China, Russia, Vietnam: pricing tailored to each market", "中国・ロシア・ベトナム：市場ごとに異なる価格戦略"),
+          L("나라별 가격 차이와 이유를 중국어로 발표", "用中文讲各国的价格差异和原因", "Presented the price gaps and reasons in Chinese", "国ごとの価格差と理由を中国語で発表")
+        ],
+        kws: L(["중국어 발표", "경영 · 마케팅"], ["中文展示", "经营·营销"], ["Presented in Chinese", "Business · Marketing"], ["中国語で発表", "経営・マーケティング"])
+      }
+    ];
+
+    const FLAG_CN = '<svg viewBox="0 0 30 20"><rect width="30" height="20" fill="#EE1C25"/><use href="#star" transform="translate(5 5) scale(3)"/><use href="#star" transform="translate(10 2) rotate(-121)"/><use href="#star" transform="translate(12 4) rotate(-98)"/><use href="#star" transform="translate(12 7) rotate(-74)"/><use href="#star" transform="translate(10 9) rotate(-51)"/></svg>';
+
+    const EXP = [
+      {
+        thumb: "shenyang", city: "沈阳", cls: "", badge: "2023.09–2024.01",
+        cap: L("유일한 한국인", "唯一的韩国人", "The only Korean", "唯一の韓国人"),
+        top: L("교환학생", "交换生", "Exchange student", "交換留学"),
+        title: L("교환학생 · 심양항공항천대학교", "交换生 · 沈阳航空航天大学", "Exchange Student · Shenyang Aerospace University", "交換留学・瀋陽航空航天大学"),
+        meta: L("중국 심양 · 2023.09 – 2024.01", "中国沈阳 · 2023.09 – 2024.01", "Shenyang, China · 2023.09 – 2024.01", "中国・瀋陽・2023.09 – 2024.01"),
+        points: [
+          L("그곳에서 유일한 한국인 학생", "那里唯一的韩国学生", "The only Korean student there", "そこで唯一の韓国人学生"),
+          L("샤오홍슈로 현지 친구를 직접 찾아 교류", "主动通过小红书结交当地朋友", "Found and met local friends through Xiaohongshu (RED)", "小紅書で現地の友人を自ら探して交流"),
+          L("포기하지 않고 회화 실력을 크게 끌어올림", "坚持不放弃，口语水平大幅提升", "Didn't give up — my spoken Chinese improved greatly", "あきらめずに会話力を大きく伸ばした")
+        ]
+      },
+      {
+        thumb: "shanghai", city: "上海", cls: "sh", badge: "2025.09–2026.06",
+        cap: L("2학기 연속 반 1등", "连续两学期第一", "1st in class ×2", "2学期連続1位"),
+        top: L("어학연수", "语言研修", "Language program", "語学研修"),
+        title: L("어학연수 · 동화대학교", "语言研修 · 东华大学", "Language Program · Donghua University", "語学研修・東華大学"),
+        meta: L("중국 상하이 · 2025.09 – 2026.06", "中国上海 · 2025.09 – 2026.06", "Shanghai, China · 2025.09 – 2026.06", "中国・上海・2025.09 – 2026.06"),
+        points: [
+          L("2학기 연속 반 1등", "连续两个学期班级第一名", "Ranked 1st in class for two consecutive semesters", "2学期連続でクラス1位"),
+          L("한중·한중일 교류회에 참여하며 고급 어휘까지 알아듣는 수준으로 성장", "积极参加中韩、中日韩交流会，提升到能听懂高级词汇的水平", "Joined Korea–China and Korea–China–Japan meetups, reaching advanced vocabulary", "中韓・日中韓の交流会に参加し、高度な語彙も聞き取れるレベルに成長"),
+          L("현지 생활 경험으로 중국 남방과 북방의 차이를 알게 됨", "通过在当地生活的经历，了解了中国南方与北方的差异", "Learned the differences between northern and southern China by living there", "現地での生活経験から、中国の南方と北方の違いを知った"),
+          L("중국어 발표 2회 — '발표' 탭에서 보기", "两次中文课堂展示——在“投稿”中查看", "Two talks in Chinese — see the Presentations tab", "中国語で発表2回 —「発表」タブで見る")
+        ]
+      }
+    ];
+
+    const ICONS = {
+      chat: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h11v8H8l-4 3z"/><path d="M15 9h5v8l-3-2h-6v-2"/></svg>',
+      translate: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h8M8 3v2M6 5c0 4 3 7 6 8M10 5c0 3-3 7-6 8"/><path d="M12 21l4-9 4 9M13.5 18h5"/></svg>',
+      trophy: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4"/></svg>',
+      food: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3v8a2 2 0 0 0 4 0V3M9 11v10M17 3c-2 0-3 3-3 6s1 4 3 4v8"/></svg>',
+      coffee: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h13v5a6 6 0 0 1-6 6h-1a6 6 0 0 1-6-6z"/><path d="M17 10h1.5a2.5 2.5 0 0 1 0 5H17M8 3v3M12 3v3"/></svg>'
+    };
+
+    const ACT = [
+      { icon: "chat", g: "g0", thumb: "s-wok", photo: "", color: "#2b1a12",
+        title: L("해피벽돌푸드 (백화점 내 매장)", "Happy Brick Food（百货商场内餐厅）", "Happy Brick Food (department-store restaurant)", "Happy Brick Food（百貨店内の飲食店）"),
+        role: L("홀서빙 · 중국어 소통 지원", "服务员 · 中韩沟通协助", "Server · Chinese–Korean liaison", "ホール担当・中韓コミュニケーション支援"),
+        kws: L(["중국어 통역", "현장 소통", "컴플레인 대응"], ["中韩口译", "现场沟通", "投诉处理"], ["Chinese–Korean interpreting", "On-site communication", "Complaint handling"], ["中韓通訳", "現場コミュニケーション", "クレーム対応"]),
+        points: [
+          L("중국인 주방장 ↔ 한국인 매니저 사이를 중국어·한국어로 연결", "在中国厨师与韩国经理之间担任中韩口译", "Bridged the Chinese chefs and Korean managers in both languages", "中国人シェフと韓国人マネージャーの間を中国語・韓国語でつなぐ"),
+          L("주방의 요청 사항을 홀에 한국어로 전달", "将厨房的要求用韩语传达给大厅", "Relayed kitchen requests to the floor staff in Korean", "厨房の要望を韓国語でホールに伝達"),
+          L("백화점 매장 특성상 잦은 컴플레인을 원만히 해결", "妥善处理百货商场门店常见的顾客投诉", "Resolved the frequent complaints of a department-store location", "百貨店内店舗に多いクレームに円満に対応")
+        ] },
+      { icon: "translate", g: "g1", thumb: "s-notes", photo: "", color: "#1f9e74",
+        title: L("중국인 친구 발표문 한국어 번역", "为中国朋友翻译发表稿（中→韩）", "Translating a Chinese friend's presentation script", "中国人の友人の発表原稿を韓国語に翻訳"),
+        role: L("번역 · 감수", "翻译 · 审校", "Translation · Review", "翻訳・校閲"),
+        kws: L(["번역", "의미 전달력", "문화 이해"], ["翻译", "意义传达", "文化理解"], ["Translation", "Conveying meaning", "Cultural understanding"], ["翻訳", "意味を伝える力", "文化理解"]),
+        points: [
+          L("직역 대신 친구의 설명을 듣고 의미에 맞는 한국어 표현을 선택", "不直译，而是听取朋友的解释，选择贴切的韩语表达", "Chose natural Korean expressions over literal ones", "直訳ではなく、意味に合う韓国語表現を選択"),
+          L("중국 문화 발표문을 완성해 친구의 발표를 도움", "完成介绍中国文化的发表稿，帮助朋友顺利发表", "Completed a talk on Chinese culture that my friend went on to deliver", "中国文化の発表原稿を完成させ、友人の発表を支援"),
+          L("이 경험으로 한국과 중국을 잇는 일을 하기로 다짐", "这次经历让我决心从事连接韩中的工作", "It inspired me to build a career connecting Korea and China", "この経験から韓国と中国をつなぐ仕事を志す")
+        ] },
+      { icon: "trophy", g: "g2", thumb: "s-trophy", photo: "", color: "#6c4bd8",
+        title: L("거북이 프로그램 (교내 자격증 프로그램)", "“乌龟项目”（校内资格证项目）", "\"Turtle Program\" (on-campus certification)", "「カメ」プログラム（学内資格プログラム）"),
+        role: L("팀원 · 2회 참여 · 우수상 1회", "组员 · 参加2次 · 优秀奖1次", "Team member · 2 rounds · Excellence Award", "メンバー・2回参加・優秀賞1回"),
+        kws: L(["우수상", "팀워크", "주도성"], ["优秀奖", "团队合作", "主动性"], ["Excellence Award", "Teamwork", "Initiative"], ["優秀賞", "チームワーク", "主体性"]),
+        points: [
+          L("2회 중 1회 우수상 수상", "参加2次，获优秀奖1次", "Won an Excellence Award in one of two rounds", "2回中1回、優秀賞を受賞"),
+          L("팀 일정과 예습·공동 작업 범위를 먼저 제안", "主动提出团队日程以及预习与共同作业的分工", "Proposed team schedules and how to split prep and joint work", "チームの日程や予習・共同作業の分担を先に提案"),
+          L("팀원이 모르는 부분을 설명하며 팀 효율 향상", "为组员讲解不懂的部分，提高团队效率", "Explained unclear points to keep the team efficient", "メンバーが分からない点を説明し、チームの効率を向上")
+        ] },
+      { icon: "food", g: "g3", thumb: "s-katsu", photo: "", color: "#1d3fa8",
+        title: L("미소야", "Misoya（餐厅）", "Misoya (restaurant)", "Misoya（飲食店）"),
+        role: L("홀서빙 · 고객응대 · 1년 6개월", "服务员 · 顾客接待 · 1年6个月", "Server · Customer service · 1.5 years", "ホール・接客・1年6か月"),
+        kws: L(["책임감", "고객응대", "신입 교육"], ["责任感", "顾客服务", "新人培训"], ["Responsibility", "Customer service", "Training new staff"], ["責任感", "接客", "新人教育"]),
+        points: [
+          L("1년 6개월 근무, 혼자 홀 전담", "工作1年6个月，独自负责整个大厅", "1.5 years, running the floor on my own", "1年6か月勤務、一人でホールを担当"),
+          L("평소 2배 매출인 날에도 실수 없이 응대", "营业额达平时两倍的日子也零失误接待", "No errors even on days with twice the usual sales", "売上が普段の2倍の日もミスなく接客"),
+          L("최장기 근무자로 신입 교육 — '친절하고 인내심 있게 가르친다'는 칭찬", "作为资历最长的员工负责新人培训，获评“教得亲切又有耐心”", "Trained new hires as the longest-serving staff — praised for teaching kindly and patiently", "最古参として新人教育を担当し、「親切で根気強い」と評価")
+        ] },
+      { icon: "coffee", g: "g4", thumb: "s-latte", photo: "", color: "#e85d8f",
+        title: L("카페 3곳 (메가커피 · 이디야커피 · 컴포즈커피)", "三家咖啡店（Mega Coffee · Ediya Coffee · Compose Coffee）", "Three cafés (Mega Coffee · Ediya Coffee · Compose Coffee)", "カフェ3店舗（Mega Coffee・Ediya Coffee・Compose Coffee）"),
+        role: L("바리스타", "咖啡师", "Barista", "バリスタ"),
+        kws: L(["빠른 적응력", "업무 숙련", "협업"], ["快速适应", "熟练掌握", "协作"], ["Fast adaptation", "Quick mastery", "Collaboration"], ["早い適応力", "業務習熟", "協働"]),
+        points: [
+          L("1주일 만에 메뉴를 익혀 1달 만에 단독 근무", "一周记住菜单，一个月后独立当班", "Learned the menu in a week, worked solo within a month", "1週間でメニューを覚え、1か月で単独勤務"),
+          L("이후 매장에서는 2주 만에 혼자 근무", "之后的门店两周内即可独自工作", "Worked alone within two weeks at later cafés", "その後の店舗では2週間で一人勤務"),
+          L("야구 시즌 성수기에 동료와 업무를 나누며 점장님의 신뢰를 얻음", "棒球赛季高峰期与同事分工合作，赢得店长信任", "Split tasks during the busy baseball season and earned the manager's trust", "野球シーズンの繁忙期に同僚と分担し、店長の信頼を獲得")
+        ] }
+    ];
+
+    // Shorts 안 사진 (도우인 图文처럼 넘겨 보기). 사진 순서 = points 순서
+    const DY_SLIDES = {
+      "s-wok":    [{ color: "#9c3b24", big: "中 ↔ 韩" }, { color: "#b4532a", big: "厨房 → 大厅" }, { color: "#7a2e1f", big: "顾客" }],
+      "s-notes":  [{ color: "#e63946", big: "直译 ✗" }, { color: "#1f9e74", big: "意译 ✓" }, { color: "#1d3557", big: "中 → 韩" }],
+      "s-trophy": [{ img: "kyonggi.jpg", pos: "60% 50%" }, { color: "#6c4bd8", big: "团队" }, { img: "kyonggi.jpg", pos: "20% 70%" }],
+      "s-katsu":  [{ color: "#2f6bff", big: "一年半" }, { color: "#1f9e74", big: "×2" }, { color: "#6c4bd8", big: "新人" }],
+      "s-latte":  [{ img: "ediya1.jpg", pos: "50% 45%" }, { img: "mega_product.jpg", pos: "50% 40%" }, { img: "ediya2.jpg", pos: "50% 30%" }, { logos: true }]
+    };
+    const DY_UI = {
+      like: L("좋아요", "赞", "Like", "いいね"), cmt: L("댓글", "评论", "Comment", "コメント"),
+      save: L("저장", "收藏", "Save", "保存"), share: L("공유", "分享", "Share", "シェア"),
+      sound: L("원본 사운드", "原声", "original sound", "オリジナル音源")
+    };
+    const T_ = o => o[lang];
+
+    /* ---------- 이어서 재생되는 영상 플레이어 (사진 + 자막) ---------- */
+    let vpStep = null;
+    const nx = x => String(x).replace(/[!！]/g, "");
+    const vpFmt = s => Math.floor(s / 60) + ":" + String(Math.floor(s % 60)).padStart(2, "0");
+    function sceneHTML(s, n) {
+      if (s.img.startsWith("card:")) return cardHTML(s.img.slice(5));
+      const origin = ["50% 50%", "30% 40%", "70% 40%", "50% 70%"][n % 4];
+      return `<span class="vp-blur" style="background-image:url('${s.img}')"></span>
+        <img class="vp-img ${s.fit || "cover"}" src="${s.img}" style="transform-origin:${origin}" alt="">`;
+    }
+    function cardHTML(kind) {
+      if (kind === "mbti") return `<div class="vp-card" style="background:#2f6bff;color:#fff"><b class="latin">ISTP</b><span>MBTI</span></div>`;
+      if (kind === "jp") return `<div class="vp-card" style="background:#fff;color:#111"><i class="jp-flag"></i><b class="latin">JLPT N3</b><span>${esc(t("level.ja"))}</span></div>`;
+      if (kind === "profile") return `<div class="vp-card" style="background:#fff"><img class="vp-profile" src="../images/profile.png" alt=""></div>`;
+      if (kind === "black") return `<div class="vp-card" style="background:#000"></div>`;
+      if (kind === "motto") return `<div class="vp-card vp-motto"><b lang="zh-Hans">有志者事竟成</b><span lang="zh-Hans">yǒu zhì zhě shì jìng chéng</span></div>`;
+      if (kind === "flags") return `<div class="vp-card" style="background:#fff;color:#111"><div class="vp-flags"><i class="f-kr"><svg viewBox="0 0 36 24" preserveAspectRatio="xMidYMid slice" style="width:100%;height:100%;display:block"><rect width="36" height="24" fill="#fff"/><g transform="translate(18 12) rotate(33.69)"><circle r="6" fill="#0047A0"/><path d="M-6 0a6 6 0 0 1 12 0z" fill="#CD2E3A"/><circle cx="-3" r="3" fill="#CD2E3A"/><circle cx="3" r="3" fill="#0047A0"/></g><g fill="#111"><g transform="translate(18 12) rotate(213.69)"><rect x="9" y="-3" width="1" height="6"/><rect x="10.5" y="-3" width="1" height="6"/><rect x="12" y="-3" width="1" height="6"/></g><g transform="translate(18 12) rotate(33.69)"><rect x="9" y="-3" width="1" height="2.7"/><rect x="9" y="0.3" width="1" height="2.7"/><rect x="10.5" y="-3" width="1" height="2.7"/><rect x="10.5" y="0.3" width="1" height="2.7"/><rect x="12" y="-3" width="1" height="2.7"/><rect x="12" y="0.3" width="1" height="2.7"/></g><g transform="translate(18 12) rotate(326.31)"><rect x="9" y="-3" width="1" height="2.7"/><rect x="9" y="0.3" width="1" height="2.7"/><rect x="10.5" y="-3" width="1" height="6"/><rect x="12" y="-3" width="1" height="2.7"/><rect x="12" y="0.3" width="1" height="2.7"/></g><g transform="translate(18 12) rotate(146.31)"><rect x="9" y="-3" width="1" height="6"/><rect x="10.5" y="-3" width="1" height="2.7"/><rect x="10.5" y="0.3" width="1" height="2.7"/><rect x="12" y="-3" width="1" height="6"/></g></g></svg></i><em></em><i class="f-cn"></i><em></em><i class="f-jp"></i></div><span>${esc(L("한국 · 중국 · 일본", "韩国 · 中国 · 日本", "Korea · China · Japan", "韓国・中国・日本")[lang])}</span></div>`;
+      if (kind === "tools") {
+        const list = [...document.querySelectorAll('[data-view="about"] aside .side-card')][1];
+        return `<div class="vp-card vp-tools" style="background:#fff;color:#111">${list ? list.querySelector(".skill-list").outerHTML : ""}</div>`;
+      }
+      return "";
+    }
+    function playScenes(scenes) {
+      const player = document.getElementById("player");
+      let acc = 0; scenes.forEach(s => { s.start = acc; acc += s.dur; });
+      const total = acc;
+      player.innerHTML = `<div class="vp-stage" id="vp-stage">
+          <div class="vp-layer" id="vp-a"></div><div class="vp-layer" id="vp-b"></div>
+          <span class="vp-label" id="vp-label"></span>
+          <div class="qa-q" id="vp-q" hidden></div>
+          <div class="vp-title" id="vp-title"></div>
+          <div class="qa-cap" id="vp-cap"></div>
+        </div>
+        <div class="qa-bar">
+          <div class="qa-track" id="vp-track">${scenes.filter(s => s.chap).map(s => `<i style="left:${s.start / total * 100}%"></i>`).join("")}<span class="qa-fill" id="vp-fill"></span></div>
+          <div class="qa-ctrl"><button type="button" id="vp-play" aria-label="Play / Pause"></button><span class="qa-time" id="vp-time"></span><span class="qa-chap" id="vp-chap"></span></div>
+        </div>`;
+      const $ = id => document.getElementById(id);
+      const PLAY = '<svg viewBox="0 0 24 24" fill="#fff"><path d="M7 4v16l13-8z"/></svg>';
+      const PAUSE = '<svg viewBox="0 0 24 24" fill="#fff"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>';
+      let cur = -1, front = "vp-a", shownImg = null, lastQ = null;
+      const idxAt = t => { const i = scenes.findIndex(s => t < s.start + s.dur); return i < 0 ? scenes.length - 1 : i; };
+      const draw = () => {
+        const i = idxAt(qaT), s = scenes[i];
+        if (i !== cur) {
+          cur = i;
+          if (s.img !== shownImg) {
+            shownImg = s.img;
+            const back = front === "vp-a" ? "vp-b" : "vp-a";
+            $(back).innerHTML = sceneHTML(s, i);
+            $(back).classList.add("on"); $(front).classList.remove("on");
+            front = back;
+          }
+          $("vp-label").textContent = s.label || "";
+          const q = $("vp-q");
+          if (nx(s.q || "") !== lastQ) { lastQ = nx(s.q || ""); q.textContent = lastQ; q.hidden = !lastQ; q.classList.remove("pop"); void q.offsetWidth; if (lastQ) q.classList.add("pop"); }
+                    $("vp-title").classList.toggle("dark", !!s.dark);
+          $("vp-title").innerHTML = s.title ? `<div><b>${esc(nx(s.title))}</b>${s.sub ? `<span class="latin">${esc(s.sub)}</span>` : ""}</div>` : "";
+          $("vp-cap").innerHTML = s.cap ? `<span>${esc(nx(s.cap))}</span>` : "";
+          const ch = [...scenes.slice(0, i + 1)].reverse().find(x => x.chap);
+          $("vp-chap").textContent = ch ? "· " + ch.chap : "";
+        }
+        $("vp-fill").style.width = (qaT / total * 100) + "%";
+        $("vp-time").textContent = vpFmt(qaT) + " / " + vpFmt(total);
+        $("vp-play").innerHTML = qaPlay ? PAUSE : PLAY;
+        $("vp-stage").classList.toggle("paused", !qaPlay);
+      };
+      const seek = t => { qaT = Math.max(0, Math.min(total, t)); cur = -1; draw(); };
+      window.vpJump = t => { qaPlay = true; seek(t); };
+      vpStep = d => { const i = idxAt(qaT) + d; seek(i < 0 ? 0 : i >= scenes.length ? total : scenes[i].start); };
+      draw();
+      capTimer = setInterval(() => {
+        if (!qaPlay) return;
+        qaT += 0.1;
+        if (qaT >= total) { qaT = total; qaPlay = false; }
+        draw();
+      }, 100);
+      const toggle = () => { if (qaT >= total) seek(0); qaPlay = !qaPlay; draw(); };
+      $("vp-play").addEventListener("click", toggle);
+      $("vp-stage").addEventListener("click", toggle);
+      $("vp-track").addEventListener("click", e => { const r = e.currentTarget.getBoundingClientRect(); seek((e.clientX - r.left) / r.width * total); });
+    }
+    function chapters(scenes, head) {
+      const pts = document.getElementById("watch-points");
+      pts.innerHTML = head + scenes.filter(s => s.chap).map(s => `<li class="plain"><button type="button" class="qa-jump" data-t="${s.start}">${vpFmt(s.start)}</button> ${esc(s.chap)}</li>`).join("");
+      pts.querySelectorAll(".qa-jump").forEach(b => b.addEventListener("click", () => { window.vpJump(Number(b.dataset.t)); document.getElementById("watch").scrollTop = 0; }));
+    }
+
+    /* ---------- 영상 내용 ---------- */
+    const C = f => "../images/china/" + f + ".jpg";
+    const PLACE = {
+      guangzhou: L("광저우", "广州", "Guangzhou", "広州"), nanjing: L("난징", "南京", "Nanjing", "南京"),
+      dalian: L("다롄", "大连", "Dalian", "大連"), xiamen: L("샤먼", "厦门", "Xiamen", "厦門"),
+      shunde: L("순더", "顺德", "Shunde", "順徳"), shenzhen: L("선전", "深圳", "Shenzhen", "深セン"),
+      bund: L("상하이 · 와이탄", "上海 · 外滩", "Shanghai · The Bund", "上海・外灘"), suzhou: L("쑤저우", "苏州", "Suzhou", "蘇州"),
+      wuxi: L("우시", "无锡", "Wuxi", "無錫"), jiaxing: L("자싱", "嘉兴", "Jiaxing", "嘉興"),
+      zhengzhou: L("정저우", "郑州", "Zhengzhou", "鄭州"), zhuhai: L("주하이", "珠海", "Zhuhai", "珠海"),
+      changsha: L("창사", "长沙", "Changsha", "長沙"), chengdu: L("청두", "成都", "Chengdu", "成都"),
+      chongqing: L("충칭", "重庆", "Chongqing", "重慶"), taizhou: L("타이저우", "台州", "Taizhou", "台州"),
+      classmates: L("상하이 · 반 친구들", "上海 · 同学们", "Shanghai · classmates", "上海・クラスメート"), hangzhou: L("항저우", "杭州", "Hangzhou", "杭州")
+    };
+    const TRAVEL = ["guangzhou", "nanjing", "dalian", "xiamen", "shunde", "shenzhen", "suzhou", "wuxi", "jiaxing", "zhengzhou", "zhuhai", "changsha", "chengdu", "chongqing", "taizhou", "hangzhou"];
+    const SH_TXT = {
+      bund: L("2025년, 두 번째 중국 생활을 상하이에서 하게 되었어요", "2025年，我在上海开始了第二次中国生活", "In 2025, I began my second life in China — in Shanghai", "2025年、2回目の中国生活を上海で送ることになりました"),
+      cls: L("동화대학교에서 수업을 듣고 여러 활동을 하며", "在东华大学上课、参加各种活动", "Taking classes and joining activities at Donghua University", "東華大学で授業を受け、いろいろな活動をしながら"),
+      a: L("학업은 물론 다양한 곳을 여행 다니며", "除了学习，还去了很多地方旅行", "Besides studying, I traveled to many different places", "勉強はもちろん、いろいろな場所を旅して"),
+      b: L("지역마다 다른 음식과 말투, 분위기를 직접 경험했어요", "亲身体验了各地不同的饮食、口音和氛围", "experiencing each region's food, dialect and atmosphere firsthand", "地域ごとの食べ物や方言、雰囲気を肌で感じました"),
+      c1: L("여행만 다닌 것이 아니라 학업도 무사히 마쳐서", "不只是旅行，学习也顺利完成了", "It wasn't only travel — I completed my studies as well", "旅行だけでなく、勉強も無事に終えて"),
+      c2: L("두 학기 모두 수료증까지 받았습니다", "两个学期都拿到了结业证书", "and got certificates for both semesters", "2学期とも修了証をもらいました"),
+      l1: L("1학기 수료", "第一学期结业", "1st semester completed", "1学期修了"),
+      l2: L("2학기 수료", "第二学期结业", "2nd semester completed", "2学期修了"),
+      travel: L("중국 여행", "中国旅行", "Traveling China", "中国旅行"),
+      cert: L("수료", "结业", "Certificates", "修了")
+    };
+    function shanghaiScenes() {
+      const s = [
+        { img: C("bund"), label: PLACE.bund[lang], cap: SH_TXT.bund[lang], chap: PLACE.bund[lang], dur: 4 },
+        { img: C("classmates"), label: PLACE.classmates[lang], cap: SH_TXT.cls[lang], chap: PLACE.classmates[lang], dur: 4 }
+      ];
+      TRAVEL.forEach((k, n) => s.push({ img: C(k), label: PLACE[k][lang], cap: n < 8 ? SH_TXT.a[lang] : SH_TXT.b[lang], chap: n === 0 ? SH_TXT.travel[lang] : null, dur: 2.6 }));
+      s.push({ img: C("cert1"), fit: "contain", label: SH_TXT.l1[lang], cap: SH_TXT.c1[lang], chap: SH_TXT.cert[lang], dur: 4 });
+      s.push({ img: C("cert2"), label: SH_TXT.l2[lang], cap: SH_TXT.c2[lang], dur: 4 });
+      return s;
+    }
+    const SY_IMG = ["sy_love", "sy_friends", "sy_dinner", "sy_birthday", "sy_cafe", "sy_ski"];
+    const SY_TXT = {
+      ko: ["2023년, 처음 중국에서 생활하게 됐는데 처음엔 모든 게 낯설었어요", "현지인 친구를 사귀는 게 목표였는데, 다행히 좋은 친구들을 많이 만났어요", "중국 친구들뿐만 아니라", "여러 나라에서 온 친구들과도 인연을 맺게 됐어요", "함께 밥 먹고 이야기 나누면서", "외국인 친구들과 어울리는 법을 자연스럽게 배웠어요"],
+      zh: ["2023年第一次在中国生活，一开始一切都很陌生", "我的目标是交当地的朋友，幸运的是认识了很多好朋友", "不只是中国朋友", "还和来自各个国家的朋友结下了缘分", "一起吃饭、聊天", "自然而然地学会了和外国朋友相处"],
+      en: ["In 2023 I lived in China for the first time, and at first everything felt unfamiliar", "My goal was to make local friends, and I ended up meeting so many good ones", "Not only Chinese friends", "but friends from many different countries too", "Sharing meals and long conversations", "I naturally learned how to get along with people from abroad"],
+      ja: ["2023年、初めて中国で暮らすことになって、最初は何もかも慣れませんでした", "現地の友達をつくるのが目標でしたが、たくさんの良い友達に出会えました", "中国の友達だけでなく", "いろいろな国の友達とも縁を結ぶことができました", "一緒にご飯を食べて話をしながら", "外国の友達との付き合い方を自然と学びました"]
+    };
+    const SY_LABEL = L("심양 · 교환학생", "沈阳 · 交换生", "Shenyang · Exchange", "瀋陽・交換留学");
+    const shenyangScenes = () => SY_IMG.map((f, n) => ({ img: C(f), label: SY_LABEL[lang], cap: SY_TXT[lang][n], chap: n === 0 ? SY_LABEL[lang] : null, dur: 4 }));
+
+    const QA_IMG = [
+      ["card:profile", "../images/thumbs/src/kyonggi.jpg"],
+      ["card:mbti"],
+      ["../images/thumbs/src/sau.jpg", C("sy_love"), C("bund"), C("cert2")],
+      ["card:jp"],
+      ["card:tools"],
+      ["card:motto"],
+      ["card:flags"]
+    ];
+
+    const PRES_CAPS = {
+      chuseok: {
+        ko: ["안녕하십니까. 오늘은 한국의 추석과 중국의 중추절을 비교해 발표하겠습니다", "발표는 기원, 공통점, 음식, 놀이 순으로 진행하겠습니다", "추석은 신라 시대 '가배'에서, 중추절은 달 숭배와 항아 전설에서 유래했습니다", "두 명절은 모두 음력 8월 15일이며, 가족이 모여 수확에 감사하는 날입니다", "놀이에는 차이가 있습니다. 한국은 강강술래처럼 함께 움직이는 놀이, 중국은 달맞이처럼 정적인 놀이가 중심입니다", "음식의 경우 송편은 풍년과 희망을, 월병은 가족의 화합을 상징합니다", "이상으로 발표를 마치겠습니다. 감사합니다"],
+        zh: ["大家好，今天我将比较韩国的秋夕和中国的中秋节", "发表按照起源、共同点、饮食、游戏的顺序进行", "秋夕源于新罗时代的“嘉俳”，中秋节源于拜月习俗和嫦娥奔月的传说", "两个节日都在农历八月十五，都是家人团聚、感恩丰收的日子", "在游戏方面有所不同：韩国以羌羌水越来等集体活动为主，中国以赏月等静态活动为主", "饮食方面，松饼象征丰收与希望，月饼象征团圆与和睦", "我的发表到此结束，谢谢大家"],
+        en: ["Good afternoon. Today I will compare Korea's Chuseok and China's Mid-Autumn Festival", "I will cover origins, common ground, food and traditional games", "Chuseok originates from Silla's 'Gabae', while Mid-Autumn comes from moon worship and the legend of Chang'e", "Both fall on the 15th day of the 8th lunar month, a day for family and giving thanks for the harvest", "The games differ: Korea focuses on group activities such as ganggangsullae, China on quieter ones such as moon viewing", "Songpyeon symbolizes a good harvest and hope, while mooncakes symbolize family unity", "That concludes my presentation. Thank you"],
+        ja: ["本日は韓国の秋夕と中国の中秋節を比較して発表いたします", "起源、共通点、食べ物、遊びの順にご説明します", "秋夕は新羅時代の「嘉俳」に、中秋節は月を拝む習慣と嫦娥伝説に由来します", "どちらも旧暦8月15日で、家族が集まり収穫に感謝する日です", "遊びには違いがあり、韓国はカンガンスルレなどの集団的な遊び、中国はお月見などの静的な遊びが中心です", "ソンピョンは豊作と希望を、月餅は家族の和を象徴しています", "以上で発表を終わります。ありがとうございました"]
+      },
+      orion: {
+        ko: ["안녕하십니까. 오늘은 오리온의 국내외 가격 전략을 분석해 발표하겠습니다", "기업 개요, 국내 가격 전략, 해외 가격 전략, 국내외 비교 순으로 말씀드리겠습니다", "오리온은 1956년 설립되었으며, 2024년 매출 3.1조 원 중 65%가 해외에서 발생했습니다", "국내에서는 중저가를 안정적으로 유지하며 '국민 과자'로 자리 잡았고, 시장 점유율은 15.8%입니다", "해외에서는 국가별로 전략을 달리합니다. 중국은 프리미엄, 러시아는 품질, 베트남은 점유율 확대에 집중합니다", "국내는 표준화와 가격 안정, 해외는 맛·유통·가격의 현지화가 핵심입니다", "요약하면 국내는 '안정', 해외는 '변화'입니다", "이러한 균형을 통해 오리온은 세계 12위 제과 기업으로 성장했습니다. 감사합니다"],
+        zh: ["大家好，今天我将分析好丽友的国内外定价策略", "依次介绍企业概况、韩国国内定价、海外定价以及国内外对比", "好丽友成立于1956年，2024年销售额3.1万亿韩元，其中65%来自海外", "在韩国保持中低价稳定，成为“国民零食”，市场占有率为15.8%", "海外按国家采取不同策略：中国合理溢价，俄罗斯品质取胜，越南抢占市场", "国内的核心是标准化与价格稳定，海外的核心是口味、渠道和定价的本土化", "总结来说，国内求“稳”，海外求“变”", "凭借这种平衡，好丽友成长为全球第12大零食企业。谢谢大家"],
+        en: ["Good afternoon. Today I will analyze Orion's pricing strategy at home and abroad", "I will cover the company, domestic pricing, overseas pricing, and a comparison", "Orion was founded in 1956; 65% of its ₩3.1 trillion sales in 2024 came from overseas", "In Korea it keeps mid-to-low prices stable as a 'national snack', with a 15.8% market share", "Overseas, the strategy differs by country: premium in China, quality in Russia, market share in Vietnam", "At home the key is standardization and price stability; abroad, localized taste, channels and pricing", "In summary: stability at home, change abroad", "This balance has made Orion the world's 12th-largest snack maker. Thank you"],
+        ja: ["本日はオリオンの国内外の価格戦略について分析し、発表いたします", "企業概要、国内価格戦略、海外価格戦略、国内外の比較の順にご説明します", "オリオンは1956年創業、2024年の売上3.1兆ウォンのうち65%が海外です", "国内では中低価格を安定的に維持し「国民的お菓子」として定着、シェアは15.8%です", "海外では国ごとに戦略が異なり、中国はプレミアム、ロシアは品質、ベトナムはシェア拡大に注力しています", "国内は標準化と価格安定、海外は味・流通・価格の現地化が鍵です", "まとめると、国内は「安定」、海外は「変化」です", "このバランスによりオリオンは世界12位の製菓企業に成長しました。ありがとうございました"]
+      }
+    };
+
+    // 자기소개 Q&A 영상 대본 (질문, 자막 줄)
+    const QA = {
+      ko: [
+        ["자기소개 부탁드려요", ["안녕하세요! 김서연입니다", "경기대에서 경영학 전공하고 있고요, 중어중문학도 복수전공 중이에요"]],
+        ["MBTI가 뭐예요?", ["ISTP예요!"]],
+        ["중국어는 어떻게 배웠어요?", ["2023년에 심양으로 교환학생을 갔어요", "그곳에서 한국인은 저 혼자였지만, 잘 적응해서 뜻깊은 시간을 보냈어요", "2025년에는 상하이 동화대학교에서 어학연수를 하였으며", "두 학기 연속 반 1등 했습니다"]],
+        ["일본어도 할 줄 알아요?", ["JLPT N3 있어요", "기본적인 대화 정도는 가능해요!"]],
+        ["자주 쓰는 프로그램은요?", ["Claude, PPT, 워드 진짜 자주 써요", "발표 자료랑 문서 만들 때 필수템!"]],
+        ["좌우명이 있나요?", ["제 좌우명은 이거예요", "하고자 하는 의지만 있으면 일은 반드시 이루어진다!"]],
+        ["앞으로 하고 싶은 일은?", ["한국, 중국, 일본 사이에서", "사람과 사람을 이어 주는 일을 하고 싶어요!"]]
+      ],
+      zh: [
+        ["请做个自我介绍", ["大家好！我是金谞延", "我在京畿大学主修工商管理，双专业是中国语言文学"]],
+        ["你的MBTI是什么？", ["我是ISTP！"]],
+        ["中文是怎么学的？", ["2023年我去沈阳做交换生", "那里只有我一个韩国人，但我很快适应了，度过了很有意义的时光", "2025年在上海东华大学进行了语言研修", "连续两个学期班级第一"]],
+        ["你也会日语吗？", ["我有JLPT N3", "日常对话没问题！"]],
+        ["常用的软件有哪些？", ["Claude、PPT、Word用得最多", "做展示和写文档必备！"]],
+        ["你的座右铭是？", ["我的座右铭是", "有志者事竟成！"]],
+        ["以后想做什么？", ["我想在韩国、中国、日本之间", "做连接人与人的工作！"]]
+      ],
+      en: [
+        ["Tell us about yourself", ["Hi! I'm KIMSEOYEON", "I study Business at Kyonggi University, with a double major in Chinese"]],
+        ["What's your MBTI?", ["ISTP!"]],
+        ["How did you learn Chinese?", ["In 2023 I went to Shenyang as an exchange student", "I was the only Korean there, but I settled in well and had a meaningful time", "In 2025 I studied at Donghua University in Shanghai", "Top of my class two semesters in a row"]],
+        ["Do you speak Japanese too?", ["I have JLPT N3", "Everyday conversation is no problem!"]],
+        ["What tools do you use most?", ["Claude, PowerPoint and Word — all the time", "Must-haves for slides and documents!"]],
+        ["Do you have a motto?", ["My motto is", "where there's a will, there's a way!"]],
+        ["What do you want to do next?", ["Between Korea, China and Japan", "I want to connect people with people!"]]
+      ],
+      ja: [
+        ["自己紹介をお願いします", ["こんにちは！キム・ソヨンです", "京畿大学で経営学を専攻していて、中国語中国文学も複数専攻しています"]],
+        ["MBTIは？", ["ISTPです！"]],
+        ["中国語はどうやって学んだの？", ["2023年に瀋陽へ交換留学しました", "韓国人は私ひとりでしたが、すぐに慣れて有意義な時間を過ごしました", "2025年は上海の東華大学で語学研修をして", "2学期連続でクラス1位でした"]],
+        ["日本語も話せるの？", ["JLPT N3を持っています", "日常会話ならできます！"]],
+        ["よく使うツールは？", ["Claude、PPT、Wordをめっちゃ使います", "発表資料と文書づくりの必需品！"]],
+        ["座右の銘はありますか？", ["私の座右の銘は", "志ある者は事竟に成る！"]],
+        ["これからやりたいことは？", ["韓国・中国・日本のあいだで", "人と人をつなぐ仕事がしたいです！"]]
+      ]
+    };
+
+
+    const BN_TEXT = {
+      ko: "경기대학교에서 경영학을 공부하고, 중어중문학을 복수전공하고 있는 <b>김서연</b>입니다. 2023년 심양에서 교환학생으로 처음 중국 생활을 시작했고, 2025년에는 상하이 동화대학교에서 두 번째 중국 생활을 하며 다롄부터 청두까지 중국 곳곳을 다녔습니다. 중국어는 깊은 대화까지, 일본어는 일상 대화 정도 가능하고 MBTI는 ISTP입니다. 좌우명은 <b>有志者事竟成</b>, 하고자 하는 의지만 있으면 일은 반드시 이루어진다는 말을 늘 마음에 두고 있습니다. 앞으로는 중국어·일본어와 경영학 지식을 살려, 한국과 중국, 일본 사이에서 사람과 기업을 잇는 일을 하고 싶습니다.",
+      zh: "大家好，我是<b>金谞延</b>，在京畿大学主修工商管理，双专业是中国语言文学。2023年我在沈阳做交换生，开始了第一次中国生活；2025年在上海东华大学语言研修，开始了第二次中国生活，从大连到成都走遍了中国各地。中文可以深入交流，日语可以日常对话，MBTI是ISTP。我的座右铭是<b>有志者事竟成</b>。 今后，我希望发挥中文、日语和经营学知识，在韩国、中国和日本之间做连接人与企业的工作。",
+      en: "I'm <b>KIMSEOYEON</b> — a Business major at Kyonggi University with a double major in Chinese Language & Literature. I first lived in China in 2023 as an exchange student in Shenyang, and again in 2025 at Donghua University in Shanghai, traveling everywhere from Dalian to Chengdu. I speak Chinese at an advanced level and Japanese for everyday conversation. ISTP. My motto: <b>有志者事竟成</b> — where there's a will, there's a way. Going forward, I want to use my Chinese, Japanese and business background to connect people and companies across Korea, China and Japan.",
+      ja: "京畿大学で経営学を学び、中国語中国文学を複数専攻している<b>キム・ソヨン</b>です。2023年に瀋陽で交換留学生として初めて中国で暮らし、2025年には上海の東華大学で2回目の中国生活を送りながら、大連から成都まで中国各地を巡りました。中国語は深い会話まで、日本語は日常会話ができます。MBTIはISTP。座右の銘は<b>有志者事竟成</b>です。 これからは中国語・日本語と経営学の知識を活かして、韓国・中国・日本のあいだで人と企業をつなぐ仕事がしたいです。"
+    };
+
+    const INTRO_CAPS = [      { code: "ko", text: "안녕하세요, 한국과 세계를 잇는 김서연입니다!" },
+      { code: "zh", text: "你好，我是连接韩国与世界的金谞延！" },
+      { code: "en", text: "Hello, I'm KIMSEOYEON, connecting Korea and the world!" },
+      { code: "ja", text: "こんにちは、韓国と世界をつなぐキム・ソヨンです！" }
+    ];
+    // 弹幕: 실제 경험에서 뽑은 키워드
+    const DANMAKU = ["连接韩国与世界的人", "中韩口译", "连续两学期班级第一", "有志者事竟成", "沈阳 → 上海", "JLPT N3", "中文·日语·AI", "用小红书交朋友", "优秀奖", "韩国秋夕 vs 中秋节", "好丽友定价策略"];
+
+    let lang = "ko";
+    const t = k => I18N[lang][k] ?? "";
+    const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const PLAY = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M10 9.5v5l4-2.5z" fill="currentColor"/></svg>';
+
+    /* ---------- 썸네일 · 카드 ---------- */
+    // 썸네일 이미지: scripts/thumbs.html → scripts/build-thumbs.ps1 로 생성
+    const thumbSrc = name => `../images/thumbs/${name}_${lang}.jpg`;
+    const introThumb = () => `<span class="thumb"><img class="bg" src="${thumbSrc("intro")}" alt=""><span class="badge">CC</span></span>`;
+    const presThumb = p => `<span class="thumb"><img class="bg" src="${thumbSrc(p.thumb)}" alt="" loading="lazy">
+        <span class="plays">${PLAY}${esc(t("tab.pres"))}</span><span class="badge">${p.count}${esc(t("slides"))}</span></span>`;
+    const expThumb = e => `<span class="thumb"><img class="bg" src="${thumbSrc(e.thumb)}" alt="" loading="lazy">
+        <span class="plays">${PLAY}${esc(t("tab.exp"))}</span><span class="badge">${e.badge}</span></span>`;
+    const actThumb = (a, big) => big
+      ? `<span class="short-stage"><span class="blur" style="background-image:url('${thumbSrc(a.thumb)}')"></span><img src="${thumbSrc(a.thumb)}" alt=""></span>`
+      : `<span class="sthumb"><img class="bg" src="${thumbSrc(a.thumb)}" alt="" loading="lazy"></span>`;
+    const row = (title, sub) => `<span class="meta-row"><img src="../images/profile.png" alt=""><span><h4${title.zh ? ' lang="zh-Hans"' : ""}>${esc(title.text)}</h4><p class="sub">${esc(sub)}</p></span></span>`;
+
+    const skillsCard = () => `<button type="button" class="card-btn video" data-open="skills:0"><span class="thumb"><img class="bg" src="${thumbSrc("skills")}" alt=""><span class="badge">5</span></span>${row({ text: t("sk.title") }, t("name") + " · " + t("sk.sub"))}</button>`;
+    const introCard = () => `<button type="button" class="card-btn video" data-open="intro:0">${introThumb()}${row({ text: t("intro.title") }, t("name") + " · " + t("intro.sub"))}</button>`;
+    const presCard = (p, i) => `<button type="button" class="card-btn video" data-open="pres:${i}">${presThumb(p)}${row({ text: p.ttl[lang] }, t("name") + " · " + p.meta[lang])}</button>`;
+    const expCard = (e, i) => `<button type="button" class="card-btn video" data-open="exp:${i}">${expThumb(e)}${row({ text: e.title[lang] }, t("name") + " · " + e.meta[lang])}</button>`;
+    const actCard = (a, i) => `<button type="button" class="card-btn short" data-open="act:${i}">${actThumb(a)}<h4>${esc(a.title[lang])}</h4><p class="sub">${esc(a.role[lang])}</p></button>`;
+
+    function renderLists() {
+      document.getElementById("rec-row").innerHTML = introCard() + PRES.map(presCard).join("") + EXP.map(expCard).join("");
+      document.querySelectorAll('[data-list="pres"]').forEach(el => el.innerHTML = PRES.map(presCard).join(""));
+      document.querySelectorAll('[data-list="exp"]').forEach(el => el.innerHTML = EXP.map(expCard).join(""));
+      document.querySelectorAll('[data-list="act"]').forEach(el => el.innerHTML = ACT.map(actCard).join(""));
+      document.querySelectorAll(".rail").forEach(updateArrows);
+    }
+
+    /* ---------- 弹幕 ---------- */
+    function fillDanmaku(box, count) {
+      box.innerHTML = "";
+      if (reduceMotion) return;
+      for (let n = 0; n < count; n++) {
+        const s = document.createElement("span");
+        s.textContent = DANMAKU[n % DANMAKU.length];
+        s.className = n % 3 === 1 ? "pink" : "";
+        s.style.top = (box.id === "banner-danmaku" ? 3 + (n * 7) % 21 : 8 + (n * 23) % 78) + "%";
+        s.style.animationDuration = (11 + (n % 4) * 2.5) + "s";
+        s.style.animationDelay = (-n * 1.7) + "s";
+        box.appendChild(s);
+      }
+    }
+
+    /* ---------- 언어 · 테마 ---------- */
+    function setLanguage(next) {
+      lang = I18N[next] ? next : "ko";
+      document.documentElement.lang = HTML_LANG[lang];
+      document.documentElement.dataset.theme = THEME[lang];
+      document.title = t("title");
+      document.querySelectorAll("[data-i18n]").forEach(el => { el.textContent = t(el.dataset.i18n); });
+      document.getElementById("cc-current").textContent = LANG_NAME[lang];
+      document.querySelectorAll("#cc-menu button").forEach(b => b.setAttribute("aria-checked", String(b.dataset.lang === lang)));
+      document.getElementById("search-input").placeholder = t("search.ph");
+      document.getElementById("about-intro").innerHTML = t("intro");
+      document.getElementById("bn-text").innerHTML = BN_TEXT[lang];
+      document.getElementById("ch-avatar").alt = t("name");
+      const resume = document.getElementById("resume-link");
+      resume.href = "../resume/KIMSEOYEON_resume_" + lang + ".pdf";
+      resume.setAttribute("download", "KIMSEOYEON_resume_" + lang + ".pdf");
+      fillDanmaku(document.getElementById("banner-danmaku"), lang === "zh" ? 8 : 0);
+      renderLists();
+      if (currentView === "search") runSearch();
+      if (!watch.hidden) renderWatch();
+      try { localStorage.setItem("lang", lang); } catch (e) {}
+    }
+
+    const ccBtn = document.getElementById("cc-btn");
+    const ccMenu = document.getElementById("cc-menu");
+    const setMenu = open => { ccMenu.hidden = !open; ccBtn.setAttribute("aria-expanded", String(open)); };
+    ccBtn.addEventListener("click", e => { e.stopPropagation(); setMenu(ccMenu.hidden); });
+    ccMenu.querySelectorAll("button").forEach(b => b.addEventListener("click", () => { setLanguage(b.dataset.lang); setMenu(false); ccBtn.focus(); }));
+    document.addEventListener("click", e => { if (!ccMenu.hidden && !ccMenu.contains(e.target)) setMenu(false); });
+
+    /* ---------- 가로 목록 화살표 ---------- */
+    function updateArrows(rail) {
+      const r = rail.querySelector(".row");
+      if (!r) return;
+      rail.querySelector(".arrow.prev").hidden = r.scrollLeft < 8;
+      rail.querySelector(".arrow.next").hidden = r.scrollLeft + r.clientWidth >= r.scrollWidth - 8;
+    }
+    document.querySelectorAll(".rail").forEach(rail => {
+      const r = rail.querySelector(".row");
+      rail.querySelector(".arrow.next").addEventListener("click", () => r.scrollBy({ left: r.clientWidth * 0.8 }));
+      rail.querySelector(".arrow.prev").addEventListener("click", () => r.scrollBy({ left: -r.clientWidth * 0.8 }));
+      r.addEventListener("scroll", () => updateArrows(rail), { passive: true });
+    });
+    window.addEventListener("resize", () => document.querySelectorAll(".rail").forEach(updateArrows));
+
+    /* ---------- 탭 ---------- */
+    let currentView = "home";
+    function showView(name) {
+      currentView = name;
+      document.querySelectorAll(".view").forEach(v => { v.hidden = v.dataset.view !== name; });
+      document.querySelectorAll(".tab").forEach(tb => tb.setAttribute("aria-selected", String(tb.dataset.tab === name)));
+      requestAnimationFrame(() => document.querySelectorAll(".rail").forEach(updateArrows));
+    }
+    document.querySelectorAll(".tab").forEach(tb => tb.addEventListener("click", () => showView(tb.dataset.tab)));
+    document.querySelectorAll("[data-go]").forEach(b => b.addEventListener("click", () => showView(b.dataset.go)));
+    document.getElementById("more-btn").addEventListener("click", () => showView("about"));
+    document.getElementById("logo-home").addEventListener("click", e => { e.preventDefault(); showView("home"); window.scrollTo({ top: 0, behavior: "smooth" }); });
+
+    /* ---------- 검색 ---------- */
+    const searchForm = document.getElementById("search-form");
+    const searchInput = document.getElementById("search-input");
+    function runSearch() {
+      const q = searchInput.value.trim().toLowerCase();
+      document.getElementById("search-title").textContent = t("search.title") + (q ? ` · "${q}"` : "");
+      const hit = arr => arr.some(s => String(s).toLowerCase().includes(q));
+      const all = o => Object.values(o);
+      const html = [];
+      PRES.forEach((p, i) => { if (hit([p.title, ...all(p.tr), ...all(p.meta), ...all(p.cap), ...all(p.kws).flat(), ...p.points.flatMap(all)])) html.push(presCard(p, i)); });
+      EXP.forEach((e, i) => { if (hit([e.city, ...all(e.title), ...all(e.meta), ...all(e.cap), ...e.points.flatMap(all)])) html.push(expCard(e, i)); });
+      ACT.forEach((a, i) => { if (hit([...all(a.title), ...all(a.role), ...all(a.kws).flat(), ...a.points.flatMap(all)])) html.push(actCard(a, i)); });
+      document.getElementById("search-results").innerHTML = html.length ? html.join("") : `<p class="empty">${esc(t("search.none"))}</p>`;
+    }
+    searchForm.addEventListener("submit", e => {
+      e.preventDefault();
+      if (THEME[lang] === "yt" && !searchForm.classList.contains("open")) { searchForm.classList.add("open"); searchInput.focus(); return; }
+      if (!searchInput.value.trim()) return showView("home");
+      runSearch(); showView("search");
+    });
+
+    /* ---------- 공유 ---------- */
+    const toast = document.getElementById("toast");
+    let toastTimer;
+    document.getElementById("share-btn").addEventListener("click", async () => {
+      const url = "https://zhujuu.github.io/zhujuu/channel/";
+      try { await navigator.clipboard.writeText(url); } catch (e) {
+        const ta = document.createElement("textarea"); ta.value = url; document.body.appendChild(ta); ta.select();
+        try { document.execCommand("copy"); } catch (e2) {} ta.remove();
+      }
+      toast.textContent = t("toast.copied"); toast.hidden = false;
+      clearTimeout(toastTimer); toastTimer = setTimeout(() => { toast.hidden = true; }, 1800);
+    });
+
+    /* ---------- 시청 화면 ---------- */
+    const watch = document.getElementById("watch");
+    let open = null, slide = 1, lastFocus = null, capTimer = null, qaT = 0, qaPlay = true;
+    function openWatch(kind, i, from) {
+      lastFocus = from || document.activeElement;
+      open = { kind, i }; slide = 1; qaT = 0; qaPlay = true;
+      watch.hidden = false;
+      document.body.style.overflow = "hidden";
+      watch.scrollTop = 0;
+      renderWatch();
+      document.getElementById("watch-close").focus();
+    }
+    function closeWatch() {
+      clearInterval(capTimer);
+      watch.hidden = true;
+      document.body.style.overflow = "";
+      if (lastFocus && document.body.contains(lastFocus)) lastFocus.focus();
+    }
+    const navBtns = (a, b) => `<button type="button" class="nav prev" data-step="-1" aria-label="Previous"${a ? " disabled" : ""}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button><button type="button" class="nav next" data-step="1" aria-label="Next"${b ? " disabled" : ""}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>`;
+
+    function renderWatch() {
+      clearInterval(capTimer);
+      const player = document.getElementById("player");
+      const title = document.getElementById("watch-title");
+      const tr = document.getElementById("watch-tr");
+      const pdf = document.getElementById("watch-pdf");
+      const meta = document.getElementById("watch-meta");
+      const pts = document.getElementById("watch-points");
+      const kws = document.getElementById("watch-kws");
+      title.removeAttribute("lang"); pdf.hidden = true; tr.textContent = "";
+      let points = [], keywords = [];
+
+      if (open.kind === "pres") {
+        const p = PRES[open.i];
+        const caps = PRES_CAPS[p.thumb][lang];
+        const scenes = caps.map((c, n) => ({ img: `${p.dir}/${String(n + 1).padStart(2, "0")}.jpg`, fit: "contain", cap: c, chap: c, dur: 5.5 }));
+        playScenes(scenes);
+        title.textContent = p.ttl[lang];
+        tr.innerHTML = `<span lang="zh-Hans">${esc(p.title)}</span>` + (lang === "zh" ? "" : " · " + esc(p.tr[lang]));
+        pdf.href = p.pdf; pdf.hidden = false;
+        meta.textContent = p.meta[lang] + " · " + p.count + t("slides");
+        chapters(scenes, `<li class="plain">${esc(p.about[lang])}</li>`);
+        kws.innerHTML = p.kws[lang].map(x => `<span>#${esc(x)}</span>`).join("");
+        return;
+      } else if (open.kind === "exp") {
+        const e = EXP[open.i];
+        const scenes = open.i === 0 ? shenyangScenes() : shanghaiScenes();
+        playScenes(scenes);
+        title.textContent = e.title[lang]; meta.textContent = e.meta[lang];
+        chapters(scenes, "");
+        kws.innerHTML = "";
+        return;
+      } else if (open.kind === "act") {
+        const a = ACT[open.i];
+        // Shorts: 1장 = 표지, 이후 = 핵심 역량 한 장씩 (표지와 같은 색)
+        const total = 1 + a.points.length;
+        const inner = slide === 1
+          ? `<img class="dy-img" src="${thumbSrc(a.thumb)}" alt="">`
+          : `<div class="sh-card" style="background:${a.color}">
+               <span class="sh-n">${String(slide - 1).padStart(2, "0")}</span>
+               <b class="sh-k">#${esc(a.kws[lang][slide - 2])}</b>
+               <p class="sh-p">${esc(a.points[slide - 2][lang])}</p>
+               <span class="sh-by">@${esc(t("name"))}</span>
+             </div>`;
+        player.innerHTML = `<div class="dy-stage"><div class="dy-frame">${inner}
+            <span class="sh-bars">${Array.from({ length: total }, (_, n) => `<i class="${n < slide ? "on" : ""}"></i>`).join("")}</span>
+          </div></div>
+          ${navBtns(slide === 1, slide === total)}`;
+        title.textContent = a.title[lang]; meta.textContent = a.role[lang];
+        points = a.points.map(x => x[lang]); keywords = a.kws[lang];
+      } else {
+        // 자기소개 Q&A 영상: 질문마다 그 내용에 맞는 사진 + 자막
+        const scenes = [{ img: "../images/thumbs/intro_" + lang + ".jpg", fit: "still", dur: 3.5 }];
+        QA[lang].forEach(([q, lines], qi) => {
+          const imgs = QA_IMG[qi];
+          scenes.push({ img: imgs[0], q, cap: "", dur: 1.2, chap: q });
+          lines.forEach((line, li) => scenes.push({ img: imgs[Math.min(li, imgs.length - 1)], q, cap: line, dur: 2.6 }));
+        });
+        scenes.push({ img: "card:black", title: t("qa.thanks"), sub: "rlatjdus129@naver.com", dur: 3.5 });
+        playScenes(scenes);
+        title.textContent = t("intro.title"); meta.textContent = t("intro.sub");
+        chapters(scenes, "");
+        kws.innerHTML = "";
+        return;
+      }
+
+      fillDanmaku(document.getElementById("player-dm"), lang === "zh" && open.kind !== "act" ? 6 : 0);
+      pts.innerHTML = points.map(x => `<li>${esc(x)}</li>`).join("");
+      kws.innerHTML = keywords.map(x => `<span>#${esc(x)}</span>`).join("");
+    }
+    document.getElementById("player").addEventListener("click", e => {
+      const b = e.target.closest("[data-step]");
+      if (!b) return;
+      const next = slide + Number(b.dataset.step);
+      if (next >= 1 && next <= slideCount()) { slide = next; renderWatch(); }
+    });
+    function slideCount() {
+      if (open.kind === "pres") return PRES[open.i].count;
+      if (open.kind === "act") return 1 + ACT[open.i].points.length;
+      return 1;
+    }
+    document.getElementById("watch-close").addEventListener("click", closeWatch);
+    watch.addEventListener("click", e => { if (e.target === watch) closeWatch(); });
+    document.addEventListener("click", e => {
+      const b = e.target.closest("[data-open]");
+      if (!b) return;
+      const [kind, i] = b.dataset.open.split(":");
+      openWatch(kind, Number(i), b);
+    });
+    document.addEventListener("keydown", e => {
+      if (!watch.hidden) {
+        if (e.key === "Escape") closeWatch();
+        if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+          const d = e.key === "ArrowRight" ? 1 : -1;
+          if (open.kind === "act") { const next = slide + d; if (next >= 1 && next <= slideCount()) { slide = next; renderWatch(); } }
+          else if (vpStep) vpStep(d);
+        }
+      } else if (e.key === "Escape" && !ccMenu.hidden) { setMenu(false); ccBtn.focus(); }
+    });
+
+    /* ---------- 시작 ---------- */
+    let saved = new URLSearchParams(location.search).get("lang");
+    if (!I18N[saved]) { try { saved = localStorage.getItem("lang"); } catch (e) {} }
+    setLanguage(I18N[saved] ? saved : "ko");
+    showView("home");
+  </script>
+</body>
+</html>

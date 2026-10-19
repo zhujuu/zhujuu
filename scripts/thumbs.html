@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<!-- 썸네일 템플릿
+     가로: thumbs.html?id=shenyang&lang=ko → 1280x720
+     세로 카드뉴스 표지: thumbs.html?id=s-wok&lang=ko → 720x1280
+     썸네일마다 레이아웃·색·글꼴을 다르게 하고, 한국어·중국어·영어(일본어 버전은 일본어·중국어·영어)를 섞어 씀.
+     scripts/build-thumbs.ps1 로 일괄 생성 -->
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Do+Hyeon&family=Noto+Sans+KR:wght@700;900&family=Noto+Sans+SC:wght@700;900&family=Noto+Sans+JP:wght@700;900&family=Archivo+Black&family=Bebas+Neue&family=Permanent+Marker&family=Ma+Shan+Zheng&family=Gowun+Batang:wght@700&family=Noto+Serif+SC:wght@700;900&family=Noto+Serif+JP:wght@700;900&family=Noto+Serif+KR:wght@700;900&family=Playfair+Display:wght@700&family=Nanum+Brush+Script&family=Zhi+Mang+Xing&family=Yusei+Magic&family=Caveat+Brush&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { overflow: hidden; background: #000; }
+  .t { position: relative; overflow: hidden; }
+  .t.h { width: 1280px; height: 720px; }
+  .t.v { width: 720px; height: 1280px; }
+  .bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .abs { position: absolute; }
+
+  /* 본문(현재 언어) 굵은 글꼴 */
+  .m { font-family: "Black Han Sans", "Noto Sans KR", sans-serif; font-weight: 400; }
+  .zh .m { font-family: "Noto Sans SC", sans-serif; font-weight: 900; }
+  .ja .m { font-family: "Noto Sans JP", sans-serif; font-weight: 900; }
+  .en .m { font-family: "Archivo Black", sans-serif; }
+  .sub { font-family: "Noto Sans KR", sans-serif; font-weight: 900; }
+  .zh .sub { font-family: "Noto Sans SC", sans-serif; }
+  .ja .sub { font-family: "Noto Sans JP", sans-serif; }
+
+  /* 섞어 쓰는 언어 요소 */
+  .x-zh { font-family: "Ma Shan Zheng", "Noto Sans SC", serif; font-weight: 400; }   /* 붓글씨 한자 */
+  .x-en { font-family: "Bebas Neue", sans-serif; letter-spacing: .04em; }            /* 길쭉한 영문 */
+  .x-mk { font-family: "Permanent Marker", cursive; }                                 /* 마커 영문 */
+  .x-ko { font-family: "Do Hyeon", sans-serif; }                                      /* 네모난 한글 */
+  .x-ja { font-family: "Noto Sans JP", sans-serif; font-weight: 900; }
+
+  .stroke { -webkit-text-stroke: 12px #111; paint-order: stroke fill; }
+  .nowrap { white-space: nowrap; }
+  .boxline { display: inline-block; background: #fff; color: #111; padding: 4px 18px 8px; margin-bottom: 10px; box-shadow: 6px 6px 0 rgba(0,0,0,.35); }
+  .tag { display: inline-block; padding: 6px 18px 8px; border-radius: 10px; }
+  .wm { position: absolute; right: 26px; top: 24px; display: flex; align-items: center; gap: 8px; background: rgba(17,17,17,.7); color: #fff; border-radius: 10px; padding: 7px 12px 7px 9px; font-family: "Noto Sans KR", sans-serif; font-weight: 900; font-size: 22px; }
+  .wm i { width: 28px; height: 20px; border-radius: 5px; background: #ff0033; display: grid; place-items: center; }
+  .wm i::after { content: ""; border-left: 9px solid #fff; border-top: 6px solid transparent; border-bottom: 6px solid transparent; margin-left: 2px; }
+
+  /* 카드뉴스 표지 */
+  .cn-top { position: absolute; left: 0; right: 0; top: 0; height: 620px; overflow: hidden; }
+  .cn-top img { width: 100%; height: 100%; object-fit: cover; }
+  .cn-panel { position: absolute; left: 0; right: 0; bottom: 0; height: 660px; padding: 64px 52px 0; }
+  .cn-label { display: inline-block; font-family: "Bebas Neue", sans-serif; font-size: 38px; letter-spacing: .12em; padding: 2px 14px 0; border-radius: 4px; }
+  .cn-title { margin-top: 26px; font-size: 100px; line-height: 1.12; }
+  .cn-title span { display: block; white-space: nowrap; }
+  .cn-foot { position: absolute; left: 52px; right: 52px; bottom: 50px; display: flex; justify-content: space-between; align-items: center; font-family: "Bebas Neue", sans-serif; font-size: 36px; letter-spacing: .08em; }
+  .cn-foot .dots { display: flex; gap: 10px; }
+  .cn-foot .dots b { width: 14px; height: 14px; border-radius: 50%; background: currentColor; opacity: .35; }
+  .cn-foot .dots b:first-child { width: 40px; border-radius: 7px; opacity: 1; }
+  /* Q&A 창 상자 (자기소개) */
+  .qbox { position: absolute; background: rgba(255,255,255,.94); border-radius: 10px; box-shadow: 0 6px 16px rgba(0,0,0,.18); padding: 26px 22px 12px; font-family: "Noto Sans KR", sans-serif; font-weight: 700; font-size: 36px; color: #222; white-space: nowrap; }
+  .zh .qbox { font-family: "Noto Sans SC", sans-serif; }
+  .ja .qbox { font-family: "Noto Sans JP", sans-serif; }
+  .qbox::before { content: ""; position: absolute; left: 12px; top: 10px; width: 9px; height: 9px; border-radius: 50%; background: #ff5f57; box-shadow: 14px 0 0 #febc2e, 28px 0 0 #28c840; }
+  .serif-out { color: #fff; -webkit-text-stroke: 3px #3a3a3a; paint-order: stroke fill; font-family: "Gowun Batang", "Noto Serif KR", serif; font-weight: 700; letter-spacing: .02em; text-shadow: 0 3px 10px rgba(0,0,0,.25); }
+  .zh .serif-out { font-family: "Noto Serif SC", serif; }
+  .ja .serif-out { font-family: "Noto Serif JP", serif; }
+  .en .serif-out { font-family: "Playfair Display", serif; }
+
+  /* 다큐 스타일 (문화 비교) */
+  .doc-word { color: #fff; -webkit-text-stroke: 6px #111; paint-order: stroke fill; font-family: "Noto Serif KR", serif; font-weight: 900; }
+  .doc-sub { font-family: "Noto Sans KR", sans-serif; font-weight: 900; color: #fff; text-shadow: 0 2px 6px rgba(0,0,0,.8); }
+  .zh .doc-sub { font-family: "Noto Sans SC", sans-serif; }
+  .ja .doc-sub { font-family: "Noto Sans JP", sans-serif; }
+
+  /* 손글씨 브이로그 (상하이) */
+  .hand { color: #fff; font-family: "Nanum Brush Script", cursive; text-shadow: 0 0 2px #2b2b2b, 0 0 4px #2b2b2b, 3px 4px 0 rgba(0,0,0,.55); line-height: 1.02; white-space: nowrap; }
+  .zh .hand { font-family: "Zhi Mang Xing", "Ma Shan Zheng", cursive; }
+  .ja .hand { font-family: "Yusei Magic", sans-serif; }
+  .en .hand { font-family: "Caveat Brush", cursive; }
+
+  /* 도우인 표지 */
+  .dy-badge { position: absolute; left: 30px; top: 30px; display: flex; align-items: center; gap: 8px; background: rgba(0,0,0,.55); color: #fff; border-radius: 8px; padding: 6px 14px; font-family: "Noto Sans SC", sans-serif; font-weight: 700; font-size: 30px; }
+  .dy-title { position: absolute; left: 30px; right: 30px; text-align: center; color: #fff; font-family: "Black Han Sans", sans-serif; line-height: 1.12; -webkit-text-stroke: 10px #111; paint-order: stroke fill; filter: drop-shadow(0 4px 6px rgba(0,0,0,.4)); }
+  .zh .dy-title { font-family: "Noto Sans SC", sans-serif; font-weight: 900; }
+  .ja .dy-title { font-family: "Noto Sans JP", sans-serif; font-weight: 900; }
+  .en .dy-title { font-family: "Archivo Black", sans-serif; }
+  .dy-title span { display: block; white-space: nowrap; }
+  .logo-plate { background: #fff; border-radius: 16px; display: grid; place-items: center; box-shadow: 0 8px 20px rgba(0,0,0,.3); }
+  .cn-num { position: absolute; right: 36px; top: 34px; font-family: "Bebas Neue", sans-serif; font-size: 36px; letter-spacing: .06em; color: #fff; background: rgba(0,0,0,.55); border-radius: 999px; padding: 4px 18px 2px; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+  const P = new URLSearchParams(location.search);
+  const id = P.get("id") || "intro";
+  const lang = P.get("lang") || "ko";
+  document.body.className = lang;
+  const T = (ko, zh, en, ja) => ({ ko, zh, en, ja })[lang];
+  const SRC = "../images/thumbs/src/";
+  const wm = () => `<div class="wm"><i></i>${T("김서연", "金谞延", "KIMSEOYEON", "キム・ソヨン")}</div>`;
+  // 현재 언어가 아닌 '섞어 쓸' 언어: 한·중·영 중 나머지 (일본어 버전은 중·영)
+  const others = lang === "ja" ? ["zh", "en"] : ["ko", "zh", "en"].filter(l => l !== lang);
+  const has = l => others.includes(l);
+
+  const designs = {
+    /* 1. 채널 소개: 크림색 + 토마토 레드, 인사 스티커 */
+    intro: () => `<div class="t h" style="background:#fff3df">
+      <div class="abs" style="right:-80px;top:-60px;width:620px;height:840px;background:#ff5a3c;transform:rotate(8deg)"></div>
+      <div class="abs" style="right:430px;top:-40px;width:40px;height:820px;background:#ffd23f;transform:rotate(8deg)"></div>
+      <img src="${SRC}me.png" style="position:absolute;right:70px;bottom:0;height:680px;filter:drop-shadow(6px 0 0 #fff) drop-shadow(-6px 0 0 #fff) drop-shadow(0 -6px 0 #fff)">
+      <div class="abs m nowrap" data-fit="700" style="left:60px;top:120px;font-size:116px;color:#1d1d1d;line-height:1.05">${T("안녕하세요,", "大家好，", "Hi there,", "はじめまして、")}</div>
+      <div class="abs m nowrap" data-fit="700" style="left:60px;top:250px;font-size:126px;color:#ff5a3c;line-height:1.05">${T("김서연입니다", "我是金谞延", "I'm KIMSEOYEON", "キム・ソヨンです")}</div>
+      <div class="abs" style="left:60px;top:440px;display:flex;gap:18px;align-items:center">
+        ${has("zh") ? `<span class="tag x-zh" style="background:#d7263d;color:#fff;font-size:64px;transform:rotate(-5deg)">你好</span>` : ""}
+        ${has("en") ? `<span class="tag x-mk" style="background:#1b998b;color:#fff;font-size:54px;transform:rotate(4deg)">Hello!</span>` : ""}
+        ${has("ko") ? `<span class="tag x-ko" style="background:#2e4057;color:#fff;font-size:58px;transform:rotate(-3deg)">안녕하세요</span>` : ""}
+        ${lang === "ja" ? `<span class="tag x-ko" style="background:#2e4057;color:#fff;font-size:58px;transform:rotate(-3deg)">안녕하세요</span>` : ""}
+      </div>
+      <div class="abs x-en" style="left:64px;bottom:44px;font-size:40px;color:#1d1d1d">SEOUL · SHENYANG · SHANGHAI</div>
+    </div>`,
+
+    /* 2. 심양: 차가운 겨울 호수 + 흰 박스 글씨 + 붉은 인장 */
+    shenyang: () => `<div class="t h">
+      <img class="bg" src="${SRC}sau.jpg" style="object-position:30% 50%;filter:saturate(.85) contrast(1.08) brightness(1.05)">
+      <div class="abs" style="inset:0;background:linear-gradient(90deg,rgba(10,20,40,.55),rgba(10,20,40,0) 70%)"></div>
+      ${wm()}
+      ${has("en") ? `<div class="abs x-en" style="left:60px;top:58px;font-size:48px;color:#fff">EXCHANGE STUDENT · 2023</div>` : ""}
+      ${lang === "en" ? `<div class="abs x-ko" style="left:60px;top:58px;font-size:44px;color:#fff">교환학생 · 2023</div>` : ""}
+      <div class="abs" style="left:56px;bottom:56px">
+        <div class="m boxline nowrap" data-fit="820" style="font-size:84px">${T("심양에서 한국인은", "在沈阳，韩国人", "In Shenyang, the only Korean", "瀋陽で韓国人は")}</div><br>
+        <div class="m boxline nowrap" data-fit="820" style="font-size:96px;background:#e63946;color:#fff">${T("나 혼자였다", "只有我一个", "was me", "私ひとりだった")}</div>
+      </div>
+      <div class="abs x-zh" style="right:70px;bottom:60px;width:190px;height:400px;background:#c1121f;color:#fff;font-size:150px;line-height:1.25;text-align:center;border-radius:10px;padding-top:14px;box-shadow:8px 8px 0 rgba(0,0,0,.35)">沈<br>阳</div>
+    </div>`,
+
+    /* 3. 상하이: 노랑·검정 테이프 + 마커 영문 */
+    shanghai: () => `<div class="t h">
+      <img class="bg" src="${SRC}donghua.jpg" style="object-position:50% 62%;filter:saturate(1.15) contrast(1.05)">
+      <div class="abs" style="inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 35%,rgba(0,0,0,.75))"></div>
+      ${wm()}
+      <div class="abs x-zh" style="left:50px;top:30px;font-size:150px;color:#fff;text-shadow:0 6px 16px rgba(0,0,0,.6)">上海</div>
+      ${has("en") ? `<div class="abs x-mk" style="left:400px;top:96px;font-size:56px;color:#ffd23f;transform:rotate(-6deg);text-shadow:0 3px 8px rgba(0,0,0,.6)">1st place ×2!</div>` : ""}
+      ${lang === "en" ? `<div class="abs x-ko" style="left:400px;top:96px;font-size:56px;color:#ffd23f;transform:rotate(-6deg);text-shadow:0 3px 8px rgba(0,0,0,.6)">반 1등 두 번!</div>` : ""}
+      <div class="abs" style="left:50px;bottom:50px">
+        <div class="m stroke nowrap" data-fit="1000" style="font-size:96px;color:#fff;line-height:1.1">${T("동화대학교 어학연수", "东华大学语言研修", "Language program in Shanghai", "東華大学で語学研修")}</div>
+        <div class="m nowrap" data-fit="1000" style="display:inline-block;margin-top:14px;font-size:96px;background:#ffd23f;color:#111;padding:2px 22px 10px;transform:rotate(-1.5deg);box-shadow:8px 8px 0 #111">${T("2학기 연속 반 1등", "连续两学期班级第一", "Top of the class, twice", "2学期連続クラス1位")}</div>
+      </div>
+    </div>`,
+
+    /* 4. 추석 vs 중추절: 한글·한자·영문이 한 화면에 */
+    chuseok: () => `<div class="t h" style="background:#111">
+      <img src="${SRC}songpyeon.jpg" style="position:absolute;left:0;top:0;width:640px;height:720px;object-fit:cover;filter:saturate(1.1)">
+      <img src="${SRC}mooncake.jpg" style="position:absolute;right:0;top:0;width:640px;height:720px;object-fit:cover;object-position:40% 50%">
+      <div class="abs" style="left:0;top:0;width:640px;height:720px;background:linear-gradient(180deg,rgba(20,90,60,.15),rgba(20,70,50,.7))"></div>
+      <div class="abs" style="right:0;top:0;width:640px;height:720px;background:linear-gradient(180deg,rgba(150,40,20,.1),rgba(120,30,10,.72))"></div>
+      ${wm()}
+      <div class="abs x-ko stroke" style="left:0;width:640px;bottom:150px;text-align:center;font-size:170px;color:#fff;-webkit-text-stroke-width:10px">추석</div>
+      <div class="abs x-zh" style="right:0;width:640px;bottom:140px;text-align:center;font-size:180px;color:#ffd23f;text-shadow:0 6px 18px rgba(0,0,0,.6)">中秋节</div>
+      <div class="abs x-en" style="left:575px;top:250px;width:130px;height:130px;border-radius:50%;background:#fff;color:#d7263d;font-size:84px;display:grid;place-items:center;box-shadow:0 0 0 8px #111">VS</div>
+      <div class="abs sub nowrap" data-fit="1100" style="left:50%;transform:translateX(-50%);bottom:52px;font-size:46px;color:#fff;background:rgba(0,0,0,.55);padding:6px 24px;border-radius:999px">${T("같은 보름달, 다른 명절", "同一轮满月，不同的节日", "Same full moon, two holidays", "同じ満月、違う祝日")}</div>
+    </div>`,
+
+    /* 5. 오리온: 빨강·노랑, 가격표 */
+    orion: () => `<div class="t h" style="background:#e10600">
+      <img src="${SRC}chocopie.jpg" style="position:absolute;right:0;top:0;width:760px;height:720px;object-fit:cover;object-position:60% 50%">
+      <div class="abs" style="left:0;top:0;width:620px;height:720px;background:#e10600;clip-path:polygon(0 0,100% 0,85% 100%,0 100%)"></div>
+      ${wm()}
+      ${has("zh") ? `<div class="abs x-zh" style="left:56px;top:46px;font-size:92px;color:#ffd23f">好丽友</div>` : ""}
+      ${lang === "zh" ? `<div class="abs x-ko" style="left:56px;top:60px;font-size:80px;color:#ffd23f">오리온</div>` : ""}
+      <div class="abs m nowrap" data-fit="600" style="left:56px;top:200px;font-size:92px;color:#fff;line-height:1.15">${T("초코파이 가격,", "好丽友派的价格", "Choco Pie prices", "チョコパイの値段")}</div>
+      <div class="abs m nowrap" data-fit="600" style="left:56px;top:315px;font-size:92px;color:#ffd23f;line-height:1.15">${T("나라마다 왜 달라?", "为什么各国不同？", "— why so different?", "国ごとになぜ違う？")}</div>
+      <div class="abs" style="left:56px;bottom:56px;display:flex;gap:14px">
+        ${[["₩","KR"],["¥","CN"],["₽","RU"],["₫","VN"]].map(([c, n], i) => `<span style="display:inline-flex;flex-direction:column;align-items:center;background:#fff;color:#111;border-radius:10px;padding:6px 16px 4px;transform:rotate(${[-4,3,-2,4][i]}deg);box-shadow:5px 5px 0 rgba(0,0,0,.3)"><b style="font-family:Archivo Black;font-size:46px;color:#e10600;line-height:1">${c}</b><i class="x-en" style="font-style:normal;font-size:28px">${n}</i></span>`).join("")}
+      </div>
+      ${has("en") ? `<div class="abs x-mk" style="right:40px;bottom:40px;font-size:52px;color:#fff;transform:rotate(-6deg);text-shadow:0 3px 8px rgba(0,0,0,.6)">price check!</div>` : ""}
+    </div>`,
+
+    /* ---------- Shorts 카드뉴스 표지 (색 다르게) ---------- */
+    "s-wok": () => cover({ img: "menu.jpg", crop: "width:1600px;height:auto;margin-left:-40px;margin-top:-660px", panel: "#ff6b4a", ink: "#fff", label: "#1d1d1d", labelInk: "#fff",
+      l1: T("중국어 통역", "中韩口译", "Chinese ↔ Korean", "中国語の通訳"), l2: T("알바 이야기", "兼职经历", "at work", "バイトの話"), hi: "#1d1d1d",
+      zh: "翻译", en: "PART-TIME" }),
+    "s-notes": () => cover({ html: notebook(), panel: "#ffc93c", ink: "#1d1d1d", label: "#1d1d1d", labelInk: "#ffc93c",
+      l1: T("직역 말고", "不要直译", "Not word for word,", "直訳じゃなくて"), l2: T("의역으로", "要意译", "but meaning", "意訳で"), hi: "#d7263d",
+      zh: "意译", en: "TRANSLATION" }),
+    "s-trophy": () => cover({ html: medal(), panel: "#6c4bd8", ink: "#fff", label: "#ffd23f", labelInk: "#1d1d1d",
+      l1: T("팀으로 받은", "团队一起拿下", "Won together:", "チームでとった"), l2: T("우수상", "优秀奖", "Excellence Award", "優秀賞"), hi: "#ffd23f",
+      zh: "优秀奖", en: "AWARD" }),
+    "s-katsu": () => cover({ img: "tonkatsu.jpg", pos: "50% 55%", panel: "#1f9e74", ink: "#fff", label: "#fff", labelInk: "#1f9e74",
+      l1: T("1년 6개월", "一年半", "1.5 years", "1年半"), l2: T("홀 담당", "负责大厅", "on the floor", "ホール担当"), hi: "#ffe14d",
+      zh: "一年半", en: "SERVER" }),
+    "s-latte": () => cover({ img: "cafe.jpg", pos: "48% 58%", panel: "#ff7aa8", ink: "#1d1d1d", label: "#1d1d1d", labelInk: "#ff7aa8",
+      l1: T("카페 3곳,", "三家咖啡店", "3 cafés,", "カフェ3店舗、"), l2: T("한 달 만에 혼자", "一个月就能独当一面", "solo in a month", "1か月でひとり立ち"), hi: "#fff",
+      zh: "咖啡", en: "BARISTA" })
+  };
+
+  function notebook() {
+    return `<div style="position:absolute;inset:0;background:#fffdf5;background-image:repeating-linear-gradient(180deg,transparent 0 58px,#cfe0f5 58px 60px);">
+      <div style="position:absolute;left:90px;top:0;bottom:0;width:3px;background:#f2a3a3"></div>
+      <div class="x-zh" style="position:absolute;left:130px;top:120px;font-size:84px;color:#1d1d1d">直译 <span style="color:#d7263d">✗</span></div>
+      <div class="x-zh" style="position:absolute;left:130px;top:250px;font-size:84px;color:#1d1d1d">意译 <span style="color:#1f9e74">✓</span></div>
+      <div class="x-ko" style="position:absolute;left:400px;top:150px;font-size:52px;color:#5a6a8e;transform:rotate(-4deg)">→ 의미를 옮기기</div>
+      <div class="x-mk" style="position:absolute;left:130px;top:410px;font-size:48px;color:#2e4057;transform:rotate(-3deg)">meaning &gt; words</div>
+    </div>`;
+  }
+  function medal() {
+    return `<div style="position:absolute;inset:0;background:radial-gradient(circle at 50% 45%,#8f74ff 0%,#4b2fb0 70%)">
+      <div style="position:absolute;left:290px;top:40px;width:60px;height:240px;background:#d7263d;transform:rotate(-14deg)"></div>
+      <div style="position:absolute;left:370px;top:40px;width:60px;height:240px;background:#1b998b;transform:rotate(14deg)"></div>
+      <div style="position:absolute;left:210px;top:220px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff2a8,#f5c518 45%,#c99700);box-shadow:0 0 0 14px #fff1b0,0 20px 40px rgba(0,0,0,.35);display:grid;place-items:center">
+        <span class="x-zh" style="font-size:96px;color:#7a5200">优秀</span></div>
+    </div>`;
+  }
+  function cover(o) {
+    const top = o.html ? o.html : `<img src="${SRC}${o.img}" style="${o.crop || `object-position:${o.pos}`};filter:saturate(1.08)">`;
+    const zhOn = has("zh") ? `<span class="x-zh" style="position:absolute;right:44px;top:-70px;font-size:120px;color:${o.panel};text-shadow:0 0 0 #fff, 0 4px 0 #fff, 4px 0 0 #fff, -4px 0 0 #fff, 0 -4px 0 #fff">${o.zh}</span>` : "";
+    return `<div class="t v" style="background:${o.panel}">
+      <div class="cn-top">${top}</div>
+      <div class="cn-num">1 / 4</div>
+      <div class="cn-panel" style="background:${o.panel};color:${o.ink}">
+        ${zhOn}
+        <span class="cn-label" style="background:${o.label};color:${o.labelInk}">CARD NEWS · ${has("en") ? o.en : "카드뉴스"}</span>
+        <div class="cn-title m"><span data-fit="616">${o.l1}</span><span data-fit="616" style="color:${o.hi}">${o.l2}</span></div>
+      </div>
+      <div class="cn-foot" style="color:${o.ink}"><span class="dots"><b></b><b></b><b></b><b></b></span><span>SWIPE →</span></div>
+    </div>`;
+  }
+
+  const flagSvg = c => ({
+    kr: `<svg viewBox="0 0 36 24" preserveAspectRatio="xMidYMid slice" style="width:100%;height:100%;display:block"><rect width="36" height="24" fill="#fff"/><g transform="translate(18 12) rotate(33.69)"><circle r="6" fill="#0047A0"/><path d="M-6 0a6 6 0 0 1 12 0z" fill="#CD2E3A"/><circle cx="-3" r="3" fill="#CD2E3A"/><circle cx="3" r="3" fill="#0047A0"/></g><g fill="#111"><g transform="translate(18 12) rotate(213.69)"><rect x="9" y="-3" width="1" height="6"/><rect x="10.5" y="-3" width="1" height="6"/><rect x="12" y="-3" width="1" height="6"/></g><g transform="translate(18 12) rotate(33.69)"><rect x="9" y="-3" width="1" height="2.7"/><rect x="9" y="0.3" width="1" height="2.7"/><rect x="10.5" y="-3" width="1" height="2.7"/><rect x="10.5" y="0.3" width="1" height="2.7"/><rect x="12" y="-3" width="1" height="2.7"/><rect x="12" y="0.3" width="1" height="2.7"/></g><g transform="translate(18 12) rotate(326.31)"><rect x="9" y="-3" width="1" height="2.7"/><rect x="9" y="0.3" width="1" height="2.7"/><rect x="10.5" y="-3" width="1" height="6"/><rect x="12" y="-3" width="1" height="2.7"/><rect x="12" y="0.3" width="1" height="2.7"/></g><g transform="translate(18 12) rotate(146.31)"><rect x="9" y="-3" width="1" height="6"/><rect x="10.5" y="-3" width="1" height="2.7"/><rect x="10.5" y="0.3" width="1" height="2.7"/><rect x="12" y="-3" width="1" height="6"/></g></g></svg>`,
+    cn: `<svg viewBox="0 0 30 20"><rect width="30" height="20" fill="#EE1C25"/><g fill="#FFDE00"><polygon points="5,2 6.2,5.6 10,5.6 7,7.8 8.1,11.4 5,9.2 1.9,11.4 3,7.8 0,5.6 3.8,5.6"/><circle cx="11" cy="2.5" r="1"/><circle cx="13" cy="4.5" r="1"/><circle cx="13" cy="7.5" r="1"/><circle cx="11" cy="9.5" r="1"/></g></svg>`,
+    jp: `<svg viewBox="0 0 30 20"><rect width="30" height="20" fill="#fff"/><circle cx="15" cy="10" r="6" fill="#BC002D"/></svg>`
+  })[c];
+  const flag = (c, w, style = "") => `<span style="display:inline-block;width:${w}px;height:${w * 2 / 3}px;border-radius:4px;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,.35);vertical-align:middle;${style}">${flagSvg(c)}</span>`;
+
+  Object.assign(designs, {
+    /* 자기소개 Q&A: 인물 가운데 + 질문 창 + 얇은 외곽선 제목 */
+    intro: () => {
+      const qs = [
+        ["MBTI?", 70, 70],
+        [T("전공?", "专业?", "Major?", "専攻?"), 130, 230],
+        [T("중국어 실력?", "中文水平?", "Chinese level?", "中国語のレベル?"), 40, 400],
+        [T("교환학생?", "交换生?", "Exchange?", "交換留学?"), 900, 60],
+        [T("좌우명?", "座右铭?", "Motto?", "座右の銘?"), 960, 230],
+        [T("일본어도?", "还会日语?", "Japanese too?", "日本語も?"), 880, 400],
+        [T("안녕?", "你好?", "Hi?", "こんにちは?"), 330, 40],
+      ];
+      return `<div class="t h" style="background:radial-gradient(70% 90% at 50% 40%,#f6efe6 0%,#e7d9c6 70%,#d7c3a8 100%)">
+        <div class="abs" style="left:0;top:0;width:180px;height:720px;background:repeating-linear-gradient(90deg,#c9b294 0 18px,#d9c5a8 18px 36px);opacity:.55"></div>
+        <div class="abs" style="right:0;top:0;width:200px;height:720px;background:repeating-linear-gradient(90deg,#7f8f64 0 22px,#93a378 22px 44px);opacity:.55"></div>
+        <img src="${SRC}me.png" style="position:absolute;left:50%;transform:translateX(-50%);bottom:60px;height:660px">
+        ${qs.map(([q, x, y]) => `<div class="qbox" style="left:${x}px;top:${y}px">${q}</div>`).join("")}
+        <div class="abs" style="left:300px;top:470px">${flag("kr", 54)}</div>
+        <div class="abs" style="right:290px;top:500px">${flag("cn", 54)}</div>
+        <div class="abs serif-out nowrap" data-fit="1200" style="left:50%;transform:translateX(-50%);bottom:18px;font-size:104px">${T("김서연 자기소개 Q&A", "金谞延 自我介绍 Q&A", "KIMSEOYEON Q&A", "キム・ソヨン 自己紹介Q&A")}</div>
+      </div>`;
+    },
+
+    /* 심양에서 살아남기 */
+    shenyang: () => `<div class="t h">
+      <img class="bg" src="${SRC}sau.jpg" style="object-position:30% 50%;filter:saturate(.9) contrast(1.1)">
+      <div class="abs" style="inset:0;background:linear-gradient(180deg,rgba(0,0,0,.15),rgba(0,0,0,.05) 40%,rgba(0,0,0,.7))"></div>
+      ${wm()}
+      <div class="abs nowrap" style="right:50px;top:100px;font-size:84px;color:#fff;text-shadow:0 4px 12px rgba(0,0,0,.6);font-family:${T("'Do Hyeon'", "'Ma Shan Zheng'", "'Permanent Marker'", "'Yusei Magic'")}">${T("심양 생존기", "沈阳生存记", "Shenyang Survival", "瀋陽サバイバル")}</div>
+      <div class="abs m stroke nowrap" data-fit="1180" style="left:46px;bottom:150px;font-size:${T(150, 140, 120, 128)}px;color:#fff;line-height:1">${T("심양에서", "在沈阳", "Surviving", "瀋陽で")}</div>
+      <div class="abs m stroke nowrap" data-fit="1180" style="left:46px;bottom:28px;font-size:${T(150, 140, 120, 128)}px;color:#ffe14d;line-height:1">${T("살아남기", "活下去", "Shenyang", "生き残る")}</div>
+      <div class="abs sub" style="right:46px;bottom:40px;font-size:30px;color:#fff;background:#e63946;padding:6px 16px;border-radius:8px">${T("한국인 나 혼자", "韩国人只有我", "the only Korean", "韓国人は私だけ")}</div>
+    </div>`,
+
+    /* 상하이: 손글씨 브이로그 */
+    shanghai: () => `<div class="t h">
+      <img class="bg" src="${SRC}donghua.jpg" style="object-position:50% 60%;filter:saturate(1.1) contrast(1.02) brightness(1.03)">
+      <div class="abs" style="inset:0;background:radial-gradient(80% 70% at 50% 55%,rgba(0,0,0,0),rgba(0,0,0,.35))"></div>
+      ${wm()}
+      <div class="abs hand" data-fit="1100" style="left:50%;transform:translateX(-50%) rotate(-3deg);top:80px;font-size:${T(150, 128, 120, 110)}px;text-align:center">${T("두 번째 중국생활", "第二次中国生活", "My 2nd life in China", "2回目の中国生活")}</div>
+      <div class="abs hand" data-fit="1100" style="left:50%;transform:translateX(-50%) rotate(-2deg);top:290px;font-size:${T(140, 120, 112, 104)}px;text-align:center">${T("상하이 어학연수", "上海语言研修", "Shanghai language course", "上海で語学研修")} ${flag("cn", 110, "margin-left:14px;transform:rotate(6deg)")}</div>
+      <div class="abs hand" data-fit="900" style="left:50%;transform:translateX(-50%) rotate(-2deg);top:490px;font-size:${T(110, 96, 92, 84)}px;color:#ffe14d;text-align:center">${T("동화대학교 · 반 1등", "东华大学 · 班级第一", "Donghua Univ. · #1 in class", "東華大学・クラス1位")}</div>
+    </div>`,
+
+    /* 추석 vs 중추절: 다큐 스타일 3분할 */
+    chuseok: () => `<div class="t h" style="background:#111">
+      <img src="${SRC}songpyeon.jpg" style="position:absolute;left:0;top:0;width:426px;height:720px;object-fit:cover;filter:saturate(.9) contrast(1.05)">
+      <div class="abs" style="left:427px;top:0;width:426px;height:720px;background:radial-gradient(circle at 50% 38%,#fff6d8 0 90px,#e9c46a 92px 96px,rgba(0,0,0,0) 100px),repeating-linear-gradient(135deg,#5a0f12 0 14px,#6e1418 14px 28px)"></div>
+      <img src="${SRC}mooncake.jpg" style="position:absolute;right:0;top:0;width:426px;height:720px;object-fit:cover;object-position:40% 50%;filter:saturate(.9) contrast(1.05)">
+      <div class="abs" style="inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 45%,rgba(0,0,0,.75))"></div>
+      <div class="abs" style="left:426px;top:0;width:2px;height:720px;background:rgba(255,255,255,.5)"></div>
+      <div class="abs" style="left:853px;top:0;width:2px;height:720px;background:rgba(255,255,255,.5)"></div>
+      <div class="abs doc-sub" style="left:28px;top:22px;font-size:26px;display:flex;align-items:center;gap:8px"><span style="background:#fff;color:#111;border-radius:4px;padding:0 8px">${T("김서연", "金谞延", "KIMSEOYEON", "キム・ソヨン")}</span>${T("발표", "展示", "Talk", "発表")}</div>
+      <div class="abs doc-sub" style="right:24px;top:20px;font-size:26px;border:3px solid #fff;border-radius:6px;padding:2px 12px">${T("발표 자료", "展示资料", "Slides", "発表資料")}</div>
+      <div class="abs doc-word nowrap" style="left:0;width:426px;top:300px;text-align:center;font-size:96px">추석</div>
+      <div class="abs doc-word nowrap" style="left:427px;width:426px;top:300px;text-align:center;font-size:96px;font-family:'Noto Serif SC',serif">中秋节</div>
+      <div class="abs doc-word nowrap" style="left:854px;width:426px;top:322px;text-align:center;font-size:62px;font-family:'Playfair Display',serif">Mid-Autumn</div>
+      <div class="abs doc-sub nowrap" data-fit="900" style="left:36px;bottom:122px;font-size:40px">${T("한·중 두 나라의 비교문화", "韩中两国的比较文化", "Korea & China, compared", "韓国と中国の比較文化")}</div>
+      <div class="abs doc-sub nowrap" data-fit="800" style="left:36px;bottom:30px;font-size:84px">${T("추석 vs 중추절", "秋夕 vs 中秋节", "Chuseok vs Mid-Autumn", "秋夕 vs 中秋節")}</div>
+      <div class="abs x-zh" style="right:40px;bottom:-10px;font-size:220px;color:rgba(255,255,255,.92);line-height:1">月</div>
+    </div>`,
+
+    /* ---------- Shorts: 도우인 사진(图文) 표지 ---------- */
+    "s-wok": () => dyCover(`<img class="bg" src="${SRC}menu.jpg" style="object-position:72% 70%">`,
+      T("중국인 주방장님과", "和中国厨师一起", "Working with", "中国人シェフと"), T("일했던 알바", "打工的日子", "Chinese chefs", "働いたバイト"), "#ffe14d",
+      T("통역 담당", "我负责翻译", "I translated", "通訳担当"), "#e63946"),
+    "s-notes": () => dyCover(`<div class="abs" style="inset:0;background:#fffdf5"><div class="abs" style="left:0;right:0;top:420px;bottom:0">${notebook()}</div></div>`,
+      T("친구 발표문", "帮朋友", "Translating", "友達の原稿"), T("번역해 줬어요", "翻译发表稿", "a friend's talk", "翻訳しました"), "#e63946",
+      "直译 ✗ 意译 ✓", "#1d3557"),
+    "s-trophy": () => dyCover(`<img class="bg" src="${SRC}kyonggi.jpg" style="object-position:60% 50%">`,
+      T("경기대 거북이 프로그램", "京畿大学 乌龟项目", "Kyonggi Univ. program", "京畿大学プログラム"), T("우수상 받음", "拿了优秀奖", "Excellence Award", "優秀賞をとった"), "#ffe14d",
+      T("팀으로 2번 도전", "团队参加2次", "2 rounds as a team", "チームで2回挑戦"), "#6c4bd8"),
+    "s-katsu": () => dyCover(`<img class="bg" src="${SRC}tonkatsu.jpg" style="object-position:50% 55%">`,
+      T("미소야 1년 6개월", "Misoya 一年半", "Misoya, 1.5 years", "ミソヤで1年半"), T("홀 혼자 맡기까지", "独自负责大厅", "running the floor", "ホールを任されるまで"), "#ffe14d",
+      T("매출 2배인 날도 실수 0", "营业额翻倍也零失误", "2× sales, 0 mistakes", "売上2倍でもミス0"), "#1f9e74"),
+    "s-latte": () => `<div class="t v" style="background:#111">
+        <img src="${SRC}ediya1.jpg" style="position:absolute;left:0;top:0;width:720px;height:660px;object-fit:cover;object-position:50% 45%">
+        <img src="${SRC}mega_product.jpg" style="position:absolute;left:0;top:660px;width:360px;height:620px;object-fit:cover">
+        <img src="${SRC}ediya2.jpg" style="position:absolute;left:360px;top:660px;width:360px;height:620px;object-fit:cover;object-position:50% 30%">
+        <div class="abs" style="inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,0) 30%,rgba(0,0,0,0) 60%,rgba(0,0,0,.55))"></div>
+        <div class="dy-badge">▣ 图文</div>
+        <div class="dy-title" style="top:120px;font-size:96px"><span data-fit="660">${T("카페 3곳에서", "在三家咖啡店", "Barista at", "カフェ3店舗で")}</span><span data-fit="660" style="color:#ffe14d">${T("바리스타", "做咖啡师", "3 cafés", "バリスタ")}</span></div>
+        <div class="abs" style="left:40px;right:40px;bottom:60px;display:grid;gap:14px">
+          <div class="logo-plate" style="height:92px"><img src="${SRC}logo_mega.png" style="height:56px"></div>
+          <div class="logo-plate" style="height:92px"><img src="${SRC}logo_ediya.png" style="width:520px"></div>
+          <div class="logo-plate" style="height:92px;background:#1a1a1a"><img src="${SRC}logo_compose.png" style="width:540px"></div>
+        </div>
+      </div>`
+  });
+
+  const SANS = T("'Noto Sans KR'", "'Noto Sans SC'", "'Noto Sans KR'", "'Noto Sans JP'");
+  /* ---------- 2차 수정: 금융채널형(오리온·카페), 야경 손글씨(상하이), 설명카드형(미소야·번역), 브랜드(해피벽돌) ---------- */
+  const flag2 = c => ({
+    ru: `<svg viewBox="0 0 30 20"><rect width="30" height="20" fill="#fff"/><rect y="6.67" width="30" height="6.67" fill="#0039A6"/><rect y="13.33" width="30" height="6.67" fill="#D52B1E"/></svg>`,
+    vn: `<svg viewBox="0 0 30 20"><rect width="30" height="20" fill="#DA251D"/><polygon points="15,4 16.8,9.2 22.2,9.2 17.8,12.4 19.5,17.6 15,14.4 10.5,17.6 12.2,12.4 7.8,9.2 13.2,9.2" fill="#FF0"/></svg>`
+  })[c] || flagSvg(c);
+  const fl = (c, w) => `<span style="display:inline-block;width:${w}px;height:${w * 2 / 3}px;border-radius:3px;overflow:hidden;vertical-align:middle;box-shadow:0 1px 3px rgba(0,0,0,.4)">${flag2(c)}</span>`;
+  const nightBg = (w, h) => `
+    <div class="abs" style="inset:0;background:radial-gradient(70% 60% at 70% 30%,#16407a 0%,#0b1d3f 55%,#050b1c 100%)"></div>
+    <svg class="abs" style="left:0;top:0" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
+      <defs><filter id="glow"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+      ${Array.from({ length: 22 }, (_, i) => { const x = i * w / 22, bh = 80 + ((i * 53) % 9) * 28, y = h * .78 - bh; return `<rect x="${x}" y="${y}" width="${w / 24}" height="${bh + h}" fill="#0a1a36"/>` + Array.from({ length: 10 }, (_, j) => `<rect x="${x + 6 + (j % 3) * 14}" y="${y + 10 + Math.floor(j / 3) * 22}" width="6" height="8" fill="${(i + j) % 3 ? "#ffd27a" : "#7fd3ff"}" opacity=".7"/>`).join(""); }).join("")}
+      <polyline filter="url(#glow)" fill="none" stroke="#3cff9a" stroke-width="5" points="${Array.from({ length: 14 }, (_, i) => `${w * .02 + i * w * .07},${h * .62 - i * h * .035 + (i % 2) * h * .05}`).join(" ")}"/>
+      ${Array.from({ length: 12 }, (_, i) => { const x = w * .05 + i * w * .075, up = i % 3 !== 1, top = h * .55 - i * h * .028; return `<line x1="${x}" x2="${x}" y1="${top - 26}" y2="${top + 50}" stroke="${up ? "#ff4d5a" : "#4d8bff"}" stroke-width="2" opacity=".7"/><rect x="${x - 7}" y="${top}" width="14" height="30" fill="${up ? "#ff4d5a" : "#4d8bff"}" opacity=".8"/>`; }).join("")}
+    </svg>`;
+  const bigLines = (l1, l2, style, size1, size2, max) => `
+    <div class="abs" style="${style};font-family:${SANS},sans-serif;font-weight:900;text-align:center">
+      <div class="nowrap" data-fit="${max}" style="font-size:${size1}px;color:#fff;-webkit-text-stroke:12px #000;paint-order:stroke fill;line-height:1.1">${l1}</div>
+      <div class="nowrap" data-fit="${max}" style="font-size:${size2}px;color:#5dff9a;-webkit-text-stroke:12px #000;paint-order:stroke fill;line-height:1.12;margin-top:4px">${l2}</div>
+    </div>`;
+  const chip = (inner, style) => `<div class="abs" style="border-radius:22px;box-shadow:0 0 0 6px rgba(255,255,255,.12),0 20px 40px rgba(0,0,0,.55),0 0 30px rgba(80,170,255,.35);overflow:hidden;${style}">${inner}</div>`;
+
+  Object.assign(designs, {
+    /* 오리온: 금융 채널 썸네일 구성 */
+    orion: () => `<div class="t h">
+      ${nightBg(1280, 720)}
+      <img src="${SRC}chocopie.jpg" class="abs" style="right:0;top:0;width:520px;height:720px;object-fit:cover;object-position:62% 50%;-webkit-mask-image:linear-gradient(90deg,transparent,#000 35%)">
+      <div class="abs" style="left:34px;top:26px;width:118px;height:118px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff3a8,#f2b705 55%,#b37a00);display:grid;place-items:center;box-shadow:0 6px 14px rgba(0,0,0,.5);transform:rotate(-10deg)"><span style="font-family:'Archivo Black';font-size:30px;color:#3a2600;line-height:1;text-align:center">中文<br><small style="font-size:18px">TALK</small></span></div>
+      ${chip(`<img src="${SRC}chocopie.jpg" style="width:100%;height:100%;object-fit:cover;object-position:30% 50%"><div style="position:absolute;left:0;right:0;bottom:0;background:rgba(0,0,0,.72);padding:6px 0;text-align:center;color:#fff;font:900 30px ${SANS}">${fl("kr", 54)} ₩</div>`, "left:170px;top:70px;width:250px;height:250px;transform:rotate(-12deg)")}
+      ${chip(`<img src="${SRC}chocopie.jpg" style="width:100%;height:100%;object-fit:cover;object-position:75% 50%"><div style="position:absolute;left:0;right:0;bottom:0;background:rgba(0,0,0,.72);padding:6px 0;text-align:center;color:#fff;font:900 30px ${SANS}">${fl("cn", 54)} ¥</div>`, "left:450px;top:40px;width:250px;height:250px;transform:rotate(8deg)")}
+      <div class="abs" style="left:740px;top:70px;display:grid;gap:12px">
+        <span style="background:rgba(0,0,0,.65);color:#fff;font:900 30px ${SANS};padding:6px 14px;border-radius:10px;transform:rotate(-4deg)">${fl("ru", 54)} ₽</span>
+        <span style="background:rgba(0,0,0,.65);color:#fff;font:900 30px ${SANS};padding:6px 14px;border-radius:10px;transform:rotate(3deg)">${fl("vn", 54)} ₫</span>
+      </div>
+      ${bigLines(T("'같은 초코파이'인데 가격이 달라요", "'同一个好丽友派' 价格却不同", "'Same Choco Pie', different price", "「同じチョコパイ」なのに値段が違う"),
+                 T("나라마다 다른 오리온 전략", "好丽友的各国定价策略", "Orion's plan for each country", "国ごとに違うオリオン戦略"),
+                 "left:20px;right:20px;bottom:26px", 78, 104, 1230)}
+      ${wm()}
+    </div>`,
+
+    /* 상하이: 와이탄 야경 + 빨간 글씨 */
+    shanghai: () => `<div class="t h">
+      <img class="bg" src="${SRC}sh_night1.jpg" style="object-position:50% 45%;filter:saturate(1.15) contrast(1.05)">
+      <div class="abs" style="inset:0;background:linear-gradient(180deg,rgba(0,0,0,.2),rgba(0,0,0,0) 40%,rgba(0,0,0,.55))"></div>
+      ${wm()}
+      <div class="abs sub nowrap" style="left:50%;transform:translateX(-50%);bottom:${T(232, 230, 220, 230)}px;font-size:36px;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.8);letter-spacing:.04em">${T("두 번째 중국생활 · 동화대학교", "第二次中国生活 · 东华大学", "My 2nd life in China · Donghua Univ.", "2回目の中国生活・東華大学")}</div>
+      <div class="abs nowrap" data-fit="1180" style="left:50%;transform:translateX(-50%);bottom:30px;font-size:${T(210, 190, 150, 170)}px;color:#e8262f;line-height:1;text-shadow:0 0 1px #4a0000,0 4px 16px rgba(0,0,0,.6);font-family:${T("'Nanum Brush Script'", "'Zhi Mang Xing'", "'Caveat Brush'", "'Yusei Magic'")}">${T("상하이 어학연수", "上海语言研修", "Shanghai Language Course", "上海で語学研修")}</div>
+    </div>`,
+
+    /* 카페: 금융 채널 구성 + 세 브랜드 로고 */
+    "s-latte": () => `<div class="t v">
+      ${nightBg(720, 1280)}
+      <img src="${SRC}ediya1.jpg" class="abs" style="left:0;right:0;top:0;width:720px;height:560px;object-fit:cover;object-position:50% 40%;opacity:.35;-webkit-mask-image:linear-gradient(180deg,#000,transparent)">
+      <div class="abs" style="left:28px;top:28px;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff3a8,#f2b705 55%,#b37a00);display:grid;place-items:center;box-shadow:0 6px 14px rgba(0,0,0,.5);transform:rotate(-10deg)"><span style="font:900 34px ${SANS};color:#3a2600;text-align:center;line-height:1.05">${T("카페", "咖啡", "CAFÉ", "カフェ")}<br><b style="font-size:40px">×3</b></span></div>
+      ${chip(`<div style="width:100%;height:100%;background:#fff;display:grid;place-items:center"><img src="${SRC}logo_mega.png" style="width:82%"></div>`, "left:90px;top:200px;width:440px;height:170px;transform:rotate(-8deg)")}
+      ${chip(`<div style="width:100%;height:100%;background:#fff;display:grid;place-items:center"><img src="${SRC}logo_ediya.png" style="width:84%"></div>`, "left:200px;top:410px;width:440px;height:170px;transform:rotate(6deg)")}
+      ${chip(`<div style="width:100%;height:100%;background:#151515;display:grid;place-items:center"><img src="${SRC}logo_compose.png" style="width:84%"></div>`, "left:70px;top:620px;width:440px;height:170px;transform:rotate(-5deg)")}
+      ${bigLines(T("'카페 3곳'에서 일했어요", "在'三家咖啡店'打工", "Worked at '3 cafés'", "「カフェ3店舗」で働きました"),
+                 T("한 달 만에 혼자 근무", "一个月独当一面", "Solo in a month", "1か月でひとり立ち"),
+                 "left:16px;right:16px;bottom:110px", 66, 92, 680)}
+    </div>`,
+
+    /* 해피벽돌푸드: 브랜드 간판만 */
+    "s-wok": () => `<div class="t v" style="background:#7a2e1f">
+      <div class="abs" style="inset:0;background-color:#9c3b24;background-image:linear-gradient(0deg,#6b2616 4px,transparent 4px),linear-gradient(90deg,#6b2616 4px,transparent 4px);background-size:120px 60px,120px 120px;background-position:0 0,0 0"></div>
+      <div class="abs" style="inset:0;background-image:linear-gradient(90deg,#6b2616 4px,transparent 4px);background-size:120px 120px;background-position:60px 60px"></div>
+      <div class="abs" style="inset:0;background:radial-gradient(60% 45% at 50% 45%,rgba(255,200,120,.35),rgba(0,0,0,.45))"></div>
+      <div class="dy-badge">▣ 图文</div>
+      <div class="abs" style="left:70px;right:70px;top:400px;background:#fffaf0;border-radius:28px;padding:56px 30px 46px;text-align:center;box-shadow:0 0 0 10px #f2c14e,0 24px 50px rgba(0,0,0,.5)">
+        <div style="font-family:'Archivo Black';font-size:66px;line-height:1.05;color:#9c3b24;letter-spacing:.02em">HAPPY<br>BRICK FOOD</div>
+        <div style="font:900 50px 'Noto Sans KR';color:#2b1a12;margin-top:20px">해피벽돌푸드</div>
+      </div>
+      <div class="abs sub nowrap" data-fit="640" style="left:50%;transform:translateX(-50%);bottom:170px;font-size:44px;color:#fff;background:#111;padding:8px 26px;border-radius:12px">${T("백화점 매장 · 중국어 통역 알바", "百货商场店 · 中韩翻译兼职", "Dept. store · Chinese interpreter", "百貨店・中国語通訳バイト")}</div>
+    </div>`,
+
+    /* 미소야 · 번역: 설명 카드형 */
+    "s-katsu": () => explainer(
+      [T("미소야에서 1년 6개월,", "在Misoya工作一年半，", "1.5 years at Misoya,", "ミソヤで1年半、"), T("홀을 혼자 맡기까지", "独自负责大厅", "running the floor solo", "ホールを任されるまで")],
+      [[T("근무 기간", "工作时间", "Period", "勤務期間"), T("1년 6개월", "一年半", "1.5 years", "1年半")], [T("역할", "职责", "Role", "役割"), T("홀서빙 · 고객응대", "服务员 · 接待", "Server · Service", "ホール・接客")]],
+      [T("[미소야]", "[Misoya]", "[Misoya]", "[ミソヤ]"), T("매출 2배인 날도", "营业额翻倍那天", "On 2× sales days", "売上2倍の日も"), T("실수 0", "也零失误", "zero mistakes", "ミス0")],
+      T("신입 교육하기", "培训新人", "Train new staff", "新人教育")),
+    "s-notes": () => explainer(
+      [T("친구 발표문을", "朋友的发表稿", "A friend's talk:", "友達の発表原稿を"), T("직역 대신 의역으로", "不直译，要意译", "meaning, not words", "直訳でなく意訳で")],
+      [[T("원문", "原文", "Source", "原文"), "中文"], [T("번역", "译文", "Target", "翻訳"), T("한국어", "韩语", "Korean", "韓国語")]],
+      ["[直译 ✗]", T("단어 그대로 옮기지 않고", "不逐字翻译", "not word for word", "単語そのままではなく"), T("뜻을 옮기기 ✓", "传达意思 ✓", "carry the meaning ✓", "意味を伝える ✓")],
+      T("번역 완료", "翻译完成", "Done", "翻訳完了"))
+  });
+
+  /* ---------- 3차 수정 ---------- */
+  Object.assign(designs, {
+    /* 상하이: 동화대학교 사진 그대로, 제목 글꼴만 붉은 붓글씨로 */
+    shanghai: () => `<div class="t h">
+      <img class="bg" src="${SRC}donghua.jpg" style="object-position:50% 60%;filter:saturate(1.1) contrast(1.02) brightness(1.03)">
+      <div class="abs" style="inset:0;background:radial-gradient(80% 70% at 50% 55%,rgba(0,0,0,0),rgba(0,0,0,.4))"></div>
+      ${wm()}
+      <div class="abs hand" data-fit="1100" style="left:50%;transform:translateX(-50%) rotate(-3deg);top:70px;font-size:${T(130, 112, 104, 96)}px;text-align:center">${T("두 번째 중국생활", "第二次中国生活", "My 2nd life in China", "2回目の中国生活")}</div>
+      <div class="abs nowrap" data-fit="1180" style="left:50%;transform:translateX(-50%) rotate(-2deg);top:250px;font-size:${T(200, 180, 140, 160)}px;line-height:1;color:#e8262f;text-shadow:0 0 2px #fff,0 0 3px #fff,0 4px 14px rgba(0,0,0,.55);font-family:${T("'Nanum Brush Script'", "'Zhi Mang Xing'", "'Caveat Brush'", "'Yusei Magic'")}">${T("상하이 어학연수", "上海语言研修", "Shanghai Language Course", "上海で語学研修")}</div>
+      <div class="abs hand" data-fit="900" style="left:50%;transform:translateX(-50%) rotate(-2deg);top:500px;font-size:${T(104, 90, 86, 80)}px;color:#ffe14d;text-align:center">${T("동화대학교 · 반 1등", "东华大学 · 班级第一", "Donghua Univ. · #1 in class", "東華大学・クラス1位")}</div>
+    </div>`,
+
+    /* 오리온: 기울인 카드 + 두 줄 제목 구성만 빌려 옴 (내용은 나라별 가격) */
+    orion: () => {
+      const tags = [["kr", T("한국", "韩国", "Korea", "韓国"), "₩", T("국민 과자", "国民零食", "everyday snack", "国民的お菓子"), -10, 40, 70],
+                    ["cn", T("중국", "中国", "China", "中国"), "¥", T("'情' 마케팅", "“仁”字营销", "'Ren' branding", "「仁」マーケ"), 7, 330, 40],
+                    ["ru", T("러시아", "俄罗斯", "Russia", "ロシア"), "₽", T("현지 공장", "本地工厂", "local factory", "現地工場"), -6, 70, 300],
+                    ["vn", T("베트남", "越南", "Vietnam", "ベトナム"), "₫", T("제사상 간식", "祭祀点心", "festival gift", "お供え菓子"), 6, 360, 280]];
+      return `<div class="t h" style="background:linear-gradient(120deg,#7a0010 0%,#c8102e 55%,#e8452a 100%)">
+        <img src="${SRC}chocopie.jpg" class="abs" style="right:0;top:0;width:560px;height:720px;object-fit:cover;object-position:62% 50%;-webkit-mask-image:linear-gradient(90deg,transparent,#000 30%)">
+        ${tags.map(([c, n, cur, d, r, x, y]) => `<div class="abs" style="left:${x}px;top:${y}px;width:270px;background:#fff;border-radius:18px;padding:14px 18px;transform:rotate(${r}deg);box-shadow:0 14px 28px rgba(0,0,0,.35)">
+            <div style="display:flex;align-items:center;gap:10px;font:900 30px ${SANS};color:#111">${fl(c, 46)} ${n}<b style="margin-left:auto;font:900 46px 'Archivo Black';color:#c8102e">${cur}</b></div>
+            ${c === "kr" ? `<div style="font:700 24px ${SANS};color:#555;margin-top:4px">${d}</div>` : ""}</div>`).join("")}
+        ${bigLines(T("같은 초코파이, 가격은 제각각", "同一个好丽友派，价格各不同", "One Choco Pie, four prices", "同じチョコパイ、値段はバラバラ"),
+                   T("나라마다 다른 오리온 전략", "好丽友的各国定价策略", "Orion's plan for each country", "国ごとに違うオリオン戦略"),
+                   "left:20px;right:20px;bottom:26px", 74, 100, 1230)}
+        ${wm()}
+      </div>`;
+    }
+  });
+
+  /* Shorts 표지: 위 그림 + 아래 색 판 + 제목 두 줄 (모두 같은 틀) */
+  const simple = (visual, color, l1, l2, sub, ink = "#fff", hi = "#ffe14d") => `<div class="t v" style="background:${color}">
+      <div class="abs" style="left:0;right:0;top:0;height:700px;overflow:hidden">${visual}</div>
+      <div class="abs" style="left:56px;right:56px;top:770px;color:${ink}">
+        <div class="nowrap" data-fit="608" style="font:900 86px ${SANS};line-height:1.15">${l1}</div>
+        <div class="nowrap" data-fit="608" style="font:900 86px ${SANS};line-height:1.15;color:${hi}">${l2}</div>
+        <div style="font:700 34px ${SANS};margin-top:26px;opacity:.85">${sub}</div>
+      </div>
+    </div>`;
+  Object.assign(designs, {
+    "s-wok": () => simple(`<div style="position:absolute;inset:0;background-color:#9c3b24;background-image:linear-gradient(0deg,#6b2616 4px,transparent 4px),linear-gradient(90deg,#6b2616 4px,transparent 4px);background-size:120px 60px,120px 120px"></div>
+        <div style="position:absolute;left:90px;right:90px;top:230px;background:#fffaf0;border-radius:24px;padding:46px 20px;text-align:center;box-shadow:0 0 0 10px #f2c14e,0 20px 40px rgba(0,0,0,.45)">
+          <div style="font-family:'Archivo Black';font-size:62px;line-height:1.05;color:#9c3b24">HAPPY<br>BRICK FOOD</div>
+          <div style="font:900 44px 'Noto Sans KR';color:#2b1a12;margin-top:16px">해피벽돌푸드</div></div>`,
+      "#2b1a12", T("중국어 통역", "中韩口译", "Chinese–Korean", "中国語通訳"), T("아르바이트", "兼职", "interpreting job", "アルバイト"), T("백화점 매장 · 홀서빙", "百货商场店 · 服务员", "Dept. store · Server", "百貨店・ホール担当")),
+    "s-notes": () => simple(`<div style="position:absolute;inset:0;background:#fffdf5;background-image:repeating-linear-gradient(180deg,transparent 0 68px,#cfe0f5 68px 70px)">
+          <div style="position:absolute;left:96px;top:0;bottom:0;width:3px;background:#f2a3a3"></div>
+          <div style="position:absolute;left:140px;top:200px;font:900 84px ${SANS};color:#999;text-decoration:line-through">${T("직역", "直译", "Literal", "直訳")}</div>
+          <div style="position:absolute;left:140px;top:360px;font:900 96px ${SANS};color:#1f9e74">${T("의역 ✓", "意译 ✓", "Meaning ✓", "意訳 ✓")}</div></div>`,
+      "#1f9e74", T("친구 발표문", "帮朋友", "Translating", "友達の原稿を"), T("번역하기", "翻译发表稿", "a friend's talk", "翻訳する"), T("중국어 → 한국어", "中文 → 韩语", "Chinese → Korean", "中国語 → 韓国語")),
+    "s-trophy": () => simple(`<img src="${SRC}kyonggi.jpg" style="width:100%;height:100%;object-fit:cover;object-position:60% 50%">`,
+      "#6c4bd8", T("거북이 프로그램", "乌龟项目", "Turtle Program", "カメプログラム"), T("우수상", "优秀奖", "Excellence Award", "優秀賞"), T("경기대학교 · 팀 활동 2회", "京畿大学 · 团队活动2次", "Kyonggi Univ. · 2 team rounds", "京畿大学・チーム活動2回")),
+    "s-katsu": () => simple(`<div style="position:absolute;inset:0;background:#2f6bff;display:grid;place-items:center">
+          <div style="text-align:center;color:#fff"><div style="font:900 200px 'Archivo Black';line-height:1">1.5</div><div style="font:900 64px ${SANS}">${T("년", "年", "years", "年")}</div></div></div>`,
+      "#1d3fa8", T("미소야", "Misoya", "Misoya", "ミソヤ"), T("홀 전담", "独自负责大厅", "running the floor", "ホール担当"), T("고객응대 · 신입 교육", "顾客接待 · 新人培训", "Service · Training new staff", "接客・新人教育")),
+    "s-latte": () => simple(`<div style="position:absolute;inset:0;background:#f4efe6;display:grid;align-content:center;gap:26px;padding:0 70px">
+          <div style="background:#fff;border-radius:18px;height:140px;display:grid;place-items:center;box-shadow:0 6px 16px rgba(0,0,0,.1)"><img src="${SRC}logo_mega.png" style="height:84px"></div>
+          <div style="background:#fff;border-radius:18px;height:140px;display:grid;place-items:center;box-shadow:0 6px 16px rgba(0,0,0,.1)"><img src="${SRC}logo_ediya.png" style="width:86%"></div>
+          <div style="background:#151515;border-radius:18px;height:140px;display:grid;place-items:center;box-shadow:0 6px 16px rgba(0,0,0,.1)"><img src="${SRC}logo_compose.png" style="width:86%"></div></div>`,
+      "#e85d8f", T("카페 알바", "咖啡店兼职", "Café jobs", "カフェバイト"), T("3곳", "三家", "× 3", "3店舗"), T("메가커피 · 이디야 · 컴포즈", "Mega · Ediya · Compose", "Mega · Ediya · Compose", "Mega・Ediya・Compose"))
+  });
+
+  /* ---------- 4차 수정: 실제 로고·카페 사진, 거북이, 상하이 글꼴 ---------- */
+  const turtle = `<svg viewBox="0 0 300 240" width="100%" height="100%">
+      <ellipse cx="150" cy="215" rx="110" ry="14" fill="rgba(0,0,0,.12)"/>
+      <ellipse cx="78" cy="190" rx="22" ry="16" fill="#8fd18a"/><ellipse cx="208" cy="192" rx="22" ry="16" fill="#8fd18a"/>
+      <ellipse cx="96" cy="206" rx="20" ry="14" fill="#8fd18a"/><ellipse cx="192" cy="208" rx="20" ry="14" fill="#8fd18a"/>
+      <circle cx="245" cy="140" r="38" fill="#9ddc97"/>
+      <circle cx="255" cy="132" r="6" fill="#2b2b2b"/><circle cx="257" cy="130" r="2" fill="#fff"/>
+      <ellipse cx="262" cy="150" rx="8" ry="5" fill="#ff9fb0" opacity=".8"/>
+      <path d="M262 160q8 6 16 0" stroke="#2b2b2b" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="M40 170 Q50 70 150 64 Q250 70 258 170 Z" fill="#4caf6e"/>
+      <path d="M40 170 Q50 70 150 64 Q250 70 258 170" fill="none" stroke="#2f8a50" stroke-width="6"/>
+      <g fill="#6cc589" stroke="#2f8a50" stroke-width="4"><polygon points="150,86 178,102 178,134 150,150 122,134 122,102"/><polygon points="96,118 118,130 118,156 96,166 74,156 74,130"/><polygon points="204,118 226,130 226,156 204,166 182,156 182,130"/></g>
+      <rect x="36" y="164" width="226" height="14" rx="7" fill="#f2d16b"/>
+      <path d="M150 20 l-14 26 h28 z" fill="#e63946"/><path d="M150 20 l14 26" stroke="#1d3557" stroke-width="0"/>
+      <circle cx="150" cy="54" r="18" fill="#ffd23f" stroke="#c99700" stroke-width="4"/><text x="150" y="61" text-anchor="middle" font-family="Archivo Black" font-size="18" fill="#7a5200">1</text>
+    </svg>`;
+  Object.assign(designs, {
+    shanghai: () => `<div class="t h">
+      <img class="bg" src="../images/china/bund.jpg" style="object-position:40% 62%;filter:saturate(1.1) contrast(1.05)">
+      <div class="abs" style="inset:0;background:radial-gradient(80% 70% at 50% 55%,rgba(0,0,0,0),rgba(0,0,0,.35))"></div>
+      ${wm()}
+      <div class="abs serif-out nowrap" data-fit="1160" style="left:60px;top:210px;font-size:${T(150, 140, 120, 128)}px;color:#e8262f;-webkit-text-stroke-color:#fff;-webkit-text-stroke-width:5px">${T("중국 두 번째 생활,", "第二次中国生活，", "My 2nd life in China:", "2回目の中国生活、")}</div>
+      <div class="abs serif-out nowrap" data-fit="1160" style="left:60px;top:380px;font-size:${T(130, 120, 110, 116)}px">${T("상하이", "上海", "Shanghai", "上海")}</div>
+      <div class="abs serif-out nowrap" data-fit="1100" style="left:60px;bottom:50px;font-size:${T(56, 54, 48, 50)}px;color:#ffe14d">${T("동화대학교 어학연수 · 2025", "东华大学语言研修 · 2025", "Donghua University · 2025", "東華大学 語学研修・2025")}</div>
+    </div>`,
+
+    "s-wok": () => simple(`<div style="position:absolute;inset:0;background:#e04a3a;display:grid;place-items:center">
+          <img src="${SRC}logo_happyfood.png" style="width:640px;box-shadow:0 10px 30px rgba(0,0,0,.25)"></div>`,
+      "#2b1a12", T("중국어 통역", "中韩口译", "Chinese–Korean", "中国語通訳"), T("아르바이트", "兼职", "interpreting job", "アルバイト"), T("백화점 매장 · 홀서빙", "百货商场店 · 服务员", "Dept. store · Server", "百貨店・ホール担当")),
+
+    "s-katsu": () => simple(`<div style="position:absolute;inset:0;background:#fffaf2;display:grid;place-items:center">
+          <div style="text-align:center"><img src="${SRC}logo_misoya.png" style="width:520px">
+          <div style="margin-top:40px;display:inline-block;background:#1d3fa8;color:#fff;font:900 52px ${SANS};padding:10px 30px;border-radius:999px">${T("1년 6개월", "一年半", "1.5 years", "1年半")}</div></div></div>`,
+      "#1d3fa8", T("미소야", "Misoya", "Misoya", "ミソヤ"), T("홀 전담", "独自负责大厅", "running the floor", "ホール担当"), T("고객응대 · 신입 교육", "顾客接待 · 新人培训", "Service · Training new staff", "接客・新人教育")),
+
+    "s-trophy": () => simple(`<div style="position:absolute;inset:0;background:radial-gradient(circle at 50% 45%,#fff7d6 0%,#d9f2d4 70%)">
+          <div style="position:absolute;left:70px;right:70px;top:110px;height:460px">${turtle}</div>
+          <div style="position:absolute;left:0;right:0;top:590px;text-align:center;font:900 40px ${SANS};color:#2f8a50">${T("경기대학교", "京畿大学", "Kyonggi University", "京畿大学")}</div></div>`,
+      "#6c4bd8", T("거북이 프로그램", "乌龟项目", "Turtle Program", "カメプログラム"), T("우수상", "优秀奖", "Excellence Award", "優秀賞"), T("팀 활동 2회 참여", "团队活动2次", "2 team rounds", "チーム活動2回")),
+
+    "s-latte": () => simple(`<div style="position:absolute;inset:0;background:#141414">
+          <div style="position:absolute;left:0;top:70px;width:720px;height:235px;background:url('${SRC}cafes.png') -397px -96px / 1117px 633px no-repeat"></div>
+          <div style="position:absolute;left:0;top:305px;width:720px;height:4px;background:#e85d8f"></div>
+          <div style="position:absolute;left:90px;right:90px;top:380px;height:130px;background:#fff;border-radius:18px;display:grid;place-items:center;box-shadow:0 8px 20px rgba(0,0,0,.35)"><img src="${SRC}logo_ediya.png" style="width:84%"></div>
+          <div style="position:absolute;left:0;right:0;top:560px;text-align:center;font:900 40px ${SANS};color:#fff">MEGA · COMPOSE · EDIYA</div></div>`,
+      "#e85d8f", T("카페 알바", "咖啡店兼职", "Café jobs", "カフェバイト"), T("3곳", "三家", "× 3", "3店舗"), T("메가커피 · 이디야 · 컴포즈", "Mega · Ediya · Compose", "Mega · Ediya · Compose", "Mega・Ediya・Compose"))
+  });
+
+  /* 스킬 소개 영상 썸네일 (흰 배경) */
+  const SK = {
+    claude: `<svg viewBox="0 0 24 24"><g stroke="#D97757" stroke-width="2.4" stroke-linecap="round">${[0,30,60,90,120,150,180,210,240,270,300,330].map((r, i) => `<line x1="12" y1="12" x2="12" y2="${[2.2,3.6,2.6,3.2,2.4,3.8][i % 6]}" transform="rotate(${r} 12 12)"/>`).join("")}</g></svg>`,
+    ppt: `<svg viewBox="0 0 24 24"><circle cx="14" cy="12" r="9" fill="#ED6C47"/><path d="M14 3a9 9 0 0 1 9 9h-9z" fill="#FF8F6B"/><path d="M14 12h9a9 9 0 0 1-9 9z" fill="#D35230"/><rect x="1.5" y="6" width="12" height="12" rx="2" fill="#C43E1C"/><path d="M5.2 15.6V8.4h3.1c1.7 0 2.7.9 2.7 2.3s-1 2.4-2.7 2.4H6.9v2.5zm1.7-3.9h1.2c.8 0 1.2-.4 1.2-1s-.4-1-1.2-1H6.9z" fill="#fff"/></svg>`,
+    word: `<svg viewBox="0 0 24 24"><rect x="7" y="3" width="15" height="18" rx="2" fill="#41A5EE"/><rect x="7" y="9" width="15" height="6" fill="#2B7CD3"/><path d="M7 15h15v4a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2z" fill="#185ABD"/><rect x="1.5" y="6" width="12" height="12" rx="2" fill="#185ABD"/><path d="M3.6 8.6h1.6l1 4.6 1.1-4.6h1.4l1.1 4.6 1-4.6h1.6l-1.8 6.8H8.2L7.5 10.7l-1.1 4.7H5.4z" fill="#fff"/></svg>`
+  };
+  designs.skills = () => {
+    const items = [[SK.claude, "Claude"], [SK.ppt, "PowerPoint"], [SK.word, "Word"], [flagSvg("cn"), T("중국어", "中文", "Chinese", "中国語")], [flagSvg("jp"), T("일본어", "日语", "Japanese", "日本語")]];
+    return `<div class="t h" style="background:#ffffff">
+      <div class="abs" style="left:0;right:0;top:0;height:14px;background:linear-gradient(90deg,#D97757,#ED6C47,#2B7CD3,#EE1C25,#BC002D)"></div>
+      ${wm()}
+      <div class="abs nowrap" data-fit="1180" style="left:60px;top:90px;font:900 96px ${SANS};color:#111">${T("제가 할 줄 아는 것", "我会的技能", "What I can do", "わたしのスキル")}</div>
+      <div class="abs nowrap" style="left:64px;top:210px;font:700 40px ${SANS};color:#777">${T("AI · 문서 · 발표 · 언어", "AI · 文档 · 演示 · 语言", "AI · Docs · Slides · Languages", "AI・文書・発表・言語")}</div>
+      <div class="abs" style="left:60px;right:60px;top:330px;display:flex;justify-content:space-between">
+        ${items.map(([ic, n]) => `<div style="width:200px;text-align:center">
+          <div style="width:170px;height:170px;margin:0 auto;border-radius:50%;background:#fff;border:3px solid #e6e8ee;box-shadow:0 10px 24px rgba(0,0,0,.08);display:grid;place-items:center;overflow:hidden">
+            <div style="width:${ic.startsWith('<svg viewBox="0 0 30') ? "100%" : "62%"};height:${ic.startsWith('<svg viewBox="0 0 30') ? "100%" : "62%"};display:grid">${ic.replace("<svg ", '<svg preserveAspectRatio="xMidYMid slice" style="width:100%;height:100%" ')}</div></div>
+          <div style="font:900 34px ${SANS};color:#222;margin-top:18px">${n}</div></div>`).join("")}
+      </div>
+    </div>`;
+  };
+
+  function explainer(head, rows, msg, btn) {
+    return `<div class="t v" style="background:linear-gradient(160deg,#f7f8fa 0%,#e9ecf1 100%)">
+      <div class="abs" style="right:-120px;bottom:-60px;width:620px;height:760px;background:radial-gradient(60% 50% at 50% 40%,#3a4250,#1b1f27 70%);border-radius:50% 50% 0 0;opacity:.85"></div>
+      <div class="abs" style="left:40px;right:40px;top:110px;text-align:center;font:900 58px ${SANS};line-height:1.35;color:#111">
+        <div><span class="nowrap" data-fit="640" style="display:inline-block;background:#2f6bff;color:#fff;padding:0 14px">${head[0]}</span></div>
+        <div class="nowrap" data-fit="640" style="color:#2f6bff;display:inline-block">${head[1]}</div>
+      </div>
+      <div class="abs" style="left:90px;right:90px;top:400px;background:#fff;border:2px solid #b9c0cc;box-shadow:0 12px 30px rgba(0,0,0,.18)">
+        <div style="height:30px;background:#eef1f5;border-bottom:2px solid #b9c0cc;text-align:right;padding-right:10px;font:700 16px monospace;color:#6b7280;line-height:28px">_ □ ×</div>
+        <div style="padding:22px">
+          ${rows.map(([k, v]) => `<div style="display:grid;grid-template-columns:1fr 1.5fr;gap:10px;margin-bottom:10px"><div style="border:2px solid #cfd5de;padding:10px;font:900 30px ${SANS};text-align:center">${k}</div><div style="border:2px solid #cfd5de;padding:10px;font:700 30px ${SANS};text-align:center">${v}</div></div>`).join("")}
+          <div style="border:2px solid #cfd5de;padding:18px 10px;text-align:center;font:700 30px ${SANS};line-height:1.5"><b style="font-weight:900">${msg[0]}</b><br>${msg[1]}<br><span style="color:#2f6bff;font-weight:900;text-decoration:underline">${msg[2]}</span></div>
+          <div style="text-align:center;margin-top:16px;position:relative"><span style="display:inline-block;background:#9aa1ad;color:#fff;font:900 30px ${SANS};padding:8px 26px;border-radius:6px">${btn}</span>
+            <svg style="position:absolute;left:80%;top:30px" width="56" height="70" viewBox="0 0 24 30"><path d="M2 2l18 14-8 1 5 9-4 2-5-9-6 6z" fill="#fff" stroke="#111" stroke-width="1.6"/></svg></div>
+        </div>
+      </div>
+      <div class="dy-badge" style="background:rgba(0,0,0,.7)">▣ 图文</div>
+    </div>`;
+  }
+
+  function dyCover(bgHtml, l1, l2, hi, chip, chipBg) {
+    return `<div class="t v" style="background:#111">${bgHtml}
+      <div class="abs" style="inset:0;background:linear-gradient(180deg,rgba(0,0,0,.45),rgba(0,0,0,0) 38%,rgba(0,0,0,0) 65%,rgba(0,0,0,.5))"></div>
+      <div class="dy-badge">▣ 图文</div>
+      <div class="dy-title" style="top:150px;font-size:92px"><span data-fit="660">${l1}</span><span data-fit="660" style="color:${hi}">${l2}</span></div>
+      <div class="abs sub nowrap" data-fit="640" style="left:50%;transform:translateX(-50%) rotate(-2deg);bottom:120px;font-size:46px;color:#fff;background:${chipBg};padding:8px 26px;border-radius:12px;box-shadow:0 6px 16px rgba(0,0,0,.35)">${chip}</div>
+    </div>`;
+  }
+
+  document.getElementById("root").innerHTML = designs[id]();
+
+  document.fonts.ready.then(() => {
+    document.querySelectorAll("[data-fit]").forEach(el => {
+      const max = Number(el.dataset.fit);
+      const prev = el.style.display;
+      if (!prev || prev === "block") el.style.display = "inline-block";
+      let size = parseFloat(getComputedStyle(el).fontSize);
+      while (el.getBoundingClientRect().width > max && size > 16) { size -= 2; el.style.fontSize = size + "px"; }
+      el.style.display = prev;
+    });
+  });
+</script>
+</body>
+</html>
