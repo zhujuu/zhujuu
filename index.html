@@ -77,6 +77,9 @@
     .nav-links a { text-decoration: none; color: var(--soft); }
     .nav-links a:hover { color: var(--navy); }
 
+    .site-switch { margin-left: auto; margin-right: 12px; flex: none; text-decoration: none; font-size: 13px; font-weight: 700; color: #fff; background: #e5484d; border-radius: 999px; padding: 6px 14px; white-space: nowrap; }
+    .site-switch:hover { background: #c9363b; }
+    .btn-channel { background: #e5484d; color: #fff; }
     .lang-switch {
       display: flex;
       gap: 4px;
@@ -581,7 +584,10 @@
       .container { padding: 0 16px; }
       .topbar .container { height: auto; padding-top: 10px; padding-bottom: 10px; flex-wrap: wrap; }
       .logo { font-size: 16px; }
-      .lang-switch { width: 100%; justify-content: space-between; }
+      .site-switch { margin-left: auto; margin-right: 12px; flex: none; text-decoration: none; font-size: 13px; font-weight: 700; color: #fff; background: #e5484d; border-radius: 999px; padding: 6px 14px; white-space: nowrap; }
+    .site-switch:hover { background: #c9363b; }
+    .btn-channel { background: #e5484d; color: #fff; }
+    .lang-switch { width: 100%; justify-content: space-between; }
       .lang-switch button { flex: 1; padding: 6px 4px; }
       html { scroll-padding-top: 108px; }
       .info-table th, .info-table td { padding: 14px 14px; }
@@ -617,6 +623,7 @@
 
     /* ---------- 인쇄 / 이력서 PDF ---------- */
     @media print {
+      .site-switch, .btn-channel { display: none !important; }
       @page { size: A4; margin: 10mm 12mm; }
       html { scroll-behavior: auto; }
       body { padding-bottom: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
@@ -690,6 +697,7 @@
         <a href="#presentation" data-i18n="nav.pres"></a>
         <a href="#activities" data-i18n="nav.act"></a>
       </nav>
+      <a class="site-switch" id="to-channel" href="channel/"><span aria-hidden="true">▶</span> <span data-i18n="nav.channel"></span></a>
       <div class="lang-switch" role="group" aria-label="Language">
         <button type="button" data-lang="ko" lang="ko">한국어</button>
         <button type="button" data-lang="zh" lang="zh-Hans">中文</button>
@@ -717,6 +725,7 @@
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
               <span data-i18n="btn.resume"></span>
             </a>
+            <a class="btn btn-channel" id="to-channel-2" href="channel/"><span aria-hidden="true">▶</span> <span data-i18n="btn.channel"></span></a>
           </div>
         </div>
       </div>
@@ -1052,7 +1061,7 @@
         "hero.desc": "저는 누군가에게는 <strong>한국의 첫인상</strong>이, 누군가에게는 <strong>믿을 수 있는 파트너</strong>가 되고 싶습니다. 경영학과 중어중문학을 함께 공부하고, 중국 심양과 상하이에서 직접 생활하며 언어와 문화를 익혔습니다. <strong>중국어·일본어</strong>와 <strong>AI 활용 능력</strong>을 바탕으로, 사람과 사람, 나라와 나라 사이의 다리가 되겠습니다!",
         "btn.contact": "이메일 보내기",
         "btn.more": "더 알아보기",
-        "btn.resume": "이력서 PDF",
+        "btn.resume": "이력서 PDF", "nav.channel": "채널 버전", "btn.channel": "채널 포트폴리오 보기",
         "level.zh": "심화 회화 가능",
         "level.ja": "기본적 의사소통 가능",
         "about.sub": "저를 소개합니다",
@@ -1141,7 +1150,7 @@
         "hero.desc": "我希望成为一些人眼中<strong>韩国的第一印象</strong>，也成为另一些人<strong>值得信赖的伙伴</strong>。我同时学习工商管理与中国语言文学，并在中国沈阳和上海亲身生活，学习了语言与文化。我将以<strong>中文·日语</strong>和<strong>AI 应用能力</strong>为基础，成为人与人、国与国之间的桥梁！",
         "btn.contact": "发送邮件",
         "btn.more": "了解更多",
-        "btn.resume": "简历 PDF",
+        "btn.resume": "简历 PDF", "nav.channel": "频道版", "btn.channel": "查看频道版作品集",
         "level.zh": "可进行深入会话",
         "level.ja": "可进行基本沟通",
         "about.sub": "自我介绍",
@@ -1230,7 +1239,7 @@
         "hero.desc": "I want to be <strong>someone's first impression of Korea</strong> and <strong>a trusted partner</strong> to others. I study Business Administration together with Chinese Language &amp; Literature, and I learned the language and culture firsthand while living in Shenyang and Shanghai, China. With my <strong>Chinese and Japanese</strong> skills and <strong>AI proficiency</strong>, I will be a bridge between people and between nations!",
         "btn.contact": "Email me",
         "btn.more": "Learn more",
-        "btn.resume": "Résumé PDF",
+        "btn.resume": "Résumé PDF", "nav.channel": "Channel version", "btn.channel": "View channel portfolio",
         "level.zh": "Advanced conversation",
         "level.ja": "Basic communication",
         "about.sub": "A little about me",
@@ -1319,7 +1328,7 @@
         "hero.desc": "私は、ある人にとっては<strong>韓国の第一印象</strong>に、またある人にとっては<strong>信頼できるパートナー</strong>になりたいと思っています。経営学と中国語中国文学をあわせて学び、中国の瀋陽と上海で実際に生活しながら言語と文化を身につけました。<strong>中国語・日本語</strong>と<strong>AI活用能力</strong>を活かして、人と人、国と国をつなぐ架け橋になります！",
         "btn.contact": "メールを送る",
         "btn.more": "もっと見る",
-        "btn.resume": "履歴書 PDF",
+        "btn.resume": "履歴書 PDF", "nav.channel": "チャンネル版", "btn.channel": "チャンネル版を見る",
         "level.zh": "上級レベルの会話が可能",
         "level.ja": "基本的な意思疎通が可能",
         "about.sub": "私について",
@@ -1407,6 +1416,7 @@
       document.getElementById("profile-photo").alt = dict.name;
       const resume = document.getElementById("resume-link");
       resume.href = "resume/KIMSEOYEON_resume_" + lang + ".pdf";
+      ["to-channel", "to-channel-2"].forEach(id => { document.getElementById(id).href = "channel/?lang=" + lang; });
       resume.setAttribute("download", "KIMSEOYEON_resume_" + lang + ".pdf");
       document.querySelectorAll("[data-i18n]").forEach(el => {
         const value = dict[el.dataset.i18n];

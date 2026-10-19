@@ -79,6 +79,9 @@
     [data-theme="bili"] .logo .mark { background: var(--link); border-radius: 7px; }
 
     .cc { position: relative; }
+    .site-back { margin-left: auto; margin-right: 10px; font-size: 13px; font-weight: 700; text-decoration: none; color: var(--text); background: var(--raise); border-radius: 999px; padding: 7px 14px; white-space: nowrap; }
+    .site-back:hover { background: var(--raise-2); }
+    @media (max-width: 640px) { .site-back { padding: 6px 10px; font-size: 12px; } }
     .cc-btn {
       display: flex;
       align-items: center;
@@ -588,6 +591,7 @@
         <span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#fff"><path d="M7 4v16l13-8z"/></svg></span>
         <span class="name" data-i18n="logo"></span><sup>KR · CN · JP</sup>
       </a>
+      <a class="site-back" id="to-classic" href="../" data-i18n="nav.classic"></a>
       <div class="cc">
         <button type="button" class="cc-btn" id="cc-btn" aria-haspopup="true" aria-expanded="false" aria-controls="cc-menu">
           <span class="cc-badge">CC</span><span id="cc-current"></span>
@@ -773,7 +777,7 @@
 
     const I18N = {
       ko: {
-        title: "김서연 | 포트폴리오", name: "김서연", logo: "김서연", "cc.label": "자막",
+        title: "김서연 | 포트폴리오", name: "김서연", logo: "김서연", "nav.classic": "기존 포트폴리오", "cc.label": "자막",
         "search.ph": "검색", "search.title": "검색 결과", "search.none": "검색 결과가 없어요",
         "bn.suwon": "수원 · 경기대학교", "bn.shenyang": "심양 · 교환학생", "bn.shanghai": "상하이 · 어학연수", "banner.title": "한국과 세계를 잇는 사람",
         "ch.stats": "발표 2개 · 활동 5개 · 경험 2개",
@@ -794,7 +798,7 @@
         footer: "© 2026 김서연. All rights reserved."
       },
       zh: {
-        title: "金谞延的个人空间 | 作品集", name: "金谞延", logo: "金谞延的空间", "cc.label": "字幕",
+        title: "金谞延的个人空间 | 作品集", name: "金谞延", logo: "金谞延的空间", "nav.classic": "简历版作品集", "cc.label": "字幕",
         "search.ph": "搜索视频、经历", "search.title": "搜索结果", "search.none": "没有搜索结果",
         "bn.suwon": "水原 · 京畿大学", "bn.shenyang": "沈阳 · 交换生", "bn.shanghai": "上海 · 语言研修", "banner.title": "连接韩国与世界的人",
         "ch.stats": "投稿 2 · 动态 5 · 合集 2",
@@ -815,7 +819,7 @@
         footer: "© 2026 金谞延 版权所有"
       },
       en: {
-        title: "KIMSEOYEON | Portfolio", name: "KIMSEOYEON", logo: "KIMSEOYEON", "cc.label": "Subtitles",
+        title: "KIMSEOYEON | Portfolio", name: "KIMSEOYEON", logo: "KIMSEOYEON", "nav.classic": "Classic portfolio", "cc.label": "Subtitles",
         "search.ph": "Search", "search.title": "Search results", "search.none": "No results",
         "bn.suwon": "Suwon · Kyonggi Univ.", "bn.shenyang": "Shenyang · Exchange", "bn.shanghai": "Shanghai · Language course", "banner.title": "Connecting Korea and the world",
         "ch.stats": "2 presentations · 5 activities · 2 experiences",
@@ -836,7 +840,7 @@
         footer: "© 2026 KIMSEOYEON. All rights reserved."
       },
       ja: {
-        title: "キム・ソヨン | ポートフォリオ", name: "キム・ソヨン", logo: "キム・ソヨン", "cc.label": "字幕",
+        title: "キム・ソヨン | ポートフォリオ", name: "キム・ソヨン", logo: "キム・ソヨン", "nav.classic": "通常版ポートフォリオ", "cc.label": "字幕",
         "search.ph": "検索", "search.title": "検索結果", "search.none": "検索結果がありません",
         "bn.suwon": "水原・京畿大学", "bn.shenyang": "瀋陽・交換留学", "bn.shanghai": "上海・語学研修", "banner.title": "韓国と世界をつなぐ人",
         "ch.stats": "発表2件・活動5件・経験2件",
@@ -1280,6 +1284,7 @@
       document.getElementById("search-input").placeholder = t("search.ph");
       document.getElementById("about-intro").innerHTML = t("intro");
       document.getElementById("bn-text").innerHTML = BN_TEXT[lang];
+      document.getElementById("to-classic").href = "../?lang=" + lang;
       document.getElementById("ch-avatar").alt = t("name");
       const resume = document.getElementById("resume-link");
       resume.href = "../resume/KIMSEOYEON_resume_" + lang + ".pdf";
