@@ -31,6 +31,11 @@
     .logo { font-weight: 900; font-size: 17px; text-decoration: none; margin-right: auto; white-space: nowrap; }
     .link { font-size: 13px; font-weight: 700; text-decoration: none; border-radius: 999px; padding: 6px 12px; white-space: nowrap; background: var(--tint); }
     .link.red { background: #e5484d; color: #fff; }
+    .tabs { display: flex; gap: 4px; background: var(--tint); border-radius: 999px; padding: 3px; }
+    .tabs button { border: 0; background: none; font: inherit; font-size: 13px; font-weight: 700; color: var(--soft); padding: 6px 14px; border-radius: 999px; cursor: pointer; white-space: nowrap; }
+    .tabs button[aria-selected="true"] { background: #e5484d; color: #fff; }
+    .panel { display: block; width: 100%; height: calc(100vh - 60px); border: 0; }
+    .panel[hidden] { display: none; }
     .lang { display: flex; gap: 2px; background: var(--tint); border-radius: 999px; padding: 3px; }
     .lang button { border: 0; background: none; font: inherit; font-size: 12px; font-weight: 700; color: var(--soft); padding: 5px 10px; border-radius: 999px; cursor: pointer; }
     .lang button[aria-pressed="true"] { background: var(--navy); color: #fff; }
@@ -63,6 +68,7 @@
     @media (max-width: 640px) {
       .topbar .in { height: auto; flex-wrap: wrap; padding: 10px 16px; }
       .logo { width: 100%; }
+      .panel { height: calc(100vh - 100px); }
       main { padding: 36px 16px 60px; }
       .head { grid-template-columns: 84px minmax(0, 1fr); gap: 18px; }
       .head img { width: 84px; height: 112px; }
@@ -70,7 +76,7 @@
     }
     @media print {
       @page { size: A4; margin: 16mm 18mm; }
-      .topbar, .tools { display: none !important; }
+      .topbar, .tools, .panel { display: none !important; }
       main { padding: 0; max-width: none; }
       body { -webkit-print-color-adjust: exact; print-color-adjust: exact; line-height: 1.7; }
       section { margin-top: 26px; break-inside: avoid; }
@@ -83,8 +89,11 @@
   <header class="topbar">
     <div class="in">
       <a class="logo" href="#" data-i18n="name"></a>
-      <a class="link" id="to-classic" href="../" data-i18n="nav.classic"></a>
-      <a class="link red" id="to-channel" href="../channel/" data-i18n="nav.channel"></a>
+      <nav class="tabs" role="tablist" aria-label="Pages">
+        <button type="button" role="tab" data-tab="letter" data-i18n="tab.letter"></button>
+        <button type="button" role="tab" data-tab="classic" data-i18n="tab.classic"></button>
+        <button type="button" role="tab" data-tab="channel" data-i18n="tab.channel"></button>
+      </nav>
       <div class="lang" role="group" aria-label="Language">
         <button type="button" data-lang="ko" lang="ko">한국어</button>
         <button type="button" data-lang="zh" lang="zh-Hans">中文</button>
@@ -94,7 +103,7 @@
     </div>
   </header>
 
-  <main>
+  <main id="panel-letter">
     <div class="head">
       <img src="../images/profile.png" alt="" id="photo">
       <div>
@@ -111,13 +120,15 @@
     <div class="sign"><span data-i18n="date"></span><b data-i18n="name"></b></div>
     <div class="tools"><button type="button" id="print-btn" data-i18n="print"></button></div>
   </main>
+  <iframe class="panel" id="panel-classic" title="Portfolio" hidden></iframe>
+  <iframe class="panel" id="panel-channel" title="Channel portfolio" hidden></iframe>
 
   <script>
     const I18N = {
       ko: {
         doc: "김서연 | 자기소개서", name: "김서연", title: "자기소개서",
         meta: "경기대학교 경영학 전공 · 중어중문학 복수전공 · <b>rlatjdus129@naver.com</b>",
-        nav: { classic: "포트폴리오", channel: "▶ 채널" }, print: "인쇄 / PDF로 저장", date: "2026년 10월",
+        tab: { letter: "자기소개서", classic: "포트폴리오", channel: "▶ 채널 포트폴리오" }, print: "인쇄 / PDF로 저장", date: "2026년 10월",
         lead: "말이 통하면 일이 풀립니다. 중국어와 일본어, 그리고 경영학을 바탕으로 한국과 중국, 일본 사이에서 사람과 사람, 사람과 기업을 잇는 사람이 되고 싶습니다.",
         sections: [
           ["한국과 중국을 잇고 싶어진 이유", "지원 동기 · 성장 과정", [
@@ -149,7 +160,7 @@
       zh: {
         doc: "金谞延 | 自我介绍信", name: "金谞延", title: "自我介绍信",
         meta: "京畿大学 工商管理专业 · 中国语言文学双专业 · <b>rlatjdus129@naver.com</b>",
-        nav: { classic: "作品集", channel: "▶ 频道" }, print: "打印 / 保存为PDF", date: "2026年10月",
+        tab: { letter: "自我介绍信", classic: "作品集", channel: "▶ 频道作品集" }, print: "打印 / 保存为PDF", date: "2026年10月",
         lead: "语言相通，事情就好办。我希望以中文、日语和工商管理知识为基础，在韩国、中国和日本之间，成为连接人与人、人与企业的人。",
         sections: [
           ["想连接韩国与中国的原因", "申请动机 · 成长经历", [
@@ -181,7 +192,7 @@
       en: {
         doc: "KIMSEOYEON | Cover Letter", name: "KIMSEOYEON", title: "Cover Letter",
         meta: "Kyonggi University · Business Administration, double major in Chinese Language &amp; Literature · <b>rlatjdus129@naver.com</b>",
-        nav: { classic: "Portfolio", channel: "▶ Channel" }, print: "Print / Save as PDF", date: "October 2026",
+        tab: { letter: "Cover letter", classic: "Portfolio", channel: "▶ Channel" }, print: "Print / Save as PDF", date: "October 2026",
         lead: "When people understand each other, work moves forward. With Chinese, Japanese and a business background, I want to connect people, and people with companies, across Korea, China and Japan.",
         sections: [
           ["Why I want to connect Korea and China", "Motivation · Background", [
@@ -213,7 +224,7 @@
       ja: {
         doc: "キム・ソヨン | 自己紹介書", name: "キム・ソヨン", title: "自己紹介書",
         meta: "京畿大学校 経営学専攻・中国語中国文学 複数専攻 · <b>rlatjdus129@naver.com</b>",
-        nav: { classic: "ポートフォリオ", channel: "▶ チャンネル" }, print: "印刷 / PDFで保存", date: "2026年10月",
+        tab: { letter: "自己紹介書", classic: "ポートフォリオ", channel: "▶ チャンネル版" }, print: "印刷 / PDFで保存", date: "2026年10月",
         lead: "言葉が通じれば、仕事は進みます。中国語と日本語、そして経営学を土台に、韓国・中国・日本のあいだで人と人、人と企業をつなぐ存在になりたいと考えています。",
         sections: [
           ["韓国と中国をつなぎたいと思った理由", "志望動機・成長過程", [
@@ -253,22 +264,38 @@
       document.title = d.doc;
       document.querySelectorAll("[data-i18n]").forEach(el => {
         const k = el.dataset.i18n;
-        el.innerHTML = k.startsWith("nav.") ? d.nav[k.slice(4)] : d[k];
+        el.innerHTML = k.startsWith("tab.") ? d.tab[k.slice(4)] : d[k];
       });
       document.getElementById("photo").alt = d.name;
       document.getElementById("sections").innerHTML = d.sections.map(([h, sub, ps], i) =>
         `<section><h2><span class="n">${String(i + 1).padStart(2, "0")}</span>${h}</h2><p class="sub">${sub}</p>${ps.map(p => `<p>${p}</p>`).join("")}</section>`).join("");
       document.querySelectorAll(".lang button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.lang === lang)));
-      document.getElementById("to-classic").href = "../?lang=" + lang;
-      document.getElementById("to-channel").href = "../channel/?lang=" + lang;
+      // 열려 있는 포트폴리오 탭도 같은 언어로 다시 불러옴
+      ["classic", "channel"].forEach(k => { const fr = document.getElementById("panel-" + k); if (fr.src) fr.src = PANEL_SRC[k] + "?lang=" + lang; });
       try { localStorage.setItem("lang", lang); } catch (e) {}
     }
     document.querySelectorAll(".lang button").forEach(b => b.addEventListener("click", () => render(b.dataset.lang)));
+    // 탭: 자기소개서 / 기존 포트폴리오 / 채널 포트폴리오 (포트폴리오는 같은 페이지 안에 띄움)
+    const PANEL_SRC = { classic: "../index.html", channel: "../channel/index.html" };
+    function showTab(name) {
+      document.querySelectorAll(".tabs button").forEach(b => b.setAttribute("aria-selected", String(b.dataset.tab === name)));
+      document.getElementById("panel-letter").hidden = name !== "letter";
+      ["classic", "channel"].forEach(k => {
+        const fr = document.getElementById("panel-" + k);
+        fr.hidden = name !== k;
+        if (name === k && !fr.src) fr.src = PANEL_SRC[k] + "?lang=" + lang;
+      });
+      document.querySelector(".lang").style.visibility = name === "letter" ? "" : "hidden";
+      window.scrollTo(0, 0);
+      try { history.replaceState(null, "", "#" + name); } catch (e) {}
+    }
+    document.querySelectorAll(".tabs button").forEach(b => b.addEventListener("click", () => showTab(b.dataset.tab)));
     document.getElementById("print-btn").addEventListener("click", () => window.print());
 
     let saved = new URLSearchParams(location.search).get("lang");
     if (!I18N[saved]) { try { saved = localStorage.getItem("lang"); } catch (e) {} }
     render(I18N[saved] ? saved : "ko");
+    showTab(["classic", "channel"].includes(location.hash.slice(1)) ? location.hash.slice(1) : "letter");
   </script>
 </body>
 </html>

@@ -1475,6 +1475,8 @@
       try { saved = localStorage.getItem("lang"); } catch (e) {}
     }
     setLanguage(I18N[saved] ? saved : "ko");
+      // 자기소개서 페이지 탭 안에 띄워졌을 때는 사이트 이동 버튼 숨김
+    if (window.self !== window.top) ['to-channel', 'to-channel-2', 'to-letter'].forEach(id => { const el = document.getElementById(id); if (el) el.style.display = 'none'; });
   </script>
 </body>
 </html>
